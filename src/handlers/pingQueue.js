@@ -1,5 +1,5 @@
 import middy from 'middy';
-import { http } from 'slsrun/middlewares';
+import { http } from '@reflex-media/lesgo/middlewares';
 
 import pingQueue from 'Core/pingQueue';
 import { app } from '../config';

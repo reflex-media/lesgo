@@ -5,18 +5,18 @@
   "scripts": {
     "start": "sls offline start --stage local --env local",
     "server": "sls offline start --stage local --env local",
-    "deploy": "slsboot-scripts",
-    "invoke": "slsboot-scripts -t invoke",
-    "logs": "slsboot-scripts -t logs",
+    "deploy": "lesgo-scripts",
+    "invoke": "lesgo-scripts -t invoke",
+    "logs": "lesgo-scripts -t logs",
     "pretest": "eslint --ignore-path .gitignore .",
     "test": "jest",
     "coverage": "jest --coverage",
     "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls"
   },
   "dependencies": {
+    "@reflex-media/lesgo": "^0.1.3",
     "middy": "^0.29.0",
-    "serverless-api-compression": "^1.0.1",
-    "slsrun": "git+https://github.com/reflex-media/slsrun.git"
+    "serverless-api-compression": "^1.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
@@ -45,7 +45,6 @@
     "serverless-plugin-log-retention": "^2.0.0",
     "serverless-plugin-optimize": "^4.1.0-rc.1",
     "serverless-webpack": "^5.3.1",
-    "slsboot": "git+https://github.com/reflex-media/slsboot.git",
     "source-map": "^0.7.3",
     "webpack": "^4.35.2"
   },
