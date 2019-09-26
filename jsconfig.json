@@ -11,5 +11,5 @@
       "Core/*": ["src/core/*"]
     }
   },
-  "exclude": ["node_modules", "dist", "scripts", "environments"]
+  "exclude": ["node_modules", "dist", "config", "coverage"]
 }

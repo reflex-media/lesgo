@@ -1,15 +1,15 @@
-# API With SQS Serverless Template
+# Lesgo!
 
-[![Build Status](https://travis-ci.org/reflex-media/serverless-templates.svg?branch=master)](https://travis-ci.org/reflex-media/serverless-templates)
-[![Coverage Status](https://coveralls.io/repos/github/reflex-media/serverless-templates/badge.svg?branch=master)](https://coveralls.io/github/reflex-media/serverless-templates?branch=master)
+[![Build Status](https://travis-ci.org/reflex-media/lesgo.svg?branch=master)](https://travis-ci.org/reflex-media/lesgo)
+[![Coverage Status](https://coveralls.io/repos/github/reflex-media/lesgo/badge.svg?branch=master)](https://coveralls.io/github/reflex-media/lesgo?branch=master)
 
-Bootstrap your next API serverless project with Simple Queue Service (SQS). Recommended for event-based / log-based projects.
+Bootstrap your next node.js microservice API with serverless framework. Recommended for light-weight projects; utilizing various AWS products and services.
 
 **Included Resources:**
 
 - API Gateway
 - Lambda
-- SQS
+- [SQS](#aws-simple-queue-service-sqs)
 
 **NOTE:** This is not an introduction to the Serverless Framework. You would already need to know how Serverless Framework works prior to using of this template.
 
@@ -20,7 +20,7 @@ Bootstrap your next API serverless project with Simple Queue Service (SQS). Reco
 Create Serverless project
 
 ```bash
-$ sls create --template-url https://github.com/mosufy/serverless-templates/tree/master/api-sqs --path my-service
+$ sls create --template-url https://github.com/reflex-media/lesgo/tree/master --path my-service
 $ cd my-service
 ```
 
@@ -54,6 +54,10 @@ Access local url via browser or Postman (recommended): http://localhost:8181/pin
 |   ├── resources
 |   └── utils
 ├── src
+|   ├── config
+|   |   ├── app.js
+|   |   ├── aws.js
+|   |   └── index.js
 |   ├── constants
 |   ├── core
 |   ├── exceptions
@@ -63,8 +67,7 @@ Access local url via browser or Postman (recommended): http://localhost:8181/pin
 |   |   ├── normalizeRecords.js
 |   |   ├── normalizeRequest.js
 |   |   └── responseHandler.js
-|   ├── services
-|   └── config.js
+|   └── services
 └── tests
 ```
 
@@ -94,6 +97,9 @@ Additional Serverless configs where required.
 **src/**  
 Main source code for your application.
 
+**src/config/**  
+Application configuration.
+
 **src/constants/**  
 Write application constants here.
 
@@ -110,10 +116,7 @@ Entry point for all events.
 Request middlewares. See [Middlewares](#middlewares) for more information.
 
 **src/services/**  
-3rd party services or modules.
-
-**src/config.js**  
-Configuration used within application.
+3rd party services or modules.=
 
 **tests/**  
 All test files to be written here.
@@ -162,7 +165,7 @@ $ yarn logs -s {environment} -f {function_name}
 $ yarn logs -s dev -f Ping
 ```
 
-## Environment Configurations
+## Default Environment Configurations
 
 All environment configurations are available in the `config/environments/` directory.
 
@@ -195,7 +198,7 @@ AWS_APIGATEWAY_SECRET_KEY=
 AWS_APIGATEWAY_COMPRESSION_MAX_BYTES=
 ```
 
-## Available Endpoints
+## Sample Endpoints
 
 **`/ping`**  
 Send a "liveness-check" request to your endpoint.
@@ -209,45 +212,6 @@ Returns the request with an "error message" response type.
 
 **`/ping?sample-error=exception`**  
 Returns the request with an "error class" response type.
-
-**`/ping/queue`**  
-Send a ping request queued to SQS.  
-**Note**: Set `x-api-key` in your request header for a valid request.
-
-**`/ping/queue?failed-queue`**  
-Send a ping request queued to SQS as a failed job.  
-**Note**: Set `x-api-key` in your request header for a valid request.
-
-## How It Works
-
-1. Client sends a GET request to `/ping/queue`
-2. `pingQueue` lambda function accepts the request and sends an SQS message
-3. Message is put into the `pingQueue`
-4. SQS queue receives the message and fires a `pingQueueProcessor` lambda function
-5. Based on the default configurations:
-   - Should no error occur, message will be deleted from the queue
-   - Should an error occurr, message will be put in-flight for 5min (as per `VisibilityTimeout` set)
-   - Message will be made available on expiry of `VisibilityTimeout`
-   - Message will be retried for a maximum of 3 tries (as per `maxReceiveCount`)
-   - Should a message continue to fail after the max retries, it will be put into the `pingQueueDLQ` queue.
-
-### Connecting To Separate SQS Instance
-
-To connect to a different SQS instance, you may override the config by updating these in the environments file.
-
-```bash
-# Enable/disable override
-AWS_SQS_OPTIONS_OVERRIDE=true
-
-# Set IAM access key with SQS access
-AWS_SQS_OPTIONS_ACCESS_KEY_ID=
-
-# Set IAM secret key
-AWS_SQS_OPTIONS_SECRET_ACCESS_KEY=
-
-# Set SQS region to connect to
-AWS_SQS_OPTIONS_REGION=
-```
 
 ## Middlewares
 
@@ -293,6 +257,54 @@ You may also import other ready-made middlewares from the [Middy repository](htt
 ### Custom Middlewares
 
 You can write your own custom middleware with [Middy](https://www.npmjs.com/package/middy#writing-a-middleware).
+
+## Available Services
+
+This framework is integrated with a number of services:
+- [AWS SQS](#aws-simple-queue-service-sqs)
+
+### AWS Simple Queue Service (SQS)
+
+#### How It Works
+
+1. Client sends a GET request to `/ping/queue`
+2. `pingQueue` lambda function accepts the request and sends an SQS message
+3. Message is put into the `pingQueue`
+4. SQS queue receives the message and fires a `pingQueueProcessor` lambda function
+5. Based on the default configurations:
+   - Should no error occur, message will be deleted from the queue
+   - Should an error occurr, message will be put in-flight for 5min (as per `VisibilityTimeout` set)
+   - Message will be made available on expiry of `VisibilityTimeout`
+   - Message will be retried for a maximum of 3 tries (as per `maxReceiveCount`)
+   - Should a message continue to fail after the max retries, it will be put into the `pingQueueDLQ` queue.
+
+#### Connecting To Separate SQS Instance
+
+To connect to a different SQS instance, you may override the config by updating these in the environments file.
+
+```bash
+# Enable/disable override
+AWS_SQS_OPTIONS_OVERRIDE=true
+
+# Set IAM access key with SQS access
+AWS_SQS_OPTIONS_ACCESS_KEY_ID=
+
+# Set IAM secret key
+AWS_SQS_OPTIONS_SECRET_ACCESS_KEY=
+
+# Set SQS region to connect to
+AWS_SQS_OPTIONS_REGION=
+```
+
+#### Available Endpoints
+
+**`/ping/queue`**  
+Send a ping request queued to SQS.  
+**Note**: Set `x-api-key` in your request header for a valid request.
+
+**`/ping/queue?failed-queue`**  
+Send a ping request queued to SQS as a failed job.  
+**Note**: Set `x-api-key` in your request header for a valid request.
 
 ## Error Handling
 
