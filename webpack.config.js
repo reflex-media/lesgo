@@ -34,6 +34,7 @@ module.exports = {
       Services: path.resolve(__dirname, 'src/services/'),
       Constants: path.resolve(__dirname, 'src/constants/'),
       Core: path.resolve(__dirname, 'src/core/'),
+      Utils: path.resolve(__dirname, 'src/utils/'),
     },
   },
 };

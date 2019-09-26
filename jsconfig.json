@@ -8,7 +8,8 @@
       "Exceptions/*": ["src/exceptions/*"],
       "Services/*": ["src/services/*"],
       "Constants/*": ["src/constants/*"],
-      "Core/*": ["src/core/*"]
+      "Core/*": ["src/core/*"],
+      "Utils/*": ["src/utils/*"]
     }
   },
   "exclude": ["node_modules", "dist", "config", "coverage"]

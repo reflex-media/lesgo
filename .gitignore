@@ -20,3 +20,6 @@ yarn-error.log
 .env.development.local
 .env.staging.local
 .env.production.local
+
+# log files
+logs/*.log
