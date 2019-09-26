@@ -5,7 +5,7 @@
   "scripts": {
     "start": "sls offline start --stage local --env local",
     "server": "sls offline start --stage local --env local",
-    "deploy": "lesgo-scripts",
+    "deploy": "lesgo-scripts -t deploy",
     "invoke": "lesgo-scripts -t invoke",
     "logs": "lesgo-scripts -t logs",
     "pretest": "eslint --ignore-path .gitignore .",
