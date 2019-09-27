@@ -9,6 +9,7 @@ module.exports = {
     filename: '[name].js',
     path: path.join(__dirname, '.webpack'),
   },
+  devtool: 'cheap-module-source-map',
   mode: 'production',
   target: 'node',
   module: {
