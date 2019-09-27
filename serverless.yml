@@ -5,7 +5,6 @@ plugins:
   - serverless-webpack
   - serverless-api-compression
   - serverless-offline
-  - serverless-plugin-optimize
   - serverless-plugin-log-retention
   - serverless-dotenv-plugin
 
