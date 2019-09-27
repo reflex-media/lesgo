@@ -1,7 +1,7 @@
+import { logger } from '@reflex-media/lesgo/utils';
+
 import ErrorException from 'Exceptions/ErrorException';
 import { ERROR_SAMPLE, ERROR_UNKNOWN_PARAMETER } from 'Constants/errorCodes';
-
-import { logger } from '@reflex-media/lesgo/utils';
 
 const ping = input => {
   return new Promise((resolve, reject) => {
@@ -13,6 +13,7 @@ const ping = input => {
     }
 
     if (input['sample-error'] === 'exception') {
+      logger.withMeta.error('Sample error exception', { code: ERROR_SAMPLE });
       return reject(new ErrorException('Error exception', ERROR_SAMPLE));
     }
 

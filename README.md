@@ -57,17 +57,15 @@ Access local url via browser or Postman (recommended): http://localhost:8181/pin
 |   ├── config
 |   |   ├── app.js
 |   |   ├── aws.js
-|   |   └── index.js
+|   |   ├── index.js
+|   |   └── sentry.js
 |   ├── constants
 |   ├── core
 |   ├── exceptions
 |   ├── handlers
 |   ├── middlewares
-|   |   ├── errorHandler.js
-|   |   ├── normalizeRecords.js
-|   |   ├── normalizeRequest.js
-|   |   └── responseHandler.js
-|   └── services
+|   ├── services
+|   └── utils
 └── tests
 ```
 
@@ -116,7 +114,10 @@ Entry point for all events.
 Request middlewares. See [Middlewares](#middlewares) for more information.
 
 **src/services/**  
-3rd party services or modules.=
+Class-based services or modules, usually instantiated.
+
+**src/utils/**  
+Helper functions/utilities.
 
 **tests/**  
 All test files to be written here.
@@ -223,34 +224,37 @@ Middlewares should be written in the `src/middlewares/` directory.
 
 ### Available Middlewares
 
-This template contains 3 middlewares.
+This framework comes with 5 pre-existing middlewares.
 
-**`normalizeRecords.js`**  
-This middleware will normalize records coming from sqs message event. The `Records` object in the `handler.event` will not be normalized into `handler.event.collection`. This middleware executes _before_ the handler is called.
+**`normalizeHttpRequest.js`**  
+This middleware will normalize the query string parameters and/or json body in the request into a common `handler.event.input`. This middleware executes _before_ the handler is called.
 
-**`normalizeRequest.js`**  
-This middleware will normalize query string parameters and/or json body in the request into a common `handler.event.input`. This middleware executes _before_ the handler is called.
+**`normalizeSQSMessage.js`**  
+This middleware will normalize records coming from sqs message event. The `Records` object in the `handler.event` will be normalized into `handler.event.collection`. This middleware executes _before_ the handler is called.
 
-**`responseHandler.js`**  
+**`successHttpResponse.js`**  
 This middleware will be executed whenever a successful response is expected to be returned. This middleware executes _after_ the request is processed and _before_ the response is returned.
 
-**`errorHandler.js`**  
+**`errorHttpResponse.js`**  
 This middleware will be executed whenever an error response is expected to be returned. This middleware executes _after_ the request is processed and _before_ the response is returned.
+
+**`http.js`**  
+This middleware combines the `normalizeHttpRequest`, `successHttpResponse`, and `successHttpResponse`, and can be used for all http endpoints (configured with API Gateway).
 
 ```js
 import middy from 'middy';
 import normalizeResponse from 'Middlewares/normalizeResponse';
 
-const originalHandler = (event) => {
+const originalHandler = event => {
   const data = event.collection;
 };
 
 export const handler = middy(originalHandler);
 
-handler.use(normalizeResponse());
+handler.use(http());
 ```
 
-Refer to `src/handlers/pingQueueProcessor.js` for usage.
+Refer to `src/handlers/pin.js` for usage.
 
 You may also import other ready-made middlewares from the [Middy repository](https://www.npmjs.com/package/middy#available-middlewares).
 
@@ -261,6 +265,7 @@ You can write your own custom middleware with [Middy](https://www.npmjs.com/pack
 ## Available Services
 
 This framework is integrated with a number of services:
+
 - [AWS SQS](#aws-simple-queue-service-sqs)
 
 ### AWS Simple Queue Service (SQS)
@@ -305,6 +310,56 @@ Send a ping request queued to SQS.
 **`/ping/queue?failed-queue`**  
 Send a ping request queued to SQS as a failed job.  
 **Note**: Set `x-api-key` in your request header for a valid request.
+
+## Logging
+
+The framework is pre-configured to log to the Console, logfile, and Sentry, utilizing the [Winston](https://github.com/winstonjs/winston).
+
+Any logger logs will appear on the console by default. It will also create a `lesgo.log` file in `src/logs/` directory for `local` env and when `app.debug` is set to `true` in the config.
+
+```js
+import { logger } from '@reflex-media/lesgo/utils';
+
+logger.log('info', 'this is an info log');
+logger.info('This is an info log');
+logger.warn('This is a warning log');
+logger.error('This is an error log');
+```
+
+Logs can also be sent to Setry. Simply update the relevant config in the `/config/environments/` directory.
+
+```bash
+# Enable/disable sentey reporting
+SENTRY_ENABLED=false
+
+# DSN for sentry reporting. Instructions can be found on your Sentry dashboard
+SENTRY_DSN=
+
+# Minimal error to send to Sentry.
+SENTRY_LEVEL=
+```
+
+Sometimes we may need more information on the log itself. Additional information can be captured and logged automatically by introducing `withMeta` as such:
+
+```js
+logger.withMeta.info(
+  'This is an info log with additional pre-defined metadata'
+);
+```
+
+You may also add additional custom information as such:
+
+```js
+logger.info('This is an info log with my own custom metadata', {
+  customData1: 'someData1',
+  customData2: 'someData2',
+});
+
+logger.withMeta.info(
+  'This is an info log with additional pre-defined metadata, as well as my own custom metadata',
+  { customData1: 'someData1', customData2: 'someData2' }
+);
+```
 
 ## Error Handling
 
