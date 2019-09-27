@@ -1,6 +1,8 @@
 import ErrorException from 'Exceptions/ErrorException';
 import { ERROR_SAMPLE, ERROR_UNKNOWN_PARAMETER } from 'Constants/errorCodes';
 
+import { logger } from '@reflex-media/lesgo/utils';
+
 const ping = input => {
   return new Promise((resolve, reject) => {
     if (!input) return resolve('Pong');
@@ -13,6 +15,8 @@ const ping = input => {
     if (input['sample-error'] === 'exception') {
       return reject(new ErrorException('Error exception', ERROR_SAMPLE));
     }
+
+    logger.withMeta.warn('Unknown parameter supplied', { input });
 
     return reject(
       new ErrorException('Unknown parameter supplied', ERROR_UNKNOWN_PARAMETER)
