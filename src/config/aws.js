@@ -1,6 +1,4 @@
-import app from './app';
-
-const awsSQSPingQueueName = `sls-tpl-api-sqs-${app.env}-pingQueue`;
+const awsSQSPingQueueName = `sls-tpl-api-sqs-${process.env.APP_ENV}-pingQueue`;
 
 export default {
   sqs: {
