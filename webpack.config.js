@@ -10,7 +10,7 @@ module.exports = {
     path: path.join(__dirname, '.webpack'),
   },
   devtool: 'cheap-module-source-map',
-  mode: 'production',
+  mode: process.env.APP_ENV === 'local' ? 'development' : 'production',
   target: 'node',
   module: {
     rules: [
