@@ -13,11 +13,11 @@ const ping = input => {
     }
 
     if (input['sample-error'] === 'exception') {
-      logger.withMeta.error('Sample error exception', { code: ERROR_SAMPLE });
+      logger.error('Sample error exception', { code: ERROR_SAMPLE });
       return reject(new ErrorException('Error exception', ERROR_SAMPLE));
     }
 
-    logger.withMeta.warn('Unknown parameter supplied', { input });
+    logger.warn('Unknown parameter supplied', { input });
 
     return reject(
       new ErrorException('Unknown parameter supplied', ERROR_UNKNOWN_PARAMETER)

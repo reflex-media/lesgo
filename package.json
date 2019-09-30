@@ -5,6 +5,7 @@
   "scripts": {
     "start": "sls offline start --stage local --env local",
     "server": "sls offline start --stage local --env local",
+    "build": "lesgo-scripts -t build",
     "deploy": "lesgo-scripts -t deploy",
     "invoke": "lesgo-scripts -t invoke",
     "logs": "lesgo-scripts -t logs",
