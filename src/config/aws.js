@@ -1,5 +1,3 @@
-const awsSQSPingQueueName = `sls-tpl-api-sqs-${process.env.APP_ENV}-pingQueue`;
-
 export default {
   sqs: {
     options: {
@@ -9,8 +7,10 @@ export default {
       region: process.env.AWS_SQS_OPTIONS_REGION,
     },
     pingQueue: {
-      name: awsSQSPingQueueName,
-      url: `https://sqs.${process.env.AWS_ACCOUNT_REGION}.amazonaws.com/${process.env.AWS_ACCOUNT_ID}/${awsSQSPingQueueName}`,
+      name: `sls-tpl-api-sqs-${process.env.APP_ENV}-pingQueue`,
+      url: `https://sqs.${process.env.AWS_ACCOUNT_REGION}.amazonaws.com/${
+        process.env.AWS_ACCOUNT_ID
+      }/${`sls-tpl-api-sqs-${process.env.APP_ENV}-pingQueue`}`,
     },
   },
 };

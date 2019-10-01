@@ -1,8 +1,11 @@
 import middy from 'middy';
 import { http } from '@reflex-media/lesgo/middlewares';
 
+import { connectSentry } from 'Utils/sentry';
 import ping from 'Core/ping';
 import { app } from '../config';
+
+connectSentry();
 
 const originalHandler = event => {
   return ping(event.input);

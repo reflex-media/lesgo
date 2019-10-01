@@ -1,6 +1,7 @@
 const path = require('path');
 // eslint-disable-next-line import/no-unresolved
 const slsw = require('serverless-webpack');
+const webpack = require('webpack');
 
 module.exports = {
   entry: slsw.lib.entries,
@@ -38,4 +39,9 @@ module.exports = {
       Utils: path.resolve(__dirname, 'src/utils/'),
     },
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.SENTRY_BUNDLED': process.env.SENTRY_ENABLED,
+    }),
+  ],
 };

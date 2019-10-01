@@ -1134,7 +1134,7 @@
 "@reflex-media/lesgo@file:../lesgo-framework":
   version "0.1.4"
   dependencies:
-    "@sentry/node" "^5.6.2"
+    "@sentry/minimal" "^5.6.1"
 
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.0"
@@ -1163,7 +1163,7 @@
     "@sentry/utils" "5.6.1"
     tslib "^1.9.3"
 
-"@sentry/minimal@5.6.1":
+"@sentry/minimal@5.6.1", "@sentry/minimal@^5.6.1":
   version "5.6.1"
   resolved "https://registry.yarnpkg.com/@sentry/minimal/-/minimal-5.6.1.tgz#09d92b26de0b24555cd50c3c33ba4c3e566009a1"
   integrity sha512-ercCKuBWHog6aS6SsJRuKhJwNdJ2oRQVWT2UAx1zqvsbHT9mSa8ZRjdPHYOtqY3DoXKk/pLUFW/fkmAnpdMqRw==

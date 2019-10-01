@@ -166,6 +166,15 @@ $ yarn logs -s {environment} -f {function_name}
 $ yarn logs -s dev -f Ping
 ```
 
+**Build bundle without deployment**
+
+```bash
+$ yarn build -s {environment}
+
+# Example
+$ yarn build -s dev
+```
+
 ## Default Environment Configurations
 
 All environment configurations are available in the `config/environments/` directory.
@@ -326,25 +335,17 @@ logger.warn('This is a warning log');
 logger.error('This is an error log');
 ```
 
-Logs can also be sent to Setry. Simply update the relevant config in the `/config/environments/` directory.
+Logs can also be sent to Sentry. Simply update the relevant config in the `/config/environments/` directory.
 
 ```bash
 # Enable/disable sentey reporting
-SENTRY_ENABLED=false
+SENTRY_ENABLED=true
 
 # DSN for sentry reporting. Instructions can be found on your Sentry dashboard
 SENTRY_DSN=
 
 # Minimal error to send to Sentry.
 SENTRY_LEVEL=
-```
-
-Sometimes we may need more information on the log itself. Additional information can be captured and logged automatically by introducing `withMeta` as such:
-
-```js
-logger.withMeta.info(
-  'This is an info log with additional pre-defined metadata'
-);
 ```
 
 You may also add additional custom information as such:
@@ -354,11 +355,6 @@ logger.info('This is an info log with my own custom metadata', {
   customData1: 'someData1',
   customData2: 'someData2',
 });
-
-logger.withMeta.info(
-  'This is an info log with additional pre-defined metadata, as well as my own custom metadata',
-  { customData1: 'someData1', customData2: 'someData2' }
-);
 ```
 
 ## Error Handling
