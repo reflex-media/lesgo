@@ -26,6 +26,7 @@
     "@babel/polyfill": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/register": "^7.5.5",
+    "@sentry/cli": "^1.47.2",
     "aws-sdk": "^2.529.0",
     "babel-loader": "^8.0.0",
     "babel-plugin-webpack-aliases": "^1.1.3",
