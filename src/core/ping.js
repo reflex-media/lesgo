@@ -1,4 +1,4 @@
-import { logger } from '@reflex-media/lesgo/utils';
+import { logger } from 'lesgo/utils';
 
 import ErrorException from 'Exceptions/ErrorException';
 import { ERROR_SAMPLE, ERROR_UNKNOWN_PARAMETER } from 'Constants/errorCodes';

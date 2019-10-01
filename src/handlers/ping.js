@@ -1,5 +1,5 @@
 import middy from 'middy';
-import { http } from '@reflex-media/lesgo/middlewares';
+import { http } from 'lesgo/middlewares';
 
 import { connectSentry } from 'Utils/sentry';
 import ping from 'Core/ping';
