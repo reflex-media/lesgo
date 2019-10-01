@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/reflex-media/lesgo.svg?branch=master)](https://travis-ci.org/reflex-media/lesgo)
 [![Coverage Status](https://coveralls.io/repos/github/reflex-media/lesgo/badge.svg?branch=master)](https://coveralls.io/github/reflex-media/lesgo?branch=master)
 
-Bootstrap your next node.js microservice API with serverless framework. Recommended for light-weight projects; utilizing various AWS products and services.
+Bootstrap your next microservice with a lightweight node.js serverless framework.
 
 **Included Resources:**
 
@@ -166,6 +166,15 @@ $ yarn logs -s {environment} -f {function_name}
 $ yarn logs -s dev -f Ping
 ```
 
+**Build bundle without deployment**
+
+```bash
+$ yarn build -s {environment}
+
+# Example
+$ yarn build -s dev
+```
+
 ## Default Environment Configurations
 
 All environment configurations are available in the `config/environments/` directory.
@@ -313,12 +322,12 @@ Send a ping request queued to SQS as a failed job.
 
 ## Logging
 
-The framework is pre-configured to log to the Console, logfile, and Sentry, utilizing the [Winston](https://github.com/winstonjs/winston).
+The framework is configured with structured logging.
 
-Any logger logs will appear on the console by default. It will also create a `lesgo.log` file in `src/logs/` directory for `local` env and when `app.debug` is set to `true` in the config.
+Structured logs will appear on the console by default.
 
 ```js
-import { logger } from '@reflex-media/lesgo/utils';
+import { logger } from 'lesgo/utils';
 
 logger.log('info', 'this is an info log');
 logger.info('This is an info log');
@@ -326,25 +335,17 @@ logger.warn('This is a warning log');
 logger.error('This is an error log');
 ```
 
-Logs can also be sent to Setry. Simply update the relevant config in the `/config/environments/` directory.
+Error logs can also be sent to Sentry. Simply update the relevant config in the `/config/environments/` directory.
 
 ```bash
 # Enable/disable sentey reporting
-SENTRY_ENABLED=false
+SENTRY_ENABLED=true
 
 # DSN for sentry reporting. Instructions can be found on your Sentry dashboard
 SENTRY_DSN=
 
 # Minimal error to send to Sentry.
 SENTRY_LEVEL=
-```
-
-Sometimes we may need more information on the log itself. Additional information can be captured and logged automatically by introducing `withMeta` as such:
-
-```js
-logger.withMeta.info(
-  'This is an info log with additional pre-defined metadata'
-);
 ```
 
 You may also add additional custom information as such:
@@ -354,11 +355,6 @@ logger.info('This is an info log with my own custom metadata', {
   customData1: 'someData1',
   customData2: 'someData2',
 });
-
-logger.withMeta.info(
-  'This is an info log with additional pre-defined metadata, as well as my own custom metadata',
-  { customData1: 'someData1', customData2: 'someData2' }
-);
 ```
 
 ## Error Handling
