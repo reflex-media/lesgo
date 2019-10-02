@@ -6,11 +6,13 @@ export default {
       secretAccessKey: process.env.AWS_SQS_OPTIONS_SECRET_ACCESS_KEY,
       region: process.env.AWS_SQS_OPTIONS_REGION,
     },
-    pingQueue: {
-      name: `sls-tpl-api-sqs-${process.env.APP_ENV}-pingQueue`,
-      url: `https://sqs.${process.env.AWS_ACCOUNT_REGION}.amazonaws.com/${
-        process.env.AWS_ACCOUNT_ID
-      }/${`sls-tpl-api-sqs-${process.env.APP_ENV}-pingQueue`}`,
+    queues: {
+      pingQueue: {
+        name: `lesgo-${process.env.APP_ENV}-pingQueue`,
+        url: `https://sqs.${process.env.AWS_ACCOUNT_REGION}.amazonaws.com/${
+          process.env.AWS_ACCOUNT_ID
+        }/${`lesgo-${process.env.APP_ENV}-pingQueue`}`,
+      },
     },
   },
 };

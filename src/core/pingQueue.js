@@ -1,12 +1,11 @@
-import SQSService from 'Services/SQSService';
+import { dispatch } from 'lesgo/utils';
 
 const pingQueue = input => {
   const payload = {
     data: input,
   };
 
-  const sqsService = new SQSService();
-  return sqsService.enqueue(payload, 'pingQueue');
+  return dispatch(payload, 'pingQueue');
 };
 
 export default pingQueue;

@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@sentry/node": "^5.6.2",
-    "lesgo": "^0.2.0",
+    "lesgo": "file:../lesgo-framework",
     "middy": "^0.29.0",
     "serverless-api-compression": "^1.0.1"
   },
