@@ -294,12 +294,9 @@ This framework is integrated with a number of services:
 
 #### Connecting To Separate SQS Instance
 
-To connect to a different SQS instance, you may override the config by updating these in the environments file.
+To connect to a different SQS instance, you may override the config by updating these in the environment file.
 
 ```bash
-# Enable/disable override
-AWS_SQS_OPTIONS_OVERRIDE=true
-
 # Set IAM access key with SQS access
 AWS_SQS_OPTIONS_ACCESS_KEY_ID=
 
