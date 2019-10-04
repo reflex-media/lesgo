@@ -10,6 +10,7 @@ Bootstrap your next microservice with a lightweight node.js serverless framework
 - API Gateway
 - Lambda
 - [SQS](#aws-simple-queue-service-sqs)
+- [S3](#aws-simple-storage-service-s3)
 
 **NOTE:** This is not an introduction to the Serverless Framework. You would already need to know how Serverless Framework works prior to using of this template.
 
@@ -276,6 +277,7 @@ You can write your own custom middleware with [Middy](https://www.npmjs.com/pack
 This framework is integrated with a number of services:
 
 - [AWS SQS](#aws-simple-queue-service-sqs)
+- [AWS S3](#aws-simple-storage-service-s3)
 
 ### AWS Simple Queue Service (SQS)
 
@@ -316,6 +318,34 @@ Send a ping request queued to SQS.
 **`/ping/queue?failed-queue`**  
 Send a ping request queued to SQS as a failed job.  
 **Note**: Set `x-api-key` in your request header for a valid request.
+
+### AWS Simple Storage Service (S3)
+
+### Usage
+
+**Fetch object from bucket**
+
+```js
+import { objectStore } from 'lesgo/utils';
+
+// Returns a buffered object response. See AWS for more information
+const objectFile = await objectStore.getObject('Key', 'Bucket');
+```
+
+#### S3 Bucket Permissions Policy
+
+To fetch/put objects to an exisitng S3 bucket, be sure to set up an IAM user with the correct permissions as well as updating the S3 bucket policy. You may override the config by updating these in the environment file.
+
+```bash
+# Set IAM access key with S3 access
+AWS_S3_OPTIONS_ACCESS_KEY_ID=
+
+# Set IAM secret key
+AWS_S3_OPTIONS_SECRET_ACCESS_KEY=
+
+# Set S3 region to connect to
+AWS_S3_OPTIONS_REGION=
+```
 
 ## Logging
 
