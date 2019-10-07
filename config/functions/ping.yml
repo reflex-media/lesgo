@@ -39,3 +39,13 @@ pingQueueProcessor:
   reservedConcurrency: 3
   events:
     - sqs: arn:aws:sqs:${self:provider.region}:${env:AWS_ACCOUNT_ID}:${self:provider.stackName}-pingQueue
+
+pingScheduledEvent:
+  handler: ${self:custom.path.app}/handlers/pingScheduledEvent.handler
+  description: Ping event triggered from Scheduled Cloudwatch Event
+  events:
+    - schedule:
+        name: ${self:provider.stackName}-pingScheduledEvent
+        description: Trigger pingScheduledEvent lambda function every 5 minute
+        rate: rate(5 minutes)
+        enabled: false

@@ -5151,10 +5151,10 @@ left-pad@^1.3.0:
   resolved "https://registry.yarnpkg.com/left-pad/-/left-pad-1.3.0.tgz#5b8a3a7765dfe001261dde915589e782f8c94d1e"
   integrity sha512-XI5MPzVNApjAyhQzphX8BkmKsKUxD4LdyK24iZeQGinBN9yTQT3bFlCBy/aVx2HrNcqQGsdot8ghrjyrvMCoEA==
 
-lesgo@0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/lesgo/-/lesgo-0.2.1.tgz#a3b079768c50ab5c8885d33f988cda8690c955b6"
-  integrity sha512-cOmqW5syLesNIKa2432zviadZ0OmOKBGR8hjhuC/G+reeprHvLtElq5CmbMavt+MJYA6FG0XoGIlEwszGQgpuw==
+lesgo@0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/lesgo/-/lesgo-0.2.2.tgz#8746a4a841e7abd3bd04f326ce4e3e2d6f32c430"
+  integrity sha512-W1sg02mkPKTa/nTgiI5m2SjRJVBFjgX8uT6aEvf/WRv/qUT5uGTkCB1dy1BKO5z7CcB81CuZOwZmccCPq8Q2UA==
   dependencies:
     "@sentry/minimal" "^5.6.1"
 
