@@ -37,7 +37,7 @@ provider:
         - "sqs:SendMessage"
         - "sqs:ReceiveMessage"
         - "sqs:DeleteMessage"
-      Resource: "arn:aws:sqs:${self:provider.region}:*:*"
+      Resource: "arn:aws:sqs:*:*:*"
 
 custom:
   path:

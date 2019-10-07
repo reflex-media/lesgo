@@ -9,6 +9,7 @@
     "deploy": "lesgo-scripts -t deploy",
     "invoke": "lesgo-scripts -t invoke",
     "logs": "lesgo-scripts -t logs",
+    "destroy": "lesgo-scripts -t destroy",
     "pretest": "eslint --ignore-path .gitignore .",
     "test": "jest",
     "coverage": "jest --coverage",
@@ -16,7 +17,7 @@
   },
   "dependencies": {
     "@sentry/node": "^5.6.2",
-    "lesgo": "0.2.1",
+    "lesgo": "file:../lesgo-framework",
     "middy": "^0.29.0",
     "serverless-api-compression": "^1.0.1"
   },
