@@ -8,12 +8,17 @@
     "build": "lesgo-scripts -t build",
     "deploy": "lesgo-scripts -t deploy",
     "invoke": "lesgo-scripts -t invoke",
+    "invoke-local": "lesgo-scripts -t invoke -l",
     "logs": "lesgo-scripts -t logs",
     "destroy": "lesgo-scripts -t destroy",
     "pretest": "eslint --ignore-path .gitignore .",
     "test": "jest",
     "coverage": "jest --coverage",
-    "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls"
+    "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls",
+    "dev-link": "npm link --no-save ../lesgo-framework",
+    "dev-unlink": "npm uninstall --global lesgo",
+    "dev-relink": "npm run dev-unlink && npm run dev-link",
+    "dev-list": "npm ls -g --depth=0 --link=true"
   },
   "dependencies": {
     "@sentry/node": "^5.6.2",
