@@ -1,5 +1,5 @@
-const path = require('path');
 // eslint-disable-next-line import/no-unresolved
+const path = require('path');
 const slsw = require('serverless-webpack');
 const webpack = require('webpack');
 
@@ -36,7 +36,9 @@ module.exports = {
       Services: path.resolve(__dirname, 'src/services/'),
       Constants: path.resolve(__dirname, 'src/constants/'),
       Core: path.resolve(__dirname, 'src/core/'),
-      Utils: path.resolve(__dirname, 'src/utils/'),
+      Factories: path.resolve(__dirname, 'src/factories/'),
+      Config: path.resolve(__dirname, 'src/config/'),
+      Models: path.resolve(__dirname, 'src/models/'),
     },
   },
   plugins: [

@@ -9,7 +9,9 @@
       "Services/*": ["src/services/*"],
       "Constants/*": ["src/constants/*"],
       "Core/*": ["src/core/*"],
-      "Utils/*": ["src/utils/*"]
+      "Factories/*": ["src/factories/*"],
+      "Config/*": ["src/config/*"],
+      "Models/*": ["src/models/*"]
     }
   },
   "exclude": ["node_modules", "dist", "config", "coverage"]

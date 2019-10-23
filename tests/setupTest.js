@@ -19,3 +19,19 @@ jest.mock('lesgo/utils', () => {
     },
   };
 });
+
+jest.mock('../src/models/User', () => ({
+  sequelize: {
+    close: jest.fn(),
+  },
+  findOne: jest.fn(() => {
+    return Promise.resolve({
+      name: 'Daison Carino',
+      email: 'daison12006013@gmail.com',
+      email_verified_at: '2019-10-23 12:00:00',
+      remember_token: 'abcdefghijklmnopqrstuvwxyz',
+      created_at: '2019-10-22 12:00:00',
+      updated_at: '2019-10-22 12:00:00',
+    });
+  }),
+}));

@@ -42,8 +42,8 @@ provider:
 custom:
   path:
     app: src
-    functions: config/functions
-    resources: config/resources
+    functions: bootstrap/functions
+    resources: bootstrap/resources
   serverless-offline:
     port: 8888
   webpack:
@@ -52,9 +52,9 @@ custom:
   contentEncoding:
     contentCompression: ${env:AWS_APIGATEWAY_COMPRESSION_MAX_BYTES, 100}
   http:
-    cors: ${file(config/utils/cors.yml)}
+    cors: ${file(bootstrap/utils/cors.yml)}
   dotenv:
-    basePath: config/environments/
+    basePath: bootstrap/environments/
 
 # Add all the functions here
 functions:

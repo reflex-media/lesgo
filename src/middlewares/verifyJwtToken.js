@@ -1,7 +1,6 @@
-/* eslint-disable import/no-named-as-default-member */
 import { JwtService } from 'lesgo/services';
-import JwtConstant from 'Constants/jwt';
 import ErrorException from 'Exceptions/ErrorException';
+import config from 'Config/jwt';
 
 const token = headers => {
   if (!headers.Authorization) {
@@ -9,13 +8,6 @@ const token = headers => {
   }
 
   const parsed = headers.Authorization.split(' ');
-
-  if (
-    JwtConstant.validate.tokenTypes &&
-    JwtConstant.config.tokenTypes.indexOf(parsed[0]) === -1
-  ) {
-    throw new ErrorException(`Token type ${parsed[0]} is not supported!`);
-  }
 
   if (!parsed[1]) {
     throw new ErrorException('Missing token!');
@@ -30,9 +22,15 @@ const verifyJwtToken = () => {
       const { headers } = handler.event;
 
       try {
-        const service = new JwtService({
-          token: token(headers),
-          settings: JwtConstant,
+        const service = new JwtService(token(headers), config.secret, {
+          validate: {
+            iss: config.iss.validate,
+            customClaims: config.customClaims.validate,
+          },
+          config: {
+            iss: config.iss.data,
+            customClaims: config.customClaims.data,
+          },
         });
 
         // eslint-disable-next-line no-param-reassign
