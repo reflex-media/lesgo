@@ -1,4 +1,7 @@
-import User from 'Models/User';
+import UserInit from 'Models/User';
+import DatabaseConnection from 'Factories/database';
+
+const User = UserInit(DatabaseConnection());
 
 describe('test model', () => {
   it('should be able to execute a query', async () => {
