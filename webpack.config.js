@@ -36,7 +36,7 @@ module.exports = {
       Services: path.resolve(__dirname, 'src/services/'),
       Constants: path.resolve(__dirname, 'src/constants/'),
       Core: path.resolve(__dirname, 'src/core/'),
-      Factories: path.resolve(__dirname, 'src/factories/'),
+      Utils: path.resolve(__dirname, 'src/utils/'),
       Config: path.resolve(__dirname, 'src/config/'),
       Models: path.resolve(__dirname, 'src/models/'),
     },

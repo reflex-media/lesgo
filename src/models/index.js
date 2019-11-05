@@ -17,7 +17,7 @@
  *        });
  */
 
-import DatabaseConnection from 'Factories/database';
+import DatabaseConnection from 'Utils/database';
 import User from './User';
 
 const connection = DatabaseConnection(/* 'mysql' */);

@@ -1,4 +1,4 @@
-import { connectSentry } from 'Factories/sentry';
+import { connectSentry } from 'Utils/sentry';
 
 describe('test sentry utils', () => {
   it('should connect to sentry', () => {

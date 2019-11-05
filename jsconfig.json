@@ -9,7 +9,7 @@
       "Services/*": ["src/services/*"],
       "Constants/*": ["src/constants/*"],
       "Core/*": ["src/core/*"],
-      "Factories/*": ["src/factories/*"],
+      "Utils/*": ["src/utils/*"],
       "Config/*": ["src/config/*"],
       "Models/*": ["src/models/*"]
     }

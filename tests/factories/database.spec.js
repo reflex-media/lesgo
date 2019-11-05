@@ -1,5 +1,5 @@
 import UserInit from 'Models/User';
-import DatabaseConnection from 'Factories/database';
+import DatabaseConnection from 'Utils/database';
 
 const User = UserInit(DatabaseConnection());
 

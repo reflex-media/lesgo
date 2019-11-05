@@ -16,7 +16,7 @@
  */
 
 import { Sequelize, Model } from 'sequelize';
-import DatabaseConnection from 'Factories/database';
+import DatabaseConnection from 'Utils/database';
 
 const attributes = {
   name: {
