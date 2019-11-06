@@ -1,3 +1,5 @@
+import { URL } from 'url';
+
 export default {
   index: process.env.ES_INDEX || 'lesgo',
 
@@ -30,8 +32,13 @@ export default {
   options: {
     maxRetries: 1,
 
-    nodes: process.env.ES_NODES.split(','),
+    node: process.env.ES_NODES.split(',').map(u => {
+      return {
+        url: new URL(u),
 
-    awsRegion: process.env.AWS_ACCOUNT_REGION,
+        // custom option
+        awsRegion: process.env.AWS_ACCOUNT_REGION,
+      };
+    }),
   },
 };

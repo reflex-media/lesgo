@@ -28,7 +28,13 @@ module.exports = {
       },
     ],
   },
-  externals: [{ 'aws-sdk': 'commonjs aws-sdk' }],
+  externals: [
+    { 'aws-sdk': 'commonjs aws-sdk' },
+    'pg',
+    'sqllite',
+    'tedious',
+    'pg-hstore',
+  ],
   resolve: {
     alias: {
       Middlewares: path.resolve(__dirname, 'src/middlewares/'),
