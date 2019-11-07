@@ -1,5 +1,5 @@
 service:
-  name: sls-lesgo-daison
+  name: sls-lesgo
 
 plugins:
   - serverless-webpack
@@ -44,8 +44,8 @@ provider:
 custom:
   path:
     app: src
-    functions: bootstrap/functions
-    resources: bootstrap/resources
+    functions: config/functions
+    resources: config/resources
   serverless-offline:
     port: 8181
   webpack:
@@ -54,9 +54,9 @@ custom:
   contentEncoding:
     contentCompression: ${env:AWS_APIGATEWAY_COMPRESSION_MAX_BYTES, 100}
   http:
-    cors: ${file(bootstrap/utils/cors.yml)}
+    cors: ${file(config/utils/cors.yml)}
   dotenv:
-    basePath: bootstrap/environments/
+    basePath: config/environments/
 
 # Add all the functions here
 functions:
