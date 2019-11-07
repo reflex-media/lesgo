@@ -22,55 +22,45 @@ export default {
    * supported by Lesgo is shown below to make development simple.
    *
    *
-   * All database work in Lesgo is done through the Sequalize Package facilities
+   * All database work in Lesgo is done through the Knex and ObjectionJS Package facilities
    * so make sure you have the dialect for your particular database of
    * choice installed on your machine before you begin development.
    *
+   * References:
+   *      http://knexjs.org/#Installation-client
    */
 
   connections: {
     sqlite: {
-      storage: 'path/to/database.sqlite',
-      dialect: 'sqlite',
+      client: 'sqlite3',
+      connection: {
+        filename: 'path/to/database.sqlite',
+      },
     },
 
     mysql: {
-      host: process.env.DB_HOST || '127.0.0.1',
-      port: process.env.DB_PORT || 3306,
-      username: process.env.DB_USERNAME || 'root',
-      password: process.env.DB_PASSWORD || '',
-      database: process.env.DB_NAME || 'lesgo',
-      dialect: 'mysql',
-    },
-
-    mariadb: {
-      host: process.env.DB_HOST || '127.0.0.1',
-      port: process.env.DB_PORT || 3306,
-      username: process.env.DB_USERNAME || 'root',
-      password: process.env.DB_PASSWORD || '',
-      database: process.env.DB_NAME || 'lesgo',
-      dialect: 'mariadb',
-      module: 'mariadb',
+      client: 'mysql2',
+      version: '5.7',
+      connection: {
+        host: process.env.DB_HOST || '127.0.0.1',
+        port: process.env.DB_PORT || 3306,
+        user: process.env.DB_USER || 'root',
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME || 'myapp_test',
+        charset: 'utf8',
+      },
     },
 
     postgres: {
-      host: process.env.DB_HOST || '127.0.0.1',
-      port: process.env.DB_PORT || 5432,
-      username: process.env.DB_USERNAME || 'root',
-      password: process.env.DB_PASSWORD || '',
-      database: process.env.DB_NAME || 'lesgo',
-      dialect: 'postgres',
-      module: 'postgres',
-    },
-
-    mssql: {
-      host: process.env.DB_HOST || '127.0.0.1',
-      port: process.env.DB_PORT || 1443,
-      username: process.env.DB_USERNAME || 'root',
-      password: process.env.DB_PASSWORD || '',
-      database: process.env.DB_NAME || 'lesgo',
-      dialect: 'mssql',
-      module: 'mssql',
+      client: 'pg',
+      version: '7.2',
+      connection: {
+        host: process.env.DB_HOST || '127.0.0.1',
+        port: process.env.DB_PORT || 5432,
+        user: process.env.DB_USER || 'root',
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME || 'myapp_test',
+      },
     },
   },
 };
