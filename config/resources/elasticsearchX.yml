@@ -1,0 +1,15 @@
+Resources:
+  ElasticSearchInstance:
+    Type: AWS::Elasticsearch::Domain
+    Properties:
+      DomainName: ${self:provider.stackName}
+      EBSOptions:
+        EBSEnabled: true
+        VolumeType: gp2
+        VolumeSize: 10
+      ElasticsearchClusterConfig:
+        InstanceType: t2.small.elasticsearch
+        InstanceCount: 2
+        DedicatedMasterEnabled: false
+        ZoneAwarenessEnabled: false
+      ElasticsearchVersion: 6.5

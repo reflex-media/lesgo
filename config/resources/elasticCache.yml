@@ -1,0 +1,13 @@
+Resources:
+  ElasticCacheCluster:
+    Type: AWS::ElastiCache::CacheCluster
+    Properties:
+      AutoMinorVersionUpgrade: true
+      Engine: memcached
+      CacheNodeType: cache.t2.micro
+      NumCacheNodes: 1
+      VpcSecurityGroupIds:
+        - ${env:SECURITY_GROUP}
+      CacheSubnetGroupName:
+        - ${env:SUBNET_ID_1}
+        - ${env:SUBNET_ID_2}
