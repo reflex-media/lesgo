@@ -1,5 +1,5 @@
 import middy from 'middy';
-import { http } from 'lesgo';
+import { httpMiddleware } from 'lesgo';
 
 import { connectSentry } from 'Utils/sentry';
 import pingQueue from 'Core/pingQueue';
@@ -14,4 +14,4 @@ const originalHandler = event => {
 // eslint-disable-next-line import/prefer-default-export
 export const handler = middy(originalHandler);
 
-handler.use(http({ debugMode: app.debug }));
+handler.use(httpMiddleware({ debugMode: app.debug }));
