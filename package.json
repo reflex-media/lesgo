@@ -1,6 +1,6 @@
 {
   "name": "lesgo",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "A lightweight node.js serverless framework",
   "scripts": {
     "start": "sls offline start --stage local --env local",
@@ -23,7 +23,7 @@
   "dependencies": {
     "@sentry/node": "^5.6.2",
     "knex": "^0.20.1",
-    "lesgo": "0.2.2",
+    "lesgo": "^0.3.0",
     "middy": "^0.29.0",
     "mysql2": "^1.7.0",
     "objection": "^1.6.11",
