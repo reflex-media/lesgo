@@ -7,7 +7,7 @@ process.env.AWS_ACCOUNT_REGION = 'ap-southeast-1';
 process.env.AWS_ACCOUNT_ID = '111111111111';
 process.env.SENTRY_BUNDLED = true;
 
-jest.mock('lesgo/utils', () => {
+jest.mock('lesgo', () => {
   return {
     dispatch: jest.fn(() => Promise.resolve({ MessageId: 'MessageId' })),
     logger: {

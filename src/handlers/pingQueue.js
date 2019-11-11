@@ -1,5 +1,5 @@
 import middy from 'middy';
-import { http } from 'lesgo/middlewares';
+import { http } from 'lesgo';
 
 import { connectSentry } from 'Utils/sentry';
 import pingQueue from 'Core/pingQueue';
