@@ -1,5 +1,5 @@
 import { app, sentry } from 'Config';
-import { LoggerService } from 'lesgo/services';
+import LoggerService from 'lesgo/src/services/LoggerService';
 
 const transports = [
   {
