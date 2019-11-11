@@ -28,7 +28,22 @@ module.exports = {
       },
     ],
   },
-  externals: [{ 'aws-sdk': 'commonjs aws-sdk' }, { knex: 'commonjs knex' }],
+  externals: [
+    { 'aws-sdk': 'commonjs aws-sdk' },
+    'tedious',
+    'sqlite3',
+    'mariasql',
+    'mssql',
+    'mysql',
+    'oracle',
+    'strong-oracle',
+    'oracledb',
+    'pg',
+    'pg-query-stream',
+    'pg-hstore',
+    'mssql/lib/base',
+    'mssql/package.json',
+  ],
   resolve: {
     alias: {
       Middlewares: path.resolve(__dirname, 'src/middlewares/'),

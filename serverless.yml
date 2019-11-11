@@ -1,5 +1,5 @@
 service:
-  name: sls-lesgo-daison
+  name: sls-lesgo
 
 plugins:
   - serverless-webpack
@@ -40,6 +40,10 @@ provider:
       Action:
         - "es:*"
       Resource: "*"
+    - Effect: "Allow"
+      Action:
+        - "elasticache:*"
+      Resource: "*"
 
 custom:
   path:
@@ -66,4 +70,4 @@ functions:
 resources:
   - ${file(${self:custom.path.resources}/sqs.yml)}
   - ${file(${self:custom.path.resources}/elasticSearch.yml)}
-  # - ${file(${self:custom.path.resources}/elasticCache.yml)}
+  - ${file(${self:custom.path.resources}/elasticCache.yml)}
