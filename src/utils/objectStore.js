@@ -1,5 +1,5 @@
 import config from 'Config/aws';
-import S3Service from 'lesgo/src/services/S3Service';
+import { S3Service } from 'lesgo';
 
 const s3 = new S3Service(config.s3.options);
 

@@ -1,5 +1,5 @@
 import config from 'Config/aws';
-import SQSService from 'lesgo/src/services/SQSService';
+import { SQSService } from 'lesgo';
 
 const queue = new SQSService(config.sqs.options, config.sqs.queues);
 

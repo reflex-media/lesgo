@@ -1,5 +1,5 @@
 import config from 'Config/database';
-import DatabaseService from 'lesgo/src/services/DatabaseService';
+import { DatabaseService } from 'lesgo';
 
 const connection = (conn = null) => {
   return new DatabaseService({

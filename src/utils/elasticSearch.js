@@ -1,5 +1,5 @@
 import config from 'Config/elasticSearch';
-import ElasticSearchService from 'lesgo/src/services/ElasticSearchService';
+import { ElasticSearchService } from 'lesgo';
 
 const es = (conn = null) => {
   return new ElasticSearchService({
