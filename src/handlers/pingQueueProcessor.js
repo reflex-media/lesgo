@@ -1,5 +1,5 @@
 import middy from 'middy';
-import { normalizeSQSMessage } from 'lesgo/middlewares';
+import { normalizeSQSMessage } from 'lesgo';
 
 import { connectSentry } from 'Utils/sentry';
 import pingQueueProcessor from 'Core/pingQueueProcessor';
