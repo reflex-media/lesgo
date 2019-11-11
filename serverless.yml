@@ -44,6 +44,12 @@ provider:
       Action:
         - "elasticache:*"
       Resource: "*"
+  vpc:
+    securityGroupIds:
+      - ${env:SECURITY_GROUP}
+    subnetIds:
+      - ${env:SUBNET_ID_1}
+      - ${env:SUBNET_ID_2}
 
 custom:
   path:
@@ -65,9 +71,10 @@ custom:
 # Add all the functions here
 functions:
   - ${file(${self:custom.path.functions}/ping.yml)}
+  - ${file(${self:custom.path.functions}/samples.yml)}
 
 # Add all the additional resources here
 resources:
   - ${file(${self:custom.path.resources}/sqs.yml)}
   - ${file(${self:custom.path.resources}/elasticSearch.yml)}
-  - ${file(${self:custom.path.resources}/elasticCache.yml)}
+  - ${file(${self:custom.path.resources}/elastiCache.yml)}
