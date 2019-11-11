@@ -1,5 +1,5 @@
 import middy from 'middy';
-import { normalizeSQSMessage } from 'lesgo';
+import { normalizeSQSMessageMiddleware } from 'lesgo';
 
 import { connectSentry } from 'Utils/sentry';
 import pingQueueProcessor from 'Core/pingQueueProcessor';
@@ -13,4 +13,4 @@ const originalHandler = event => {
 // eslint-disable-next-line import/prefer-default-export
 export const handler = middy(originalHandler);
 
-handler.use(normalizeSQSMessage());
+handler.use(normalizeSQSMessageMiddleware());
