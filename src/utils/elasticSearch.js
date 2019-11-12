@@ -1,10 +1,20 @@
 import config from 'Config/elasticSearch';
 import { ElasticSearchService } from 'lesgo';
 
+const singleton = [];
+
 const es = (conn = null) => {
-  return new ElasticSearchService({
+  if (singleton[conn]) {
+    return singleton[conn];
+  }
+
+  const instance = new ElasticSearchService({
     ...config.adapters[conn || config.default],
   });
+
+  singleton[conn] = instance;
+
+  return instance;
 };
 
 export default es;

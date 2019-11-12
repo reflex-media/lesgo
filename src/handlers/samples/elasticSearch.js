@@ -14,7 +14,7 @@ const originalHandler = async () => {
       number_of_replicas: 2,
     });
 
-    console.log('\x1b[33m%s\x1b[0m', 'Created Indices');
+    console.log('\x1b[33m%s\x1b[0m', '#### CREATED INDICES ####');
   } catch (err) {
     console.error(err);
   }
@@ -26,8 +26,8 @@ const originalHandler = async () => {
     age: 28,
   });
 
-  console.log('\x1b[33m%s\x1b[0m', '---> Added/Updated index record:');
-  console.log('\x1b[33m%s\x1b[0m', '---> Using es().get() ');
+  console.log('\x1b[33m%s\x1b[0m', '#### ADDED/UPDATED INDEX RECORD ####');
+  console.log('\x1b[33m%s\x1b[0m', '#### USING es().get() ####');
   console.log(await es().get(1));
 };
 

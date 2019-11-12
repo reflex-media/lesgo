@@ -50,6 +50,9 @@ provider:
     subnetIds:
       - ${env:SUBNET_ID_1}
       - ${env:SUBNET_ID_2}
+  environment:
+    ELASTICACHE_MEMCACHED_URL:
+      "Fn::Join": [":", ["Fn::GetAtt": [MemcachedCluster, ConfigurationEndpoint.Address], "Fn::GetAtt": [MemcachedCluster, ConfigurationEndpoint.Port]]]
 
 custom:
   path:
