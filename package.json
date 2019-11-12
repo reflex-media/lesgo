@@ -58,6 +58,7 @@
     "serverless-plugin-log-retention": "^2.0.0",
     "serverless-webpack": "^5.3.1",
     "source-map": "^0.7.3",
+    "terser-webpack-plugin": "^2.2.1",
     "webpack": "^4.35.2"
   },
   "author": "Sufiyan Rahmat <mosufy@gmail.com>",

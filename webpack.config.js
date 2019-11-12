@@ -3,6 +3,11 @@ const path = require('path');
 const slsw = require('serverless-webpack');
 const webpack = require('webpack');
 
+// this terser will fix the issue of node-mysql2 that causes problem
+// when changing the mode into "production"
+// https://github.com/sidorares/node-mysql2/issues/1016
+const Terser = require('terser-webpack-plugin');
+
 module.exports = {
   entry: slsw.lib.entries,
   output: {
@@ -11,7 +16,7 @@ module.exports = {
     path: path.join(__dirname, '.webpack'),
   },
   devtool: 'cheap-module-source-map',
-  mode: process.env.APP_ENV === 'local' ? 'development' : 'production',
+  mode: 'production',
   target: 'node',
   module: {
     rules: [
@@ -61,4 +66,13 @@ module.exports = {
       'process.env.SENTRY_BUNDLED': process.env.SENTRY_ENABLED,
     }),
   ],
+  optimization: {
+    minimizer: [
+      new Terser({
+        terserOptions: {
+          keep_fnames: true,
+        },
+      }),
+    ],
+  },
 };
