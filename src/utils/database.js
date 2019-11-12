@@ -1,5 +1,5 @@
 import config from 'Config/database';
-import { DatabaseService } from 'lesgo';
+import DatabaseService from 'lesgo/src/services/DatabaseService';
 
 const singleton = [];
 

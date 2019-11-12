@@ -1,5 +1,5 @@
 import middy from 'middy';
-import { httpMiddleware } from 'lesgo';
+import httpMiddleware from 'lesgo/src/middlewares/httpMiddleware';
 import { connectSentry } from 'Utils/sentry';
 import { app } from 'Config';
 import Model from 'Models/Model';

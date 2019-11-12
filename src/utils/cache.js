@@ -1,5 +1,5 @@
 import config from 'Config/cache';
-import { ElastiCacheService } from 'lesgo';
+import ElastiCacheService from 'lesgo/src/services/ElastiCacheService';
 
 const singleton = [];
 

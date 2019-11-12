@@ -1,5 +1,5 @@
 import config from 'Config/elasticSearch';
-import { ElasticSearchService } from 'lesgo';
+import ElasticSearchService from 'lesgo/src/services/ElasticSearchService';
 
 const singleton = [];
 

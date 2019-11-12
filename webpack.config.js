@@ -16,7 +16,10 @@ module.exports = {
     path: path.join(__dirname, '.webpack'),
   },
   devtool: 'cheap-module-source-map',
-  mode: 'production',
+  mode:
+    ['local', 'dev'].indexOf(process.env.APP_ENV) !== -1
+      ? 'development'
+      : 'production',
   target: 'node',
   module: {
     rules: [
