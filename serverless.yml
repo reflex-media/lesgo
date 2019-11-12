@@ -51,6 +51,8 @@ provider:
       - ${env:SUBNET_ID_1}
       - ${env:SUBNET_ID_2}
   environment:
+    ES_NODE:
+      "Fn::GetAtt": ["ElasticSearchInstance", "DomainEndpoint"]
     ELASTICACHE_MEMCACHED_URL:
       "Fn::Join": [":", ["Fn::GetAtt": [MemcachedCluster, ConfigurationEndpoint.Address], "Fn::GetAtt": [MemcachedCluster, ConfigurationEndpoint.Port]]]
 
