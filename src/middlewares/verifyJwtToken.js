@@ -1,4 +1,4 @@
-import { JwtService } from 'lesgo/services';
+import JwtService from 'lesgo/src/services/JwtService';
 import ErrorException from 'Exceptions/ErrorException';
 import config from 'Config/jwt';
 
