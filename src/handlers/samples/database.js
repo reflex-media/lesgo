@@ -18,7 +18,7 @@ const originalHandler = async () => {
 
   // Alternative way to execute a raw sql - you must import the Model above.
   //  - i.e: (import Model from 'Models/Model');
-  //  - we suggests to use above sample when running sql, use the Model
+  //  - we suggests to use above sample when running RAW sql, use the Model
   //      for ORM implementations, such as relations.
   //
   // console.log(await Model.knex().raw('SELECT * FROM users'));
