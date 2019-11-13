@@ -9,7 +9,6 @@
       "Services/*": ["src/services/*"],
       "Constants/*": ["src/constants/*"],
       "Core/*": ["src/core/*"],
-      "Utils/*": ["src/utils/*"],
       "Config/*": ["src/config/*"],
       "Models/*": ["src/models/*"]
     }

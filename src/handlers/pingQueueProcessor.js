@@ -1,6 +1,6 @@
 import middy from 'middy';
 import normalizeSQSMessageMiddleware from 'lesgo/src/middlewares/normalizeSQSMessageMiddleware';
-import { connectSentry } from 'Utils/sentry';
+import { connectSentry } from 'lesgo/src/utils/sentry';
 import pingQueueProcessor from 'Core/pingQueueProcessor';
 
 connectSentry();

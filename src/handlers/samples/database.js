@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 import middy from 'middy';
 import httpMiddleware from 'lesgo/src/middlewares/httpMiddleware';
-import { connectSentry } from 'Utils/sentry';
+import { connectSentry } from 'lesgo/src/utils/sentry';
 import app from 'Config/app';
-import db from 'Utils/database';
+import db from 'lesgo/src/utils/database';
 
 connectSentry();
 

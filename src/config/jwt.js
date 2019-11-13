@@ -24,7 +24,9 @@ export default {
 
   iss: {
     validate: process.env.JWT_ISS_SHOULD_VALIDATE,
-    data: process.env.JWT_ISS_DOMAINS.split(','),
+    data: process.env.JWT_ISS_DOMAINS
+      ? process.env.JWT_ISS_DOMAINS.split(',')
+      : [],
   },
 
   /*
@@ -42,6 +44,8 @@ export default {
 
   customClaims: {
     validate: process.env.JWT_CUSTOM_CLAIMS_SHOULD_VALIDATE,
-    data: process.env.JWT_CUSTOM_CLAIMS_DATA.split(','),
+    data: process.env.JWT_CUSTOM_CLAIMS_DATA
+      ? process.env.JWT_CUSTOM_CLAIMS_DATA.split(',')
+      : [],
   },
 };

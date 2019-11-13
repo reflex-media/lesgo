@@ -1,4 +1,4 @@
-import { dispatch } from 'Utils/queue';
+import { dispatch } from 'lesgo/src/utils/queue';
 
 const pingQueue = input => {
   const payload = {
