@@ -10,7 +10,7 @@ export default {
    *
    */
 
-  secret: 'YOUR-JWT-TOKEN-HERE',
+  secret: process.env.JWT_SECRET,
 
   /*
    *--------------------------------------------------------------------------
@@ -23,8 +23,8 @@ export default {
    */
 
   iss: {
-    validate: false,
-    data: ['api.domain.com'],
+    validate: process.env.JWT_ISS_SHOULD_VALIDATE,
+    data: process.env.JWT_ISS_DOMAINS.split(','),
   },
 
   /*
@@ -41,7 +41,7 @@ export default {
    */
 
   customClaims: {
-    validate: false,
-    data: ['user'],
+    validate: process.env.JWT_CUSTOM_CLAIMS_SHOULD_VALIDATE,
+    data: process.env.JWT_CUSTOM_CLAIMS_DATA.split(','),
   },
 };
