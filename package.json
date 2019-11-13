@@ -15,9 +15,8 @@
     "test": "jest",
     "coverage": "jest --coverage",
     "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls",
-    "dev-link": "npm link --no-save ../lesgo-framework",
+    "dev-link": "rm -rf ../lesgo-framework/node_modules && npm link --no-save ../lesgo-framework",
     "dev-unlink": "npm uninstall --global lesgo",
-    "dev-relink": "npm run dev-unlink && npm run dev-link",
     "dev-list": "npm ls -g --depth=0 --link=true"
   },
   "dependencies": {
@@ -26,6 +25,7 @@
     "lesgo": "^0.3.0",
     "middy": "^0.29.0",
     "mysql": "^2.17.1",
+    "objection": "^1.6.11",
     "serverless-api-compression": "^1.0.1",
     "url": "^0.11.0"
   },
