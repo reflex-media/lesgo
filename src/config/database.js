@@ -1,3 +1,7 @@
+const mysql = require('knex/lib/dialects/mysql');
+// const sqlite3 = require('knex/lib/dialects/sqlite3/index.js');
+// const pg = require('knex/lib/dialects/postgres/index.js');
+
 export default {
   /*
    *--------------------------------------------------------------------------
@@ -32,14 +36,14 @@ export default {
 
   connections: {
     sqlite: {
-      client: 'sqlite3',
+      // client: sqlite3,
       connection: {
         filename: 'path/to/database.sqlite',
       },
     },
 
     mysql: {
-      client: 'mysql2',
+      client: mysql,
       version: '5.7',
       connection: {
         host: process.env.DB_HOST || '127.0.0.1',
@@ -52,7 +56,7 @@ export default {
     },
 
     postgres: {
-      client: 'pg',
+      // client: pg,
       version: '7.2',
       connection: {
         host: process.env.DB_HOST || '127.0.0.1',

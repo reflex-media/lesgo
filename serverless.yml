@@ -62,7 +62,7 @@ custom:
     functions: config/functions
     resources: config/resources
   serverless-offline:
-    port: 8181
+    port: 8888
   webpack:
     packager: yarn
   logRetentionInDays: ${env:AWS_LOG_RETENTION_DAYS, 7}
