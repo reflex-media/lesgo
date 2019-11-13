@@ -1,7 +1,15 @@
+/**
+ * Lists of supported dialects in "knex" library
+ * - sqlite
+ * - postgres
+ * - mssql
+ * - mysql2
+ * - oracle
+ * - oracledb
+ * - redshift
+ */
+
 import mysql from 'knex/lib/dialects/mysql';
-// import mysql from 'knex/lib/dialects/mysql';
-// import sqlite3 from 'knex/lib/dialects/sqlite3';
-// import pg from 'knex/lib/dialects/postgres';
 
 export default {
   /*
@@ -36,16 +44,13 @@ export default {
    */
 
   connections: {
-    sqlite: {
-      // client: sqlite3,
-      connection: {
-        filename: 'path/to/database.sqlite',
-      },
-    },
-
+    /**
+     * using mysql2 will give you more access to their API
+     * however, it is optional to use it due to we are using
+     * lambda
+     */
     mysql: {
       client: mysql,
-      version: '5.7',
       connection: {
         host: process.env.DB_HOST || '127.0.0.1',
         port: process.env.DB_PORT || 3306,
@@ -56,8 +61,15 @@ export default {
       },
     },
 
+    sqlite: {
+      // client: sqlite3,
+      connection: {
+        filename: 'path/to/database.sqlite',
+      },
+    },
+
     postgres: {
-      // client: pg,
+      // client: postgres,
       version: '7.2',
       connection: {
         host: process.env.DB_HOST || '127.0.0.1',

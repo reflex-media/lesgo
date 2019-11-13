@@ -3,7 +3,7 @@ import DatabaseService from 'lesgo/src/services/DatabaseService';
 
 const singleton = [];
 
-const connection = (conn = null) => {
+const db = (conn = null) => {
   if (singleton[conn]) {
     return singleton[conn];
   }
@@ -17,4 +17,4 @@ const connection = (conn = null) => {
   return instance;
 };
 
-export default connection;
+export default db;

@@ -3,7 +3,7 @@ import ElastiCacheService from 'lesgo/src/services/ElastiCacheService';
 
 const singleton = [];
 
-const es = (conn = null) => {
+const ec = (conn = null) => {
   if (singleton[conn]) {
     return singleton[conn];
   }
@@ -17,4 +17,4 @@ const es = (conn = null) => {
   return driver;
 };
 
-export default es;
+export default ec;
