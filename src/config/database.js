@@ -1,6 +1,7 @@
-const mysql = require('knex/lib/dialects/mysql');
-// const sqlite3 = require('knex/lib/dialects/sqlite3/index.js');
-// const pg = require('knex/lib/dialects/postgres/index.js');
+import mysql from 'knex/lib/dialects/mysql';
+// import mysql from 'knex/lib/dialects/mysql';
+// import sqlite3 from 'knex/lib/dialects/sqlite3';
+// import pg from 'knex/lib/dialects/postgres';
 
 export default {
   /*

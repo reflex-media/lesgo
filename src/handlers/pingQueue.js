@@ -2,7 +2,7 @@ import middy from 'middy';
 import httpMiddleware from 'lesgo/src/middlewares/httpMiddleware';
 import { connectSentry } from 'Utils/sentry';
 import pingQueue from 'Core/pingQueue';
-import { app } from 'Config';
+import app from 'Config/app';
 
 connectSentry();
 
