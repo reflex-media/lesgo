@@ -22,16 +22,7 @@ const verifyJwtToken = () => {
       const { headers } = handler.event;
 
       try {
-        const service = new JwtService(token(headers), config.secret, {
-          validate: {
-            iss: config.iss.validate,
-            customClaims: config.customClaims.validate,
-          },
-          config: {
-            iss: config.iss.data,
-            customClaims: config.customClaims.data,
-          },
-        });
+        const service = new JwtService(token(headers), config);
 
         // eslint-disable-next-line no-param-reassign
         handler.event.decodedJwt = service.validate().decoded;
