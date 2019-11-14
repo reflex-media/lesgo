@@ -4,40 +4,50 @@
     "allowSyntheticDefaultImports": false,
     "baseUrl": "./",
     "paths": {
-      "Middlewares/*": [
-        "src/middlewares/*",
-        "../lesgo-framework/src/middlewares",
-        "node_modules/lesgo/src/middlewares"
-      ],
-      "Exceptions/*": [
-        "src/exceptions/*",
-        "../lesgo-framework/src/exceptions",
-        "node_modules/lesgo/src/exceptions"
-      ],
-      "Services/*": [
-        "src/services/*",
-        "../lesgo-framework/src/services",
-        "node_modules/lesgo/src/services"
+      "Config/*": [
+        "src/config/*",
+        "../lesgo-framework/src/config/*",
+        "node_modules/lesgo/src/config/*"
       ],
       "Constants/*": [
         "src/constants/*",
-        "../lesgo-framework/src/constants",
-        "node_modules/lesgo/src/constants"
+        "../lesgo-framework/src/constants/*",
+        "node_modules/lesgo/src/constants/*"
       ],
       "Core/*": [
         "src/core/*",
-        "../lesgo-framework/src/core",
-        "node_modules/lesgo/src/core"
+        "../lesgo-framework/src/core/*",
+        "node_modules/lesgo/src/core/*"
       ],
-      "Config/*": [
-        "src/config/*",
-        "../lesgo-framework/src/config",
-        "node_modules/lesgo/src/config"
+      "Exceptions/*": [
+        "src/exceptions/*",
+        "../lesgo-framework/src/exceptions/*",
+        "node_modules/lesgo/src/exceptions/*"
+      ],
+      "Handlers/*": [
+        "src/handlers/*",
+        "../lesgo-framework/src/handlers/*",
+        "node_modules/lesgo/src/handlers/*"
+      ],
+      "Middlewares/*": [
+        "src/middlewares/*",
+        "../lesgo-framework/src/middlewares/*",
+        "node_modules/lesgo/src/middlewares/*"
       ],
       "Models/*": [
         "src/models/*",
-        "../lesgo-framework/src/models",
-        "node_modules/lesgo/src/models"
+        "../lesgo-framework/src/models/*",
+        "node_modules/lesgo/src/models/*"
+      ],
+      "Services/*": [
+        "src/services/*",
+        "../lesgo-framework/src/services/*",
+        "node_modules/lesgo/src/services/*"
+      ],
+      "Utils/*": [
+        "src/utils/*",
+        "../lesgo-framework/src/utils/*",
+        "node_modules/lesgo/src/utils/*"
       ]
     }
   },
