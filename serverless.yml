@@ -1,5 +1,5 @@
 service:
-  name: lesgo
+  name: sls-lesgo
 
 plugins:
   - serverless-webpack
@@ -34,10 +34,27 @@ provider:
   iamRoleStatements:
     - Effect: "Allow"
       Action:
-        - "sqs:SendMessage"
-        - "sqs:ReceiveMessage"
-        - "sqs:DeleteMessage"
-      Resource: "arn:aws:sqs:*:*:*"
+        - "sqs:*"
+      Resource: "*"
+    - Effect: "Allow"
+      Action:
+        - "es:*"
+      Resource: "*"
+    - Effect: "Allow"
+      Action:
+        - "elasticache:*"
+      Resource: "*"
+  vpc:
+    securityGroupIds:
+      - ${env:SECURITY_GROUP}
+    subnetIds:
+      - ${env:SUBNET_ID_1}
+      - ${env:SUBNET_ID_2}
+  environment:
+    ES_NODE:
+      "Fn::GetAtt": ["ElasticSearchInstance", "DomainEndpoint"]
+    ELASTICACHE_MEMCACHED_URL:
+      "Fn::Join": [":", ["Fn::GetAtt": [MemcachedCluster, ConfigurationEndpoint.Address], "Fn::GetAtt": [MemcachedCluster, ConfigurationEndpoint.Port]]]
 
 custom:
   path:
@@ -59,7 +76,10 @@ custom:
 # Add all the functions here
 functions:
   - ${file(${self:custom.path.functions}/ping.yml)}
+  - ${file(${self:custom.path.functions}/samples.yml)}
 
 # Add all the additional resources here
 resources:
   - ${file(${self:custom.path.resources}/sqs.yml)}
+  - ${file(${self:custom.path.resources}/elasticSearch.yml)}
+  - ${file(${self:custom.path.resources}/elastiCache.yml)}

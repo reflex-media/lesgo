@@ -1,9 +1,8 @@
 import middy from 'middy';
-import { httpMiddleware } from 'lesgo';
-
+import httpMiddleware from 'Middlewares/httpMiddleware';
 import { connectSentry } from 'Utils/sentry';
 import ping from 'Core/ping';
-import { app } from '../config';
+import app from 'Config/app';
 
 connectSentry();
 

@@ -1,0 +1,55 @@
+cache:
+  handler: ${self:custom.path.app}/handlers/samples/cache.handler
+  description: ElastiCache Sample
+  reservedConcurrency: 1
+  events:
+    - http:
+        path: samples/cache
+        method: get
+        private: false
+        cors: ${self:custom.http.cors}
+
+database:
+  handler: ${self:custom.path.app}/handlers/samples/database.handler
+  description: Database Sample
+  reservedConcurrency: 1
+  events:
+    - http:
+        path: samples/database
+        method: get
+        private: false
+        cors: ${self:custom.http.cors}
+
+elasticSearch:
+  handler: ${self:custom.path.app}/handlers/samples/elasticSearch.handler
+  description: Elastic Search Sample
+  reservedConcurrency: 1
+  events:
+    - http:
+        path: samples/elasticSearch
+        method: get
+        private: false
+        cors: ${self:custom.http.cors}
+
+objectStore:
+  handler: ${self:custom.path.app}/handlers/samples/objectStore.handler
+  description: S3 Sample
+  reservedConcurrency: 1
+  events:
+    - http:
+        path: samples/objectStore
+        method: get
+        private: false
+        cors: ${self:custom.http.cors}
+
+queue:
+  handler: ${self:custom.path.app}/handlers/samples/queue.handler
+  description: SQS Sample
+  reservedConcurrency: 1
+  events:
+    - http:
+        path: samples/queue
+        method: get
+        private: false
+        cors: ${self:custom.http.cors}
+
