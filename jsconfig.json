@@ -4,13 +4,41 @@
     "allowSyntheticDefaultImports": false,
     "baseUrl": "./",
     "paths": {
-      "Middlewares/*": ["src/middlewares/*"],
-      "Exceptions/*": ["src/exceptions/*"],
-      "Services/*": ["src/services/*"],
-      "Constants/*": ["src/constants/*"],
-      "Core/*": ["src/core/*"],
-      "Config/*": ["src/config/*"],
-      "Models/*": ["src/models/*"]
+      "Middlewares/*": [
+        "src/middlewares/*",
+        "../lesgo-framework/src/middlewares",
+        "node_modules/lesgo/src/middlewares"
+      ],
+      "Exceptions/*": [
+        "src/exceptions/*",
+        "../lesgo-framework/src/exceptions",
+        "node_modules/lesgo/src/exceptions"
+      ],
+      "Services/*": [
+        "src/services/*",
+        "../lesgo-framework/src/services",
+        "node_modules/lesgo/src/services"
+      ],
+      "Constants/*": [
+        "src/constants/*",
+        "../lesgo-framework/src/constants",
+        "node_modules/lesgo/src/constants"
+      ],
+      "Core/*": [
+        "src/core/*",
+        "../lesgo-framework/src/core",
+        "node_modules/lesgo/src/core"
+      ],
+      "Config/*": [
+        "src/config/*",
+        "../lesgo-framework/src/config",
+        "node_modules/lesgo/src/config"
+      ],
+      "Models/*": [
+        "src/models/*",
+        "../lesgo-framework/src/models",
+        "node_modules/lesgo/src/models"
+      ]
     }
   },
   "exclude": ["node_modules", "dist", "config", "coverage"]

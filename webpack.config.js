@@ -2,6 +2,7 @@
 const path = require('path');
 const slsw = require('serverless-webpack');
 const webpack = require('webpack');
+const AliasPlugin = require('enhanced-resolve/lib/AliasPlugin');
 
 module.exports = {
   entry: slsw.lib.entries,
@@ -48,15 +49,78 @@ module.exports = {
     'mssql/package.json',
   ],
   resolve: {
-    alias: {
-      Middlewares: path.resolve(__dirname, 'src/middlewares/'),
-      Exceptions: path.resolve(__dirname, 'src/exceptions/'),
-      Services: path.resolve(__dirname, 'src/services/'),
-      Constants: path.resolve(__dirname, 'src/constants/'),
-      Core: path.resolve(__dirname, 'src/core/'),
-      Config: path.resolve(__dirname, 'src/config/'),
-      Models: path.resolve(__dirname, 'src/models/'),
-    },
+    plugins: [
+      new AliasPlugin(
+        'described-resolve',
+        [
+          {
+            name: 'Middlewares',
+            alias: [
+              path.resolve(__dirname, 'src/middlewares/'),
+              path.resolve(__dirname, '../lesgo-framework/src/middlewares'),
+              path.resolve(__dirname, 'node_modules/lesgo/src/middlewares'),
+            ],
+          },
+          {
+            name: 'Exceptions',
+            alias: [
+              path.resolve(__dirname, 'src/exceptions/'),
+              path.resolve(__dirname, '../lesgo-framework/src/exceptions/'),
+              path.resolve(__dirname, 'node_modules/lesgo/src/exceptions/'),
+            ],
+          },
+          {
+            name: 'Services',
+            alias: [
+              path.resolve(__dirname, 'src/services/'),
+              path.resolve(__dirname, '../lesgo-framework/src/services/'),
+              path.resolve(__dirname, 'node_modules/lesgo/src/services/'),
+            ],
+          },
+          {
+            name: 'Constants',
+            alias: [
+              path.resolve(__dirname, 'src/constants/'),
+              path.resolve(__dirname, '../lesgo-framework/src/constants/'),
+              path.resolve(__dirname, 'node_modules/lesgo/src/constants/'),
+            ],
+          },
+          {
+            name: 'Core',
+            alias: [
+              path.resolve(__dirname, 'src/core/'),
+              path.resolve(__dirname, '../lesgo-framework/src/core/'),
+              path.resolve(__dirname, 'node_modules/lesgo/src/core/'),
+            ],
+          },
+          {
+            name: 'Config',
+            alias: [
+              path.resolve(__dirname, 'src/config/'),
+              path.resolve(__dirname, '../lesgo-framework/src/config/'),
+              path.resolve(__dirname, 'node_modules/lesgo/src/config/'),
+            ],
+          },
+          {
+            name: 'Models',
+            alias: [
+              path.resolve(__dirname, 'src/models/'),
+              path.resolve(__dirname, '../lesgo-framework/src/models/'),
+              path.resolve(__dirname, 'node_modules/lesgo/src/models/'),
+            ],
+          },
+          {
+            name: 'Utils',
+            alias: [
+              path.resolve(__dirname, 'src/utils/'),
+              path.resolve(__dirname, '../lesgo-framework/src/utils/'),
+              path.resolve(__dirname, 'node_modules/lesgo/src/utils/'),
+            ],
+          },
+        ],
+        'resolve'
+      ),
+    ],
   },
   plugins: [
     new webpack.DefinePlugin({
