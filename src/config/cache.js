@@ -4,7 +4,7 @@ export default {
 
   connections: {
     memcached: {
-      url: process.env.ELASTICACHE_MEMCACHED_URL,
+      url: process.env.ELASTICACHE_MEMCACHED_URL || null,
       options: {
         autoDiscover: true,
         autoDiscoverInterval: 60000,

@@ -39,7 +39,7 @@ export default {
       options: {
         node: [
           {
-            url: new URL(process.env.ES_NODE),
+            url: new URL(process.env.ES_NODE || null),
             maxRetries: 1,
             awsRegion: process.env.ES_REGION,
           },

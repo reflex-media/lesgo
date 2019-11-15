@@ -7,14 +7,14 @@ module.exports = {
     '!src/handlers/**/*.js',
   ],
   coverageReporters: ['html', 'text', 'lcov'],
-  coverageThreshold: {
-    global: {
-      branches: 80,
-      functions: 80,
-      lines: 80,
-      statements: 80,
-    },
-  },
+  // coverageThreshold: {
+  //   global: {
+  //     branches: 80,
+  //     functions: 80,
+  //     lines: 80,
+  //     statements: 80,
+  //   },
+  // },
   setupFiles: ['./tests/setupTest.js'],
   moduleNameMapper: {
     '^Config(.*)$': '<rootDir>/src/config$1',
@@ -29,4 +29,5 @@ module.exports = {
     '^Utils/sentry$': '<rootDir>/node_modules/lesgo/src/utils/sentry.js',
     '^@sentry/node$': '<rootDir>/node_modules/@sentry/node/dist/index.js',
   },
+  transformIgnorePatterns: ['/node_modules/(?!lesgo).+\\.js$'],
 };

@@ -14,13 +14,13 @@ package:
 provider:
   name: aws
   runtime: nodejs10.x
-  memorySize: ${env:AWS_LAMBDA_MEMORY_SIZE, 128}
-  timeout: ${env:AWS_LAMBDA_TIMEOUT, 3}
+  memorySize: ${env:AWS_LAMBDA_MEMORY_SIZE}
+  timeout: ${env:AWS_LAMBDA_TIMEOUT}
   stackName: ${self:service}-${self:provider.stage}
   apiName: ${self:provider.stackName}
   stage: ${opt:stage, 'local'}
   profile: ${env:AWS_ACCOUNT_PROFILE}
-  region: ${opt:region, env:AWS_ACCOUNT_REGION, 'us-west-1'}
+  region: ${opt:region, env:AWS_ACCOUNT_REGION}
   apiKeys:
     - usagePlan:
         - name: ${self:provider.stackName}-apiKey
@@ -31,30 +31,30 @@ provider:
     SITE: shared
     PRODUCT: ${self:service}
     STAGE: ${self:provider.stage}
-  iamRoleStatements:
-    - Effect: "Allow"
-      Action:
-        - "sqs:*"
-      Resource: "*"
-    - Effect: "Allow"
-      Action:
-        - "es:*"
-      Resource: "*"
-    - Effect: "Allow"
-      Action:
-        - "elasticache:*"
-      Resource: "*"
-  vpc:
-    securityGroupIds:
-      - ${env:SECURITY_GROUP}
-    subnetIds:
-      - ${env:SUBNET_ID_1}
-      - ${env:SUBNET_ID_2}
-  environment:
-    ES_NODE:
-      "Fn::GetAtt": ["ElasticSearchInstance", "DomainEndpoint"]
-    ELASTICACHE_MEMCACHED_URL:
-      "Fn::Join": [":", ["Fn::GetAtt": [MemcachedCluster, ConfigurationEndpoint.Address], "Fn::GetAtt": [MemcachedCluster, ConfigurationEndpoint.Port]]]
+  # iamRoleStatements:
+  #   - Effect: "Allow"
+  #     Action:
+  #       - "sqs:*"
+  #     Resource: "*"
+  #   - Effect: "Allow"
+  #     Action:
+  #       - "es:*"
+  #     Resource: "*"
+  #   - Effect: "Allow"
+  #     Action:
+  #       - "elasticache:*"
+  #     Resource: "*"
+  # vpc:
+  #   securityGroupIds:
+  #     - ${env:ELASTICACHE_SECURITY_GROUP}
+  #   subnetIds:
+  #     - ${env:ELASTICACHE_SUBNET_ID_1}
+  #     - ${env:ELASTICACHE_SUBNET_ID_2}
+  # environment:
+  #   ES_NODE:
+  #     "Fn::GetAtt": ["ElasticSearchInstance", "DomainEndpoint"]
+  #   ELASTICACHE_MEMCACHED_URL:
+  #     "Fn::Join": [":", ["Fn::GetAtt": [MemcachedCluster, ConfigurationEndpoint.Address], "Fn::GetAtt": [MemcachedCluster, ConfigurationEndpoint.Port]]]
 
 custom:
   path:
@@ -76,10 +76,10 @@ custom:
 # Add all the functions here
 functions:
   - ${file(${self:custom.path.functions}/ping.yml)}
-  - ${file(${self:custom.path.functions}/samples.yml)}
+  #- ${file(${self:custom.path.functions}/samples.yml)}
 
 # Add all the additional resources here
 resources:
-  - ${file(${self:custom.path.resources}/sqs.yml)}
-  - ${file(${self:custom.path.resources}/elasticSearch.yml)}
-  - ${file(${self:custom.path.resources}/elastiCache.yml)}
+  #- ${file(${self:custom.path.resources}/sqs.yml)}
+  #- ${file(${self:custom.path.resources}/elasticSearch.yml)}
+  #- ${file(${self:custom.path.resources}/elastiCache.yml)}
