@@ -14,13 +14,13 @@ package:
 provider:
   name: aws
   runtime: nodejs10.x
-  memorySize: ${env:AWS_LAMBDA_MEMORY_SIZE, 128}
-  timeout: ${env:AWS_LAMBDA_TIMEOUT, 3}
+  memorySize: ${env:AWS_LAMBDA_MEMORY_SIZE}
+  timeout: ${env:AWS_LAMBDA_TIMEOUT}
   stackName: ${self:service}-${self:provider.stage}
   apiName: ${self:provider.stackName}
   stage: ${opt:stage, 'local'}
   profile: ${env:AWS_ACCOUNT_PROFILE}
-  region: ${opt:region, env:AWS_ACCOUNT_REGION, 'us-west-1'}
+  region: ${opt:region, env:AWS_ACCOUNT_REGION}
   apiKeys:
     - usagePlan:
         - name: ${self:provider.stackName}-apiKey
@@ -46,10 +46,10 @@ provider:
       Resource: "*"
   vpc:
     securityGroupIds:
-      - ${env:SECURITY_GROUP}
+      - ${env:ELASTICACHE_SECURITY_GROUP}
     subnetIds:
-      - ${env:SUBNET_ID_1}
-      - ${env:SUBNET_ID_2}
+      - ${env:ELASTICACHE_SUBNET_ID_1}
+      - ${env:ELASTICACHE_SUBNET_ID_2}
   environment:
     ES_NODE:
       "Fn::GetAtt": ["ElasticSearchInstance", "DomainEndpoint"]
