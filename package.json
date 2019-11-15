@@ -1,6 +1,6 @@
 {
   "name": "lesgo",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A lightweight node.js serverless framework",
   "scripts": {
     "start": "sls offline start --stage local --env local",
@@ -8,18 +8,26 @@
     "build": "lesgo-scripts -t build",
     "deploy": "lesgo-scripts -t deploy",
     "invoke": "lesgo-scripts -t invoke",
+    "invoke-local": "lesgo-scripts -t invoke -l",
     "logs": "lesgo-scripts -t logs",
     "destroy": "lesgo-scripts -t destroy",
     "pretest": "eslint --ignore-path .gitignore .",
     "test": "jest",
     "coverage": "jest --coverage",
-    "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls"
+    "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls",
+    "dev-link": "rm -rf ../lesgo-framework/node_modules && npm link --no-save ../lesgo-framework",
+    "dev-unlink": "npm uninstall --global lesgo",
+    "dev-list": "npm ls -g --depth=0 --link=true"
   },
   "dependencies": {
     "@sentry/node": "^5.6.2",
-    "lesgo": "^0.3.0",
+    "knex": "^0.20.1",
+    "lesgo": "^0.3.1",
     "middy": "^0.29.0",
-    "serverless-api-compression": "^1.0.1"
+    "mysql": "^2.17.1",
+    "objection": "^1.6.11",
+    "serverless-api-compression": "^1.0.1",
+    "url": "^0.11.0"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
@@ -32,6 +40,7 @@
     "babel-loader": "^8.0.0",
     "babel-plugin-webpack-aliases": "^1.1.3",
     "coveralls": "^3.0.6",
+    "enhanced-resolve": "^5.0.0-beta.4",
     "eslint": "^6.3.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^6.3.0",
@@ -49,40 +58,13 @@
     "serverless-plugin-log-retention": "^2.0.0",
     "serverless-webpack": "^5.3.1",
     "source-map": "^0.7.3",
+    "terser-webpack-plugin": "^2.2.1",
     "webpack": "^4.35.2"
   },
   "author": "Sufiyan Rahmat <mosufy@gmail.com>",
   "license": "MIT",
   "engines": {
     "node": ">=10.0.0"
-  },
-  "jest": {
-    "verbose": true,
-    "testMatch": [
-      "**/tests/*.spec.js",
-      "**/tests/**/*.spec.js"
-    ],
-    "collectCoverageFrom": [
-      "src/**/*.js",
-      "!src/config.js",
-      "!src/handlers/**/*.js"
-    ],
-    "coverageReporters": [
-      "html",
-      "text",
-      "lcov"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 80,
-        "functions": 80,
-        "lines": 80,
-        "statements": 80
-      }
-    },
-    "setupFiles": [
-      "./tests/setupTest.js"
-    ]
   },
   "husky": {
     "hooks": {

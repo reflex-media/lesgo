@@ -1,13 +1,22 @@
+/* eslint-disable no-console */
 import middy from 'middy';
 import httpMiddleware from 'Middlewares/httpMiddleware';
 import { connectSentry } from 'Utils/sentry';
-import ping from 'Core/ping';
 import app from 'Config/app';
+import cache from 'Utils/cache';
 
 connectSentry();
 
-const originalHandler = event => {
-  return ping(event.input);
+const originalHandler = async () => {
+  cache().set('foo', 'bar', 10, (err, data) => {
+    console.log(`Logger: err(${err}) data(${data})`);
+  });
+
+  cache().get('foo', (err, data) => {
+    console.log(`Logger: err(${err}) data(${data})`);
+  });
+
+  cache().end();
 };
 
 // eslint-disable-next-line import/prefer-default-export

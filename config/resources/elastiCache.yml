@@ -1,0 +1,33 @@
+Resources:
+  ElasticSearchSubnetGroup:
+    Type: AWS::ElastiCache::SubnetGroup
+    Properties:
+      CacheSubnetGroupName: "${self:provider.stackName}-subgroup"
+      Description: "Lesgo Cache Subnet Group"
+      SubnetIds:
+      - ${env:ELASTICACHE_SUBNET_ID_1}
+      - ${env:ELASTICACHE_SUBNET_ID_2}
+  MemcachedCluster:
+    Type: AWS::ElastiCache::CacheCluster
+    Properties:
+      ClusterName: "${self:provider.stackName}-memcached"
+      AutoMinorVersionUpgrade: true
+      Engine: memcached
+      CacheNodeType: cache.t2.micro
+      NumCacheNodes: 1
+      VpcSecurityGroupIds:
+        - ${env:ELASTICACHE_SECURITY_GROUP}
+      CacheSubnetGroupName:
+        Ref: ElasticSearchSubnetGroup
+  RedisCluster:
+    Type: AWS::ElastiCache::CacheCluster
+    Properties:
+      ClusterName: "${self:provider.stackName}-redis"
+      AutoMinorVersionUpgrade: true
+      Engine: redis
+      CacheNodeType: cache.t2.micro
+      NumCacheNodes: 1
+      VpcSecurityGroupIds:
+        - ${env:ELASTICACHE_SECURITY_GROUP}
+      CacheSubnetGroupName:
+        Ref: ElasticSearchSubnetGroup
