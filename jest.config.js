@@ -29,4 +29,5 @@ module.exports = {
     '^Utils/sentry$': '<rootDir>/node_modules/lesgo/src/utils/sentry.js',
     '^@sentry/node$': '<rootDir>/node_modules/@sentry/node/dist/index.js',
   },
+  transformIgnorePatterns: ['/node_modules/(?!lesgo).+\\.js$'],
 };
