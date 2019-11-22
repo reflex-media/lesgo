@@ -19,3 +19,14 @@ pingAuth:
         method: get
         private: true
         cors: ${self:custom.http.cors}
+
+pingJwt:
+  handler: ${self:custom.path.app}/handlers/pingJwt.handler
+  description: Ping test with jwt verification
+  reservedConcurrency: 1
+  events:
+    - http:
+        path: ping/jwt
+        method: get
+        private: false
+        cors: ${self:custom.http.cors}
