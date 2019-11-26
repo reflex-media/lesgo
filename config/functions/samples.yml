@@ -1,3 +1,37 @@
+sampleErrorHandling:
+  handler: ${self:custom.path.app}/handlers/samples/errorHandling.handler
+  description: Error Handling sample test
+  reservedConcurrency: 1
+  events:
+    - http:
+        path: samples/error-handling
+        method: get
+        private: false
+        cors: ${self:custom.http.cors}
+
+sampleJwt:
+  handler: ${self:custom.path.app}/handlers/samples/jwt.handler
+  description: Sample jwt test
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - http:
+        path: samples/jwt
+        method: get
+        private: false
+        cors: ${self:custom.http.cors}
+
+sampleObjectStore:
+  handler: ${self:custom.path.app}/handlers/samples/objectStore.handler
+  description: S3 Sample
+  reservedConcurrency: 1
+  events:
+    - http:
+        path: samples/object-store
+        method: get
+        private: false
+        cors: ${self:custom.http.cors}
+
 sampleCache:
   handler: ${self:custom.path.app}/handlers/samples/cache.handler
   description: Cache sample test
@@ -6,17 +40,6 @@ sampleCache:
   events:
     - http:
         path: samples/cache
-        method: get
-        private: false
-        cors: ${self:custom.http.cors}
-
-sampleErrorHandling:
-  handler: ${self:custom.path.app}/handlers/samples/errorHandling.handler
-  description: Error Handling sample test
-  reservedConcurrency: 1
-  events:
-    - http:
-        path: samples/error-handling
         method: get
         private: false
         cors: ${self:custom.http.cors}
@@ -50,30 +73,6 @@ sampleScheduledEvent:
         description: Trigger sampleScheduledEvent lambda function every 5 minute
         rate: rate(5 minutes)
         enabled: false
-
-sampleObjectStore:
-  handler: ${self:custom.path.app}/handlers/samples/objectStore.handler
-  description: S3 Sample
-  reservedConcurrency: 1
-  events:
-    - http:
-        path: samples/object-store
-        method: get
-        private: false
-        cors: ${self:custom.http.cors}
-
-sampleJwt:
-  handler: ${self:custom.path.app}/handlers/samples/jwt.handler
-  description: Sample jwt test
-  timeout: 5
-  reservedConcurrency: 1
-  events:
-    - http:
-        path: samples/jwt
-        method: get
-        private: false
-        cors: ${self:custom.http.cors}
-
 #
 # TODO REVIEW ALL THE SAMPLES BELOW
 #
