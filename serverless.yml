@@ -38,27 +38,18 @@ provider:
       - Ref: PrivateSubnet1
       - Ref: PrivateSubnet2
   iamRoleStatements:
-    #
-    # Uncomment below to enable ElastiCache
-    #
     - Effect: Allow
       Action:
         - 'elasticache:*'
       Resource: '*'
-    #
-    # Uncomment below to enable SQS
-    #
-    # - Effect: Allow
-    #   Action:
-    #     - 'sqs:*'
-    #   Resource: '*'
-    #
-    # Uncomment below to enable ElasticSearch
-    #
-    # - Effect: Allow
-    #   Action:
-    #     - 'es:*'
-    #   Resource: '*'
+    - Effect: Allow
+      Action:
+        - 'sqs:*'
+      Resource: '*'
+    - Effect: Allow
+      Action:
+        - 'es:*'
+      Resource: '*'
 
   # TODO Review if this is still relevant
   # environment:
@@ -93,6 +84,6 @@ functions:
 resources:
   - ${file(${self:custom.path.resources}/vpc.yml)}
   - ${file(${self:custom.path.resources}/lambda.yml)}
-  - ${file(${self:custom.path.resources}/elastiCache.yml)}
+  #- ${file(${self:custom.path.resources}/elastiCache.yml)}
   #- ${file(${self:custom.path.resources}/sqs.yml)}
   #- ${file(${self:custom.path.resources}/elasticSearch.yml)}
