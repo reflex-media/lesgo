@@ -15,12 +15,12 @@ const originalHandler = event => {
   return new Promise((resolve, reject) => {
     if (!input) return resolve('Pong');
 
-    if (input['sample-error'] === 'message') {
+    if (input.type === 'message') {
       // eslint-disable-next-line prefer-promise-reject-errors
       return reject('Error Message');
     }
 
-    if (input['sample-error'] === 'exception') {
+    if (input.type === 'exception') {
       logger.error('Sample error exception', { code: ERROR_SAMPLE });
       return reject(new ErrorException('Error exception', ERROR_SAMPLE));
     }

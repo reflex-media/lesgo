@@ -13,7 +13,7 @@ const originalHandler = async event => {
 
   if (!input) return 'Pong';
 
-  if (input['sample-cache'] === 'set') {
+  if (input.method === 'set') {
     let cacheKey = 'sampleCacheKey';
     let cacheValue = 'sampleCacheData';
 
@@ -33,7 +33,7 @@ const originalHandler = async event => {
     }
   }
 
-  if (input['sample-cache'] === 'get') {
+  if (input.method === 'get') {
     let cacheKey = 'sampleCacheKey';
 
     if (input.key) cacheKey = input.key;
@@ -51,7 +51,7 @@ const originalHandler = async event => {
     }
   }
 
-  if (input['sample-cache'] === 'del') {
+  if (input.method === 'del') {
     let cacheKey = 'sampleCacheKey';
 
     if (input.key) cacheKey = input.key;
