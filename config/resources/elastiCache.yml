@@ -1,12 +1,27 @@
 Resources:
-  ElasticSearchSubnetGroup:
+  ElastiCacheSecurityGroup:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      GroupName: "${self:provider.stackName}-elastiCacheSecurityGroup"
+      GroupDescription: "Allow local inbound to ElastiCache port 11211, no outbound"
+      SecurityGroupIngress:
+        - CidrIp: 10.0.0.0/16
+          IpProtocol: tcp
+          FromPort: 11211
+          ToPort: 11211
+      SecurityGroupEgress:
+        - IpProtocol: -1
+          CidrIp: 127.0.0.1/32
+      VpcId:
+        Ref: Vpc
+  ElastiCacheSubnetGroup:
     Type: AWS::ElastiCache::SubnetGroup
     Properties:
-      CacheSubnetGroupName: "${self:provider.stackName}-subgroup"
-      Description: "Lesgo Cache Subnet Group"
+      CacheSubnetGroupName: "${self:provider.stackName}-elasticCacheSubnetGroup"
+      Description: "Private ElastiCache subnet group"
       SubnetIds:
-      - ${env:ELASTICACHE_SUBNET_ID_1}
-      - ${env:ELASTICACHE_SUBNET_ID_2}
+        - Ref: PrivateSubnet1
+        - Ref: PrivateSubnet2
   MemcachedCluster:
     Type: AWS::ElastiCache::CacheCluster
     Properties:
@@ -15,19 +30,7 @@ Resources:
       Engine: memcached
       CacheNodeType: cache.t2.micro
       NumCacheNodes: 1
-      VpcSecurityGroupIds:
-        - ${env:ELASTICACHE_SECURITY_GROUP}
       CacheSubnetGroupName:
-        Ref: ElasticSearchSubnetGroup
-  RedisCluster:
-    Type: AWS::ElastiCache::CacheCluster
-    Properties:
-      ClusterName: "${self:provider.stackName}-redis"
-      AutoMinorVersionUpgrade: true
-      Engine: redis
-      CacheNodeType: cache.t2.micro
-      NumCacheNodes: 1
+        Ref: ElastiCacheSubnetGroup
       VpcSecurityGroupIds:
-        - ${env:ELASTICACHE_SECURITY_GROUP}
-      CacheSubnetGroupName:
-        Ref: ElasticSearchSubnetGroup
+        - Ref: ElastiCacheSecurityGroup
