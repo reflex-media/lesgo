@@ -31,25 +31,27 @@ provider:
     SITE: shared
     PRODUCT: ${self:service}
     STAGE: ${self:provider.stage}
-  # iamRoleStatements:
-  #   - Effect: "Allow"
-  #     Action:
-  #       - "sqs:*"
-  #     Resource: "*"
-  #   - Effect: "Allow"
-  #     Action:
-  #       - "es:*"
-  #     Resource: "*"
-  #   - Effect: "Allow"
-  #     Action:
-  #       - "elasticache:*"
-  #     Resource: "*"
-  # vpc:
-  #   securityGroupIds:
-  #     - ${env:ELASTICACHE_SECURITY_GROUP}
-  #   subnetIds:
-  #     - ${env:ELASTICACHE_SUBNET_ID_1}
-  #     - ${env:ELASTICACHE_SUBNET_ID_2}
+  vpc:
+    securityGroupIds:
+      - Ref: LambdaSecurityGroup
+    subnetIds:
+      - Ref: PrivateSubnet1
+      - Ref: PrivateSubnet2
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - 'elasticache:*'
+      Resource: '*'
+    - Effect: Allow
+      Action:
+        - 'sqs:*'
+      Resource: '*'
+    - Effect: Allow
+      Action:
+        - 'es:*'
+      Resource: '*'
+
+  # TODO Review if this is still relevant
   # environment:
   #   ES_NODE:
   #     "Fn::GetAtt": ["ElasticSearchInstance", "DomainEndpoint"]
@@ -80,6 +82,8 @@ functions:
 
 # Add all the additional resources here
 resources:
+  - ${file(${self:custom.path.resources}/vpc.yml)}
+  - ${file(${self:custom.path.resources}/lambda.yml)}
+  #- ${file(${self:custom.path.resources}/elastiCache.yml)}
   #- ${file(${self:custom.path.resources}/sqs.yml)}
   #- ${file(${self:custom.path.resources}/elasticSearch.yml)}
-  #- ${file(${self:custom.path.resources}/elastiCache.yml)}

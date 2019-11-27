@@ -6,11 +6,11 @@ export default {
       region: process.env.AWS_SQS_OPTIONS_REGION || null,
     },
     queues: {
-      pingQueue: {
-        name: `lesgo-${process.env.APP_ENV}-pingQueue`,
+      sampleQueue: {
+        name: `lesgo-${process.env.APP_ENV}-sampleQueue`,
         url: `https://sqs.${process.env.AWS_ACCOUNT_REGION}.amazonaws.com/${
           process.env.AWS_ACCOUNT_ID
-        }/${`lesgo-${process.env.APP_ENV}-pingQueue`}`,
+        }/${`lesgo-${process.env.APP_ENV}-sampleQueue`}`,
       },
     },
   },

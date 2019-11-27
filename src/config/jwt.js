@@ -6,7 +6,7 @@ export default {
    *
    * Here your jwt secret key. In order to verify a token injected in
    * "Authorization" header, we should have way to decrypt that token
-   * and validate things.
+   * and validate things. This should be a SHA256 key.
    *
    */
 

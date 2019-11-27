@@ -1,6 +1,7 @@
 ping:
   handler: ${self:custom.path.app}/handlers/ping.handler
   description: Ping test
+  timeout: 5
   reservedConcurrency: 1
   events:
     - http:
@@ -12,21 +13,11 @@ ping:
 pingAuth:
   handler: ${self:custom.path.app}/handlers/ping.handler
   description: Ping test with authentication
+  timeout: 5
   reservedConcurrency: 1
   events:
     - http:
         path: ping/auth
         method: get
         private: true
-        cors: ${self:custom.http.cors}
-
-pingJwt:
-  handler: ${self:custom.path.app}/handlers/pingJwt.handler
-  description: Ping test with jwt verification
-  reservedConcurrency: 1
-  events:
-    - http:
-        path: ping/jwt
-        method: get
-        private: false
         cors: ${self:custom.http.cors}

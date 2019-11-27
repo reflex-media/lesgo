@@ -1,7 +1,7 @@
 export default {
   sqs: {
     queues: {
-      pingQueue: {
+      sampleQueue: {
         url: jest.fn(),
       },
     },
