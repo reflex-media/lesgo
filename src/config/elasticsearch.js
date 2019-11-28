@@ -6,8 +6,8 @@ export default {
    * Default Elastic Connection
    *--------------------------------------------------------------------------
    *
-   * When using "aws" we are relying to the lambda's access to the ElasticSearch, as a default it will automatically
-   * signed the connection into it, just make sure that your lambda lives into the same ElasticSearch account.
+   * When using "aws" we are relying to the lambda's access to the Elasticsearch, as a default it will automatically
+   * signed the connection into it, just make sure that your lambda lives into the same Elasticsearch account.
    *
    * Lists of adapters we have:
    *  - aws

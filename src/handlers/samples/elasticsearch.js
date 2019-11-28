@@ -3,7 +3,7 @@ import middy from 'middy';
 import httpMiddleware from 'Middlewares/httpMiddleware';
 import { connectSentry } from 'Utils/sentry';
 import app from 'Config/app';
-import es from 'Utils/elasticSearch';
+import es from 'Utils/elasticsearch';
 
 connectSentry();
 

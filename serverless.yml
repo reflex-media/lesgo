@@ -54,7 +54,7 @@ provider:
   # TODO Review if this is still relevant
   # environment:
   #   ES_NODE:
-  #     "Fn::GetAtt": ["ElasticSearchInstance", "DomainEndpoint"]
+  #     "Fn::GetAtt": ["ElasticsearchInstance", "DomainEndpoint"]
   #   ELASTICACHE_MEMCACHED_URL:
   #     "Fn::Join": [":", ["Fn::GetAtt": [MemcachedCluster, ConfigurationEndpoint.Address], "Fn::GetAtt": [MemcachedCluster, ConfigurationEndpoint.Port]]]
 
@@ -86,4 +86,4 @@ resources:
   - ${file(${self:custom.path.resources}/lambda.yml)}
   #- ${file(${self:custom.path.resources}/elastiCache.yml)}
   #- ${file(${self:custom.path.resources}/sqs.yml)}
-  #- ${file(${self:custom.path.resources}/elasticSearch.yml)}
+  #- ${file(${self:custom.path.resources}/elasticsearch.yml)}

@@ -1,5 +1,5 @@
 Resources:
-  ElasticSearchInstance:
+  ElasticsearchInstance:
     Type: AWS::Elasticsearch::Domain
     Properties:
       DomainName: ${self:provider.stackName}
