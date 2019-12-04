@@ -87,13 +87,13 @@ sampleScheduledEvent:
 #         private: false
 #         cors: ${self:custom.http.cors}
 
-# elasticSearch:
-#   handler: ${self:custom.path.app}/handlers/samples/elasticSearch.handler
+# elasticsearch:
+#   handler: ${self:custom.path.app}/handlers/samples/elasticsearch.handler
 #   description: Elastic Search Sample
 #   reservedConcurrency: 1
 #   events:
 #     - http:
-#         path: samples/elasticSearch
+#         path: samples/elasticsearch
 #         method: get
 #         private: false
 #         cors: ${self:custom.http.cors}
