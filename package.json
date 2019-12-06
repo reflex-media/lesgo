@@ -22,7 +22,7 @@
   "dependencies": {
     "@sentry/node": "^5.6.2",
     "knex": "^0.20.1",
-    "lesgo": "^0.3.3",
+    "lesgo": "^0.3.4",
     "middy": "^0.29.0",
     "mysql": "^2.17.1",
     "objection": "^1.6.11",
