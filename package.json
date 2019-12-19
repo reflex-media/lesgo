@@ -3,7 +3,7 @@
   "version": "0.3.3",
   "description": "A lightweight node.js serverless framework",
   "scripts": {
-    "start": "sls offline start --stage local --env local",
+    "start": "sls offline start --stage local --env local --skipCacheInvalidation",
     "server": "sls offline start --stage local --env local",
     "build": "lesgo-scripts -t build",
     "deploy": "lesgo-scripts -t deploy",
