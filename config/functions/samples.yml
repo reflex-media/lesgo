@@ -73,6 +73,18 @@
 #         description: Trigger sampleScheduledEvent lambda function every 5 minute
 #         rate: rate(5 minutes)
 #         enabled: false
+
+# sampleDb:
+#   handler: ${self:custom.path.app}/handlers/samples/db.handler
+#   description: Direct db connection without Knex ORM sample
+#   reservedConcurrency: 1
+#   events:
+#     - http:
+#         path: samples/db
+#         method: get
+#         private: true
+#         cors: ${self:custom.http.cors}
+
 #
 # TODO REVIEW ALL THE SAMPLES BELOW
 #
@@ -97,14 +109,3 @@
 #         method: get
 #         private: false
 #         cors: ${self:custom.http.cors}
-
-sampleRawDb:
-  handler: ${self:custom.path.app}/handlers/samples/rawDb.handler
-  description: Raw Database Connection Sample
-  reservedConcurrency: 1
-  events:
-    - http:
-        path: samples/raw-db
-        method: get
-        private: true
-        cors: ${self:custom.http.cors}
