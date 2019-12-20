@@ -78,7 +78,7 @@ custom:
 # Add all the functions here
 functions:
   - ${file(${self:custom.path.functions}/ping.yml)}
-  #- ${file(${self:custom.path.functions}/samples.yml)}
+  - ${file(${self:custom.path.functions}/samples.yml)}
 
 # Add all the additional resources here
 resources:

@@ -1348,6 +1348,13 @@
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
   integrity sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
 
+"@types/mysql@^2.15.6":
+  version "2.15.8"
+  resolved "https://registry.yarnpkg.com/@types/mysql/-/mysql-2.15.8.tgz#305172ee6ec530acd16a713f680dbfb4399960a8"
+  integrity sha512-l0TUdg6KDEaLO75/yjdjksobJDRWv8iZlpRfv/WW1lQZCQDKdTDnKCkeH10oapzP/JTuKiTy6Cvq/sm/0GgcUw==
+  dependencies:
+    "@types/node" "*"
+
 "@types/node@*":
   version "12.7.5"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.7.5.tgz#e19436e7f8e9b4601005d73673b6dc4784ffcc2f"
@@ -5430,16 +5437,17 @@ left-pad@^1.3.0:
   resolved "https://registry.yarnpkg.com/left-pad/-/left-pad-1.3.0.tgz#5b8a3a7765dfe001261dde915589e782f8c94d1e"
   integrity sha512-XI5MPzVNApjAyhQzphX8BkmKsKUxD4LdyK24iZeQGinBN9yTQT3bFlCBy/aVx2HrNcqQGsdot8ghrjyrvMCoEA==
 
-lesgo@^0.3.4:
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/lesgo/-/lesgo-0.3.4.tgz#2357a843ff511ec49d1afdf8be7e0b8b5f009dd7"
-  integrity sha512-DxELWLLR9116T5XmKaryXtnyYHrbvBHD7zJs6aOvrsn4jchSJna8pnJqyyhAJHBnjJyNHzQElMaymuaUAH70ig==
+lesgo@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/lesgo/-/lesgo-0.3.5.tgz#aa7fffbe89bd2fe5aadcc454159d0c02142e3b19"
+  integrity sha512-ZEaEJlnl2gT+70Ytnr9D1yTeKcNoEgCNWmAjKM0OyZZo1XephV340uZyBBAU48bPIsGGWOFJOhPv8R0OgKv0JA==
   dependencies:
     "@elastic/elasticsearch" "^7.4.0"
     "@sentry/minimal" "^5.6.1"
     jsonwebtoken "^8.5.1"
     knex "^0.20.1"
     memcached-elasticache "^1.1.1"
+    serverless-mysql "^1.5.2"
 
 leven@^3.1.0:
   version "3.1.0"
@@ -7524,6 +7532,15 @@ serverless-dotenv-plugin@^2.1.1:
     chalk "^2.1.0"
     dotenv "^4.0.0"
     dotenv-expand "^4.0.1"
+
+serverless-mysql@^1.5.2:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/serverless-mysql/-/serverless-mysql-1.5.2.tgz#69f4cd058511089a15f07d383b8d34bf48d883d4"
+  integrity sha512-r06MzaT/OShCP8rem5SIm6OdmQ0+L7vGEjDpWyjAlsvCAKoxrC+aKlyzfEIzbeqAdfPzTKNA5NnWiI7MlX6RSA==
+  dependencies:
+    mysql "^2.17.1"
+  optionalDependencies:
+    "@types/mysql" "^2.15.6"
 
 serverless-offline@^5.10.1:
   version "5.10.1"
