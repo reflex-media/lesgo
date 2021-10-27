@@ -3,7 +3,7 @@ import middy from 'middy';
 import httpMiddleware from 'Middlewares/httpMiddleware';
 import app from 'Config/app';
 import { connectSentry } from 'Utils/sentry';
-import { db, dbRead, connectDb } from 'Utils/db';
+import { db, dbRead, connectDb } from 'Utils/database';
 
 connectDb();
 connectSentry();
