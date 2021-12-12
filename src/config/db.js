@@ -45,7 +45,7 @@ export default {
       persists: true,
     },
     rdsProxyRead: {
-      host: process.env.DB_HOST_WRITE || process.env.DB_HOST || '127.0.0.1',
+      host: process.env.DB_HOST_READ || process.env.DB_HOST || '127.0.0.1',
       user: process.env.DB_USER || 'root',
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME || 'myapp_test',
