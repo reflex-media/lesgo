@@ -1,4 +1,4 @@
-import logger from 'Utils/logger';
+import logger from 'Lesgo/Utils/logger';
 import ErrorException from 'Exceptions/ErrorException';
 import { ERROR_SAMPLE, ERROR_UNKNOWN_PARAMETER } from 'Constants/errorCodes';
 

@@ -23,10 +23,11 @@ module.exports = {
     '^Exceptions/ErrorException(.*)$':
       '<rootDir>/src/exceptions/ErrorException$1',
     '^Models(.*)$': '<rootDir>/src/models$1',
-    '^Utils/logger$': '<rootDir>/tests/__mocks__/utils/logger.js',
-    '^Utils/queue$': '<rootDir>/tests/__mocks__/utils/queue.js',
-    '^Utils/database$': '<rootDir>/node_modules/lesgo/src/utils/database.js',
-    '^Utils/sentry$': '<rootDir>/node_modules/lesgo/src/utils/sentry.js',
+    '^Lesgo/Utils/logger$': '<rootDir>/tests/__mocks__/utils/logger.js',
+    '^Lesgo/tils/queue$': '<rootDir>/tests/__mocks__/utils/queue.js',
+    '^Lesgo/Utils/sentry$': '<rootDir>/node_modules/lesgo/src/utils/sentry.js',
+    '^Lesgo/Utils/database$':
+      '<rootDir>/node_modules/lesgo/src/utils/database.js',
     '^@sentry/node$': '<rootDir>/node_modules/@sentry/node/dist/index.js',
   },
   transformIgnorePatterns: ['/node_modules/(?!lesgo).+\\.js$'],

@@ -1,5 +1,5 @@
-import logger from 'Utils/logger';
-import { connectSentry } from 'Utils/sentry';
+import logger from 'Lesgo/Utils/logger';
+import { connectSentry } from 'Lesgo/Utils/sentry';
 import ping from 'Core/ping';
 
 connectSentry();

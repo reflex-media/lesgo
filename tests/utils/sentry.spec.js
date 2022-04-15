@@ -1,4 +1,4 @@
-import { connectSentry } from 'Utils/sentry';
+import { connectSentry } from 'Lesgo/Utils/sentry';
 
 describe('test sentry utils', () => {
   it('should connect to sentry', () => {

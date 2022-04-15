@@ -48,6 +48,22 @@
         "src/utils/*",
         "../lesgo-framework/src/utils/*",
         "node_modules/lesgo/src/utils/*"
+      ],
+      "Lesgo/Exceptions/*": [
+        "../lesgo-framework/src/exceptions/*",
+        "node_modules/lesgo/src/exceptions/*"
+      ],
+      "Lesgo/Middlewares/*": [
+        "../lesgo-framework/src/middlewares/*",
+        "node_modules/lesgo/src/middlewares/*"
+      ],
+      "Lesgo/Services/*": [
+        "../lesgo-framework/src/services/*",
+        "node_modules/lesgo/src/services/*"
+      ],
+      "Lesgo/Utils/*": [
+        "../lesgo-framework/src/utils/*",
+        "node_modules/lesgo/src/utils/*"
       ]
     }
   },

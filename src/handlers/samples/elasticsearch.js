@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 import middy from 'middy';
-import httpMiddleware from 'Middlewares/httpMiddleware';
-import { connectSentry } from 'Utils/sentry';
+import httpMiddleware from 'Lesgo/Middlewares/httpMiddleware';
+import { connectSentry } from 'Lesgo/Utils/sentry';
+import es from 'Lesgo/Utils/elasticsearch';
 import app from 'Config/app';
-import es from 'Utils/elasticsearch';
 
 connectSentry();
 
