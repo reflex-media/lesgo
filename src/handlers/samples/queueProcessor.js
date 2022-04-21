@@ -1,8 +1,8 @@
 import middy from 'middy';
-import normalizeSQSMessageMiddleware from 'Lesgo/Middlewares/normalizeSQSMessageMiddleware';
-import { connectSentry } from 'Lesgo/Utils/sentry';
-import ErrorException from 'Exceptions/ErrorException';
-import { PING_QUEUE_PROCESSOR_SAMPLE_ERROR } from 'Constants/errorCodes';
+import normalizeSQSMessageMiddleware from 'lesgo/middlewares/normalizeSQSMessageMiddleware';
+import { connectSentry } from 'lesgo/utils/sentry';
+import ErrorException from 'exceptions/ErrorException';
+import { PING_QUEUE_PROCESSOR_SAMPLE_ERROR } from 'constants/errorCodes';
 
 connectSentry();
 

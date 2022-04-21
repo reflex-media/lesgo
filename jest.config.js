@@ -17,16 +17,27 @@ module.exports = {
   // },
   setupFiles: ['./tests/setupTest.js'],
   moduleNameMapper: {
+    // This will be removed in the future versions
     '^Config(.*)$': '<rootDir>/src/config$1',
+    // This will be removed in the future versions
     '^Constants/errorCodes(.*)$': '<rootDir>/src/constants/errorCodes$1',
+    // This will be removed in the future versions
     '^Core(.*)$': '<rootDir>/src/core$1',
+    // This will be removed in the future versions
     '^Exceptions/ErrorException(.*)$':
       '<rootDir>/src/exceptions/ErrorException$1',
+    // This will be removed in the future versions
     '^Models(.*)$': '<rootDir>/src/models$1',
-    '^Lesgo/Utils/logger$': '<rootDir>/tests/__mocks__/utils/logger.js',
-    '^Lesgo/tils/queue$': '<rootDir>/tests/__mocks__/utils/queue.js',
-    '^Lesgo/Utils/sentry$': '<rootDir>/node_modules/lesgo/src/utils/sentry.js',
-    '^Lesgo/Utils/database$':
+    '^config(.*)$': '<rootDir>/src/config$1',
+    '^constants/errorCodes(.*)$': '<rootDir>/src/constants/errorCodes$1',
+    '^core(.*)$': '<rootDir>/src/core$1',
+    '^exceptions/ErrorException(.*)$':
+      '<rootDir>/src/exceptions/ErrorException$1',
+    '^models(.*)$': '<rootDir>/src/models$1',
+    '^lesgo/utils/logger$': '<rootDir>/tests/__mocks__/utils/logger.js',
+    '^lesgo/utils/queue$': '<rootDir>/tests/__mocks__/utils/queue.js',
+    '^lesgo/utils/sentry$': '<rootDir>/node_modules/lesgo/src/utils/sentry.js',
+    '^lesgo/utils/database$':
       '<rootDir>/node_modules/lesgo/src/utils/database.js',
     '^@sentry/node$': '<rootDir>/node_modules/@sentry/node/dist/index.js',
   },

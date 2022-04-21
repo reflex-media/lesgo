@@ -1,8 +1,8 @@
 import middy from 'middy';
-import httpMiddleware from 'Lesgo/Middlewares/httpMiddleware';
-import { connectSentry } from 'Lesgo/Utils/sentry';
-import { dispatch } from 'Lesgo/Utils/queue';
-import app from 'Config/app';
+import httpMiddleware from 'lesgo/middlewares/httpMiddleware';
+import { connectSentry } from 'lesgo/utils/sentry';
+import { dispatch } from 'lesgo/utils/queue';
+import app from 'config/app';
 
 connectSentry();
 

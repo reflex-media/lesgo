@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
 import middy from 'middy';
-import httpMiddleware from 'Lesgo/Middlewares/httpMiddleware';
-import { connectSentry } from 'Lesgo/Utils/sentry';
-import logger from 'Lesgo/Utils/logger';
-import ErrorException from 'Exceptions/ErrorException';
-import { ERROR_SAMPLE, ERROR_UNKNOWN_PARAMETER } from 'Constants/errorCodes';
-import app from 'Config/app';
+import httpMiddleware from 'lesgo/middlewares/httpMiddleware';
+import { connectSentry } from 'lesgo/utils/sentry';
+import logger from 'lesgo/utils/logger';
+import ErrorException from 'exceptions/ErrorException';
+import { ERROR_SAMPLE, ERROR_UNKNOWN_PARAMETER } from 'constants/errorCodes';
+import app from 'config/app';
 
 connectSentry();
 

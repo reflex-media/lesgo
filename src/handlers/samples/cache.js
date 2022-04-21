@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
 import middy from 'middy';
-import httpMiddleware from 'Lesgo/Middlewares/httpMiddleware';
-import { connectSentry } from 'Lesgo/Utils/sentry';
-import cache from 'Lesgo/Utils/cache';
-import ErrorException from 'Exceptions/ErrorException';
-import app from 'Config/app';
+import httpMiddleware from 'lesgo/middlewares/httpMiddleware';
+import { connectSentry } from 'lesgo/utils/sentry';
+import cache from 'lesgo/utils/cache';
+import ErrorException from 'exceptions/ErrorException';
+import app from 'config/app';
 
 connectSentry();
 
