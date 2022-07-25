@@ -32,7 +32,7 @@ export default {
    * `key` property is used for external identification, while the key is used for internal.
    * Both `key` and `secret` are used for Basic authentication.
    *
-   * `isAuthOptional` propoerty can be passed as well, which skips authentication whenever basic auth is not provided,
+   * `isAuthOptional` boolean or promise property can be passed as well, which skips authentication whenever basic auth is not provided,
    * and only throws an authentication error when a basic auth is provided with incorrect credentials
    *
    * Other user-defined propoerties can defined as well for access when a match exists
@@ -50,7 +50,9 @@ export default {
     },
     myPublicApp: {
       key: 'public-app',
-      isAuthOptional: true,
+      get isAuthOptional() {
+        return new Promise(resolve => resolve(true));
+      },
     },
   },
 };
