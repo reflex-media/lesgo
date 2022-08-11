@@ -8,6 +8,8 @@ export default {
    * "Authorization" header, we should have way to decrypt that token
    * and validate things. This should be a SHA256 key.
    *
+   * This property can also be a non-async function.
+   *
    */
 
   secret: process.env.JWT_SECRET,
@@ -27,6 +29,17 @@ export default {
     data: process.env.JWT_ISS_DOMAINS
       ? process.env.JWT_ISS_DOMAINS.split(',')
       : [],
+  },
+
+  /*
+   *--------------------------------------------------------------------------
+   * Callback on Success
+   *--------------------------------------------------------------------------
+   *
+   * Here you may call a callback after a successful verification is confirmed
+   */
+  callback: async handler => {
+    // do something with handler.event.decodedJwt
   },
 
   /*
