@@ -1,4 +1,4 @@
-import middy from 'middy';
+import middy from '@middy/core';
 import httpMiddleware from 'Middlewares/httpMiddleware';
 import verifyJwtMiddleware from 'Middlewares/verifyJwtMiddleware';
 import { connectSentry } from 'Utils/sentry';

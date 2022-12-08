@@ -21,4 +21,11 @@ export default {
       region: process.env.AWS_S3_OPTIONS_REGION || null,
     },
   },
+  sns: {
+    options: {
+      accessKeyId: process.env.AWS_SNS_OPTIONS_ACCESS_KEY_ID || null,
+      secretAccessKey: process.env.AWS_SNS_OPTIONS_SECRET_ACCESS_KEY || null,
+      region: process.env.AWS_SNS_OPTIONS_REGION || null,
+    },
+  },
 };
