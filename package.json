@@ -59,7 +59,7 @@
     "serverless-webpack": "^5.3.1",
     "source-map": "^0.7.3",
     "terser-webpack-plugin": "^2.2.1",
-    "webpack": "^4.35.2"
+    "webpack": "^5.74.0"
   },
   "author": "Sufiyan Rahmat <mosufy@gmail.com>",
   "license": "MIT",
