@@ -1,9 +1,9 @@
 import middy from '@middy/core';
-import httpMiddleware from 'Middlewares/httpMiddleware';
-import verifyJwtMiddleware from 'Middlewares/verifyJwtMiddleware';
-import { connectSentry } from 'Utils/sentry';
-import ping from 'Core/ping';
-import app from 'Config/app';
+import httpMiddleware from 'lesgo/middlewares/httpMiddleware';
+import verifyJwtMiddleware from 'lesgo/middlewares/verifyJwtMiddleware';
+import { connectSentry } from 'lesgo/utils/sentry';
+import ping from 'core/ping';
+import app from 'config/app';
 
 connectSentry();
 

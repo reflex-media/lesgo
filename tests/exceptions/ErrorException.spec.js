@@ -1,5 +1,5 @@
-import ErrorException from 'Exceptions/ErrorException';
-import { ERROR_EXCEPTION, ERROR_SAMPLE } from 'Constants/errorCodes';
+import ErrorException from 'exceptions/ErrorException';
+import { ERROR_EXCEPTION, ERROR_SAMPLE } from 'constants/errorCodes';
 
 describe('test ErrorException', () => {
   it('test ErrorException with default parameters', () => {

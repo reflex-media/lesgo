@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 import middy from '@middy/core';
-import httpMiddleware from 'Middlewares/httpMiddleware';
-import { connectSentry } from 'Utils/sentry';
-import app from 'Config/app';
-import ping from 'Core/ping';
+import httpMiddleware from 'lesgo/middlewares/httpMiddleware';
+import { connectSentry } from 'lesgo/utils/sentry';
+import app from 'config/app';
+import ping from 'core/ping';
 
 connectSentry();
 

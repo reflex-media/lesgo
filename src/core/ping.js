@@ -1,6 +1,6 @@
-import logger from 'Utils/logger';
-import ErrorException from 'Exceptions/ErrorException';
-import { ERROR_SAMPLE, ERROR_UNKNOWN_PARAMETER } from 'Constants/errorCodes';
+import logger from 'lesgo/utils/logger';
+import ErrorException from 'exceptions/ErrorException';
+import { ERROR_SAMPLE, ERROR_UNKNOWN_PARAMETER } from 'constants/errorCodes';
 
 const ping = input => {
   return new Promise((resolve, reject) => {

@@ -1,5 +1,5 @@
-import ping from 'Core/ping';
-import { ERROR_SAMPLE, ERROR_UNKNOWN_PARAMETER } from 'Constants/errorCodes';
+import ping from 'core/ping';
+import { ERROR_SAMPLE, ERROR_UNKNOWN_PARAMETER } from 'constants/errorCodes';
 
 describe('test ping core', () => {
   it('ping request should return Pong', () => {

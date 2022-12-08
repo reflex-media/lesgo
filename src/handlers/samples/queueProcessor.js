@@ -1,11 +1,11 @@
 import middy from '@middy/core';
-import normalizeSQSMessageMiddleware from 'Middlewares/normalizeSQSMessageMiddleware';
-import { connectSentry } from 'Utils/sentry';
-import ErrorException from 'Exceptions/ErrorException';
+import normalizeSQSMessageMiddleware from 'lesgo/middlewares/normalizeSQSMessageMiddleware';
+import { connectSentry } from 'lesgo/utils/sentry';
+import ErrorException from 'exceptions/ErrorException';
 import {
   PING_QUEUE_PROCESSOR_SAMPLE_ERROR,
   ERROR_EMPTY_PARAMETER,
-} from 'Constants/errorCodes';
+} from 'constants/errorCodes';
 
 connectSentry();
 

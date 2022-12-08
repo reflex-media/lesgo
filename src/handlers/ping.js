@@ -1,8 +1,9 @@
 import middy from '@middy/core';
-import httpMiddleware from 'Middlewares/httpMiddleware';
-import { connectSentry } from 'Utils/sentry';
-import ping from 'Core/ping';
-import app from 'Config/app';
+import httpMiddleware from 'lesgo/middlewares/httpMiddleware';
+import { connectSentry } from 'lesgo/utils/sentry';
+import ping from 'core/ping';
+import app from 'config/app';
+import exampleMiddleware from 'middlewares/exampleMiddleware';
 
 connectSentry();
 
@@ -13,4 +14,4 @@ const originalHandler = event => {
 // eslint-disable-next-line import/prefer-default-export
 export const handler = middy(originalHandler);
 
-handler.use(httpMiddleware({ debugMode: app.debug }));
+handler.use(httpMiddleware({ debugMode: app.debug })).use(exampleMiddleware());

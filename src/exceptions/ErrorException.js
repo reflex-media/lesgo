@@ -1,4 +1,4 @@
-import { ERROR_EXCEPTION } from 'Constants/errorCodes';
+import { ERROR_EXCEPTION } from 'constants/errorCodes';
 
 export default class ErrorException extends Error {
   constructor(

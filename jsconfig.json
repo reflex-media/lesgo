@@ -50,6 +50,34 @@
       "Utils/*": [
         "src/utils/*",
         "../lesgo-framework/src/utils/*",
+        "node_modules/lesgo/src/utils/*"
+      ],
+      "config/*": ["src/config/*"],
+      "constants/*": ["src/constants/*"],
+      "core/*": ["src/core/*"],
+      "exceptions/*": ["src/exceptions/*"],
+      "handlers/*": ["src/handlers/*"],
+      "middlewares/*": ["src/middlewares/*"],
+      "models/*": ["src/models/*"],
+      "services/*": ["src/services/*"],
+      "utils/*": ["src/utils/*"],
+      "lesgo/exceptions/*": [
+        "../lesgo-framework/src/exceptions/*",
+        "node_modules/lesgo/src/exceptions/*",
+        "node_modules/@types/lesgo/exceptions/*"
+      ],
+      "lesgo/middlewares/*": [
+        "../lesgo-framework/src/middlewares/*",
+        "node_modules/lesgo/src/middlewares/*",
+        "node_modules/@types/lesgo/middlewares/*"
+      ],
+      "lesgo/services/*": [
+        "../lesgo-framework/src/services/*",
+        "node_modules/lesgo/src/services/*",
+        "node_modules/@types/lesgo/services/*"
+      ],
+      "lesgo/utils/*": [
+        "../lesgo-framework/src/utils/*",
         "node_modules/lesgo/src/utils/*",
         "node_modules/@types/lesgo/utils/*"
       ]
