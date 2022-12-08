@@ -1,4 +1,4 @@
-import middy from 'middy';
+import middy from '@middy/core';
 import normalizeSQSMessageMiddleware from 'Middlewares/normalizeSQSMessageMiddleware';
 import { connectSentry } from 'Utils/sentry';
 import ErrorException from 'Exceptions/ErrorException';

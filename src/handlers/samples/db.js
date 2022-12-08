@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import middy from 'middy';
+import middy from '@middy/core';
 import httpMiddleware from 'Middlewares/httpMiddleware';
 import app from 'Config/app';
 import { connectSentry } from 'Utils/sentry';
