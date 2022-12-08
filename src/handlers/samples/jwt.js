@@ -1,4 +1,4 @@
-import middy from 'middy';
+import middy from '@middy/core';
 import httpMiddleware from 'lesgo/middlewares/httpMiddleware';
 import verifyJwtMiddleware from 'lesgo/middlewares/verifyJwtMiddleware';
 import { connectSentry } from 'lesgo/utils/sentry';

@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import middy from 'middy';
+import middy from '@middy/core';
 import httpMiddleware from 'lesgo/middlewares/httpMiddleware';
 import { connectSentry } from 'lesgo/utils/sentry';
 import cache from 'lesgo/utils/cache';
