@@ -62,7 +62,9 @@
 #   memorySize: 128
 #   reservedConcurrency: 3
 #   events:
-#     - sqs: arn:aws:sqs:${self:provider.region}:${env:AWS_ACCOUNT_ID}:${self:provider.stackName}-sampleQueue
+#     - sqs:
+#         arn: arn:aws:sqs:${self:provider.region}:${env:AWS_ACCOUNT_ID}:${self:provider.stackName}-sampleQueue
+#         batchSize: 1
 
 # sampleScheduledEvent:
 #   handler: ${self:custom.path.app}/handlers/samples/scheduledEvent.handler
