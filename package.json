@@ -1,6 +1,6 @@
 {
   "name": "lesgo",
-  "version": "0.3.5",
+  "version": "1.0.0",
   "description": "A lightweight node.js serverless framework",
   "scripts": {
     "start": "sls offline start --stage local --env local --skipCacheInvalidation",
@@ -22,8 +22,8 @@
   "dependencies": {
     "@sentry/node": "^5.6.2",
     "knex": "^0.20.1",
-    "lesgo": "^0.7.2",
-    "@middy/core": "^1.4.0",
+    "lesgo": "github:reflex-media/lesgo-framework#release/v0.7.8",
+    "@middy/core": "xXLXx/middy-core#1.4.1",
     "mysql": "^2.17.1",
     "objection": "^1.6.11",
     "serverless-api-compression": "^1.0.1",
@@ -64,7 +64,7 @@
   "author": "Sufiyan Rahmat <mosufy@gmail.com>",
   "license": "MIT",
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=16.0.0"
   },
   "husky": {
     "hooks": {

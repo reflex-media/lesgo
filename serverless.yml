@@ -1,5 +1,6 @@
 service:
   name: sls-lesgo
+frameworkVersion: '3'
 
 plugins:
   - serverless-webpack
@@ -11,9 +12,12 @@ plugins:
 package:
   individually: true
 
+useDotenv: true
+configValidationMode: error
+
 provider:
   name: aws
-  runtime: nodejs10.x
+  runtime: nodejs16.x
   memorySize: ${env:AWS_LAMBDA_MEMORY_SIZE}
   timeout: ${env:AWS_LAMBDA_TIMEOUT}
   stackName: ${self:service}-${self:provider.stage}
