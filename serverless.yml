@@ -45,9 +45,9 @@ provider:
   #     - ${env:AWS_VPC_SECURITY_GROUP_ID}
   #   subnetIds:
   #     - ${env:AWS_VPC_SUBNET_1_ID}
-      # - ${env:AWS_VPC_SUBNET_2_ID}
-      # - ${env:AWS_VPC_SUBNET_3_ID}
-      # - ${env:AWS_VPC_SUBNET_4_ID}
+  # - ${env:AWS_VPC_SUBNET_2_ID}
+  # - ${env:AWS_VPC_SUBNET_3_ID}
+  # - ${env:AWS_VPC_SUBNET_4_ID}
   #
   # Add additional permissions for your app here
   #
@@ -97,11 +97,10 @@ functions:
   # - ${file(${self:custom.path.functions}/sample-s3.yml)}
   # - ${file(${self:custom.path.functions}/sample-sqs.yml)}
   # - ${file(${self:custom.path.functions}/sample-jwt.yml)}
-  # - ${file(${self:custom.path.functions}/sample-utils.yml)}
-
+  - ${file(${self:custom.path.functions}/sample-utils.yml)}
 #
 # Add resources here
 #
 # resources:
-  # - ${file(${self:custom.path.resources}/sample-dynamodb.yml)}
-  # - ${file(${self:custom.path.resources}/sample-sqs.yml)}
+# - ${file(${self:custom.path.resources}/sample-dynamodb.yml)}
+# - ${file(${self:custom.path.resources}/sample-sqs.yml)}

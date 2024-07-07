@@ -30,14 +30,3 @@ sampleUtilsCryptoHash:
     - httpApi:
         path: /v1/sample/utils/crypto/hash
         method: GET
-
-sampleUtilsCryptoHashMD5:
-  handler: ${self:custom.path.app}/handlers/sample-utils/crypto/hashMD5.handler
-  description: Test hashMD5 text
-  memorySize: 128
-  timeout: 3
-  reservedConcurrency: 1
-  events:
-    - httpApi:
-        path: /v1/sample/utils/crypto/hashMD5
-        method: GET

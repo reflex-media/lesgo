@@ -1,25 +1,23 @@
 import middy from '@middy/core';
 import { APIGatewayProxyEvent } from 'aws-lambda';
-import httpMiddleware from 'lesgo/middlewares/httpMiddleware';
-import app from 'config/app';
+import { httpMiddleware } from 'lesgo/middlewares';
 import { encrypt } from 'lesgo/utils/crypto';
+import { validateFields } from 'lesgo/utils';
+import appConfig from '../../../config/app';
 
-type Arguments = {
-  text: string;
-};
+const encryptHandler = async (event: APIGatewayProxyEvent) => {
+  const { queryStringParameters } = event;
 
-const originalHandler = async (
-  event: APIGatewayProxyEvent & {
-    input: Arguments;
-  }
-) => {
-  const { input } = event;
+  const input = validateFields({ ...queryStringParameters! }, [
+    { key: 'text', type: 'string', required: true },
+  ]);
 
   const resp = encrypt(input.text);
   return { encrypted: resp };
 };
 
-// eslint-disable-next-line import/prefer-default-export
-export const handler = middy(originalHandler);
+export const handler = middy()
+  .use(httpMiddleware({ debugMode: appConfig.debug }))
+  .handler(encryptHandler);
 
-handler.use(httpMiddleware({ debugMode: app.debug }));
+export default handler;

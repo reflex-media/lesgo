@@ -12,8 +12,8 @@
     "invoke-local": "lesgo-scripts -t invoke -l",
     "logs": "lesgo-scripts -t logs",
     "destroy": "lesgo-scripts -t destroy",
-    "pretest": "eslint --ignore-path .gitignore .",
-    "test": "tsc && jest",
+   
+    "test": "jest",
     "coverage": "tsc && jest --coverage",
     "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls",
     "lint": "eslint '**/*.{js,ts,jsx,tsx}' --quiet",

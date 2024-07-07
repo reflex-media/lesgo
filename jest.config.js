@@ -1,6 +1,6 @@
 module.exports = {
   verbose: true,
-  testMatch: ['**/tests/*.spec.ts', '**/tests/**/*.spec.ts'],
+  testMatch: ['**/__tests__/*.test.ts'],
   collectCoverageFrom: ['src/**/*.ts'],
   coverageReporters: ['html', 'text', 'lcov'],
   coverageThreshold: {
@@ -11,7 +11,7 @@ module.exports = {
       statements: 100,
     },
   },
-  setupFiles: ['./tests/setupTest.ts'],
+  setupFiles: ['./jest.setup.ts'],
   transformIgnorePatterns: ['/node_modules/(?!lesgo).+\\.js$'],
   reporters: [
     'default',

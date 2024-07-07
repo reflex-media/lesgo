@@ -5,18 +5,20 @@ const FILE = 'core.utils.ping';
 
 type QueryStringParameters = {
   'sample-error'?: string;
+  'sample-unhandled-exception'?: string;
 };
 
 const validateInput = (input: QueryStringParameters) => {
   const validFields = [
     { key: 'sample-error', type: 'string', required: false },
+    { key: 'sample-unhandled-exception', type: 'string', required: false },
   ];
 
   const validated = validateFields(input, validFields);
   return validated;
 };
 
-export default async (qs: QueryStringParameters = {}) => {
+export default (qs: QueryStringParameters = {}) => {
   const input = validateInput({ ...qs });
 
   if (isEmpty(input)) {
@@ -27,19 +29,18 @@ export default async (qs: QueryStringParameters = {}) => {
 
   if (!isEmpty(input['sample-error'])) {
     throw new ErrorException(
-      'Error exception',
+      'Sample error response',
       `${FILE}::SAMPLE_ERROR`,
-      parseInt(input['sample-error'], 10),
+      400,
       {
         input,
       }
     );
   }
 
-  throw new ErrorException(
-    'Invalid parameters provided',
-    `${FILE}::INVALID_PARAMETERS`,
-    400,
-    { input }
-  );
+  if (!isEmpty(input['sample-unhandled-exception'])) {
+    validateFields(input, [
+      { key: 'sample-unhandled-exception', type: 'number', required: true },
+    ]);
+  }
 };

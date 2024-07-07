@@ -5,28 +5,20 @@ import { hash } from 'lesgo/utils/crypto';
 import { validateFields } from 'lesgo/utils';
 import appConfig from '../../../config/app';
 
-type QueryStringParameters = {
-  text?: string;
-};
-
-const validateInput = (input: QueryStringParameters) => {
-  const validFields = [{ key: 'text', type: 'string', required: true }];
-
-  const validated = validateFields(input, validFields);
-  return validated;
-};
-
-const hasnHandler = async (event: APIGatewayProxyEvent) => {
+const hashHandler = async (event: APIGatewayProxyEvent) => {
   const { queryStringParameters } = event;
 
-  const input = validateInput({ ...queryStringParameters! });
+  const input = validateFields({ ...queryStringParameters! }, [
+    { key: 'text', type: 'string', required: true },
+    { key: 'alg', type: 'string', required: false },
+  ]);
 
-  const resp = hash(input.text);
+  const resp = hash(input.text, { algorithm: input.alg });
   return { hashed: resp };
 };
 
 export const handler = middy()
   .use(httpMiddleware({ debugMode: appConfig.debug }))
-  .handler(hasnHandler);
+  .handler(hashHandler);
 
 export default handler;

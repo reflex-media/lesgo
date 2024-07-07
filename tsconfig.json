@@ -16,12 +16,5 @@
     "lib": ["es2018"],
     "rootDir": "./"
   },
-  "exclude": [
-    "node_modules",
-    "config",
-    "coverage",
-    "**/*.spec.ts",
-    ".build",
-    "tests"
-  ]
+  "exclude": ["node_modules", "build", "**/__tests__/*", "**/__mocks__/*"]
 }
