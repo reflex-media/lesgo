@@ -1,0 +1,22 @@
+sampleSQSEnqueue:
+  handler: ${self:custom.path.app}/handlers/sample-sqs/enqueue.handler
+  description: Test SQS send to Queue
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/sqs
+        method: POST
+
+sampleSQSDequeue:
+  handler: ${self:custom.path.app}/handlers/sample-sqs/dequeue.handler
+  description: Test lambda receiving Queue event
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - sqs:
+        arn:
+          Fn::GetAtt: [lesgoQueue, Arn]
+        batchSize: 1

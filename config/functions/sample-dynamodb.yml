@@ -1,0 +1,54 @@
+sampleDynamodbInsertRecord:
+  handler: ${self:custom.path.app}/handlers/sample-dynamodb/insertRecord.handler
+  description: Test Dynamodb insert record
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/dynamodb
+        method: POST
+
+sampleDynamodbGetRecords:
+  handler: ${self:custom.path.app}/handlers/sample-dynamodb/getRecords.handler
+  description: Test Dynamodb get records
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/dynamodb
+        method: GET
+
+sampleDynamodbGetRecord:
+  handler: ${self:custom.path.app}/handlers/sample-dynamodb/getRecord.handler
+  description: Test Dynamodb get record
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/dynamodb/{recordId}
+        method: GET
+
+sampleDynamodbUpdateRecord:
+  handler: ${self:custom.path.app}/handlers/sample-dynamodb/updateRecord.handler
+  description: Test Dynamodb update record
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/dynamodb/{recordId}
+        method: PUT
+
+sampleDynamodbDeleteRecord:
+  handler: ${self:custom.path.app}/handlers/sample-dynamodb/deleteRecord.handler
+  description: Test Dynamodb delete record
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/dynamodb/{recordId}
+        method: DELETE

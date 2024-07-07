@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "Node16",
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./",
+    "preserveConstEnums": true,
+    "strictNullChecks": true,
+    "sourceMap": true,
+    "allowJs": false,
+    "outDir": ".build",
+    "moduleResolution": "node16",
+    "lib": ["es2018"],
+    "rootDir": "./"
+  },
+  "exclude": [
+    "node_modules",
+    "config",
+    "coverage",
+    "**/*.spec.ts",
+    ".build",
+    "tests"
+  ]
+}

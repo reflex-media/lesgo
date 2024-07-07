@@ -1,0 +1,20 @@
+Resources:
+  lesgoQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: ${self:provider.stackName}-lesgoQueue
+      VisibilityTimeout: 65
+      MessageRetentionPeriod: 200 # 3m+ ttl in the queue
+      ReceiveMessageWaitTimeSeconds: 20 # Use max long polling time to reduce empty message receive count
+      RedrivePolicy:
+        deadLetterTargetArn:
+          'Fn::GetAtt':
+            - lesgoDLQ
+            - Arn
+        maxReceiveCount: 3 # max tries before pushing to DLQ
+  lesgoDLQ:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: ${self:provider.stackName}-lesgoDLQ
+      MessageRetentionPeriod: 259200 # 3d ttl in the queue
+      ReceiveMessageWaitTimeSeconds: 20 # Use max long polling time to reduce empty message receive count

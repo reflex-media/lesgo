@@ -1,0 +1,43 @@
+sampleUtilsCryptoEncrypt:
+  handler: ${self:custom.path.app}/handlers/sample-utils/crypto/encrypt.handler
+  description: Test encrypt text
+  memorySize: 128
+  timeout: 3
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/utils/crypto/encrypt
+        method: GET
+
+sampleUtilsCryptoDecrypt:
+  handler: ${self:custom.path.app}/handlers/sample-utils/crypto/decrypt.handler
+  description: Test decrypt encrypted string
+  memorySize: 128
+  timeout: 3
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/utils/crypto/decrypt
+        method: GET
+
+sampleUtilsCryptoHash:
+  handler: ${self:custom.path.app}/handlers/sample-utils/crypto/hash.handler
+  description: Test hash text
+  memorySize: 128
+  timeout: 3
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/utils/crypto/hash
+        method: GET
+
+sampleUtilsCryptoHashMD5:
+  handler: ${self:custom.path.app}/handlers/sample-utils/crypto/hashMD5.handler
+  description: Test hashMD5 text
+  memorySize: 128
+  timeout: 3
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/utils/crypto/hashMD5
+        method: GET

@@ -1,0 +1,21 @@
+sampleS3GetObject:
+  handler: ${self:custom.path.app}/handlers/sample-s3/getObject.handler
+  description: Test get object from S3 bucket
+  memorySize: 512
+  timeout: 10
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/s3
+        method: GET
+
+sampleS3GetUploadSignedUrl:
+  handler: ${self:custom.path.app}/handlers/sample-s3/getUploadSignedUrl.handler
+  description: Test get upload signed url
+  memorySize: 512
+  timeout: 10
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/s3/upload
+        method: GET

@@ -1,0 +1,17 @@
+Resources:
+  blogsTable:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: ${self:provider.stackName}-blogsTable
+      AttributeDefinitions:
+        - AttributeName: userId
+          AttributeType: S
+        - AttributeName: blogId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: userId
+          KeyType: HASH
+        - AttributeName: blogId
+          KeyType: RANGE
+      BillingMode: PAY_PER_REQUEST
