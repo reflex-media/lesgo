@@ -1,26 +1,68 @@
 import middy from '@middy/core';
 import { APIGatewayProxyEvent } from 'aws-lambda';
-import httpMiddleware from 'lesgo/middlewares/httpMiddleware';
+import { httpMiddleware } from 'lesgo/middlewares';
 import { sign } from 'lesgo/utils/jwt';
-import app from 'config/app';
+import appConfig from '../../config/app';
+import { logger, validateFields } from 'lesgo/utils';
 
-type Arguments = {
-  objectKey: string;
+const FILE = 'handlers.sample-jwt.sign';
+
+type MiddyAPIGatewayProxyEvent = APIGatewayProxyEvent & {
+  body: {
+    payload: string;
+    options?: {
+      algorithm?: string;
+      expiresIn?: string;
+      issuer?: string;
+      audience?: string;
+      subject?: string;
+      keyid?: string;
+    };
+  };
 };
 
-const originalHandler = async (
-  event: APIGatewayProxyEvent & {
-    input: Arguments;
-  }
-) => {
-  const { input } = event;
+const signJWTHandler = (event: MiddyAPIGatewayProxyEvent) => {
+  const { payload, options } = event.body;
 
-  const token = await sign(input);
+  const input = validateFields(options || {}, [
+    {
+      key: 'algorithm',
+      type: 'string',
+      required: false,
+    },
+    {
+      key: 'expiresIn',
+      type: 'string',
+      required: false,
+    },
+    {
+      key: 'issuer',
+      type: 'string',
+      required: false,
+    },
+    {
+      key: 'audience',
+      type: 'string',
+      required: false,
+    },
+    {
+      key: 'subject',
+      type: 'string',
+      required: false,
+    },
+    {
+      key: 'keyid',
+      type: 'string',
+      required: false,
+    },
+  ]);
 
+  const token = sign(payload, { opts: input });
   return { token };
 };
 
-// eslint-disable-next-line import/prefer-default-export
-export const handler = middy(originalHandler);
+export const handler = middy()
+  .use(httpMiddleware({ debugMode: appConfig.debug }))
+  .handler(signJWTHandler);
 
-handler.use(httpMiddleware({ debugMode: app.debug }));
+export default handler;
