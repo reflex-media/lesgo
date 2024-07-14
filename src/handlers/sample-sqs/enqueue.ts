@@ -1,38 +1,19 @@
 import middy from '@middy/core';
 import { APIGatewayProxyEvent } from 'aws-lambda';
-import httpMiddleware from 'lesgo/middlewares/httpMiddleware';
-import app from 'config/app';
-import dispatch from 'lesgo/utils/sqs/dispatch';
-import generateUid from 'lesgo/utils/generateUid';
+import { httpMiddleware } from 'lesgo/middlewares';
+import { dispatch } from 'lesgo/utils/sqs';
+import { generateUid } from 'lesgo/utils';
+import appConfig from '../../config/app';
 
-type Arguments = {
-  userId: string;
-  authorName: string;
-  title: string;
-  snippet: string;
-  content: string;
+type MiddyAPIGatewayProxyEvent = APIGatewayProxyEvent & {
+  body: Record<any, any>;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const originalHandler = async (
-  event: APIGatewayProxyEvent & { input: Arguments }
-) => {
-  const { input } = event;
+const enqueueHandler = async (event: MiddyAPIGatewayProxyEvent) => {
+  const { body } = event;
   const documentId = await generateUid();
 
-  const blogRecord = {
-    userId: input.userId,
-    blogId: documentId,
-    title: input.title,
-    snippet: input.snippet,
-    content: input.content,
-    isPublished: false,
-    publishedAt: null,
-    author: {
-      name: input.authorName,
-    },
-  };
-  const queued = await dispatch({ data: blogRecord }, 'lesgoQueue');
+  const queued = await dispatch(body, 'defaultQueue');
 
   return {
     message: 'Dispatched to Queue successfully',
@@ -40,7 +21,8 @@ const originalHandler = async (
   };
 };
 
-// eslint-disable-next-line import/prefer-default-export
-export const handler = middy(originalHandler);
+export const handler = middy()
+  .use(httpMiddleware({ debugMode: appConfig.debug }))
+  .handler(enqueueHandler);
 
-handler.use(httpMiddleware({ debugMode: app.debug }));
+export default handler;
