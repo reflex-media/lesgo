@@ -1,36 +1,46 @@
 import middy from '@middy/core';
 import { APIGatewayProxyEvent } from 'aws-lambda';
-import httpMiddleware from 'lesgo/middlewares/httpMiddleware';
+import { httpMiddleware } from 'lesgo/middlewares';
 import { getUploadSignedUrl } from 'lesgo/utils/s3';
-import app from 'config/app';
-import s3Config from 'config/s3';
+import { validateFields } from 'lesgo/utils';
+import appConfig from '../../config/app';
 
-type Arguments = {
-  objectKey: string;
-  metadata?: string;
-};
-
-const originalHandler = async (
-  event: APIGatewayProxyEvent & {
-    input: Arguments;
-  }
-) => {
-  const { input } = event;
-
-  const signedUrl = await getUploadSignedUrl(
-    `${s3Config.lesgoLiteBucket.path}/${input.objectKey}`,
-    s3Config.lesgoLiteBucket.bucket,
-    { metadata: input.metadata ? JSON.parse(input.metadata) : undefined }
-  );
-
-  return {
-    objectKey: input.objectKey,
-    objectUrl: `${s3Config.lesgoLiteBucket.uri}/${s3Config.lesgoLiteBucket.path}/${input.objectKey}`,
-    signedUrl,
+type MiddyAPIGatewayProxyEvent = APIGatewayProxyEvent & {
+  queryStringParameters: {
+    key: string;
+    expiresIn?: string;
+    metadata?: string;
   };
 };
 
-// eslint-disable-next-line import/prefer-default-export
-export const handler = middy(originalHandler);
+const getUploadSignedUrlHandler = async (event: MiddyAPIGatewayProxyEvent) => {
+  const { queryStringParameters } = event;
 
-handler.use(httpMiddleware({ debugMode: app.debug }));
+  const input = validateFields(queryStringParameters, [
+    { key: 'key', type: 'string', required: true },
+    { key: 'metadata', type: 'string', required: false },
+    { key: 'expiresIn', type: 'string', required: false },
+  ]);
+
+  const metadata = input.metadata ? JSON.parse(input.metadata) : undefined;
+
+  const uploadUrl = await getUploadSignedUrl(
+    input.key,
+    process.env.LESGO_AWS_S3_BUCKET,
+    {
+      expiresIn: input.expiresIn,
+      metadata: metadata,
+    }
+  );
+
+  return {
+    key: queryStringParameters.key,
+    uploadUrl,
+  };
+};
+
+export const handler = middy()
+  .use(httpMiddleware({ debugMode: appConfig.debug }))
+  .handler(getUploadSignedUrlHandler);
+
+export default handler;

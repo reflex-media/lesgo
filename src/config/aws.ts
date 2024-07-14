@@ -1,3 +1,4 @@
 export default {
-  region: process.env.AWS_ACCOUNT_REGION,
+  // FIXME: This is now supplied via DOTENV file
+  // region: process.env.AWS_ACCOUNT_REGION,
 };

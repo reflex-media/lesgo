@@ -51,26 +51,26 @@ provider:
   #
   # Add additional permissions for your app here
   #
-  # iamRoleStatements:
-  #   - Effect: 'Allow' # Required for access to dynamodb
-  #     Action:
-  #       - 'dynamodb:Query'
-  #       - 'dynamodb:GetItem'
-  #       - 'dynamodb:PutItem'
-  #       - 'dynamodb:UpdateItem'
-  #       - 'dynamodb:DeleteItem'
-  #     Resource: 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.stackName}-*'
-  #   - Effect: 'Allow' # Required for access to SQS
-  #     Action:
-  #       - 'sqs:SendMessage'
-  #       - 'sqs:ReceiveMessage'
-  #       - 'sqs:DeleteMessage'
-  #     Resource: 'arn:aws:sqs:${self:provider.region}:*:*'
-  #   - Effect: 'Allow' # Required for S3
-  #     Action:
-  #       - 's3:GetObject'
-  #       - 's3:PutObject'
-  #     Resource: 'arn:aws:s3:::${self:provider.stackName}/*'
+  iamRoleStatements:
+    # - Effect: 'Allow' # Required for access to dynamodb
+    #   Action:
+    #     - 'dynamodb:Query'
+    #     - 'dynamodb:GetItem'
+    #     - 'dynamodb:PutItem'
+    #     - 'dynamodb:UpdateItem'
+    #     - 'dynamodb:DeleteItem'
+    #   Resource: 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.stackName}-*'
+    # - Effect: 'Allow' # Required for access to SQS
+    #   Action:
+    #     - 'sqs:SendMessage'
+    #     - 'sqs:ReceiveMessage'
+    #     - 'sqs:DeleteMessage'
+    #   Resource: 'arn:aws:sqs:${self:provider.region}:*:*'
+    - Effect: 'Allow' # Required for S3
+      Action:
+        - 's3:GetObject'
+        - 's3:PutObject'
+      Resource: 'arn:aws:s3:::${env:LESGO_AWS_S3_BUCKET}/*'
 
 custom:
   path:
@@ -94,7 +94,7 @@ functions:
   # - ${file(${self:custom.path.functions}/sample-dynamodb.yml)}
   # - ${file(${self:custom.path.functions}/sample-memcache-elasticache.yml)}
   # - ${file(${self:custom.path.functions}/sample-opensearch.yml)}
-  # - ${file(${self:custom.path.functions}/sample-s3.yml)}
+  - ${file(${self:custom.path.functions}/sample-s3.yml)}
   # - ${file(${self:custom.path.functions}/sample-sqs.yml)}
   - ${file(${self:custom.path.functions}/sample-jwt.yml)}
   - ${file(${self:custom.path.functions}/sample-utils.yml)}

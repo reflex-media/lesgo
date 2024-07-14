@@ -27,4 +27,8 @@ process.env = {
   LESGO_JWT_ISSUER: 'lesgo',
   LESGO_JWT_AUDIENCE: 'lesgo',
   LESGO_JWT_VALIDATE_CLAIMS: 'true',
+
+  LESGO_AWS_S3_REGION: 'ap-southeast-1',
+  LESGO_AWS_S3_BUKCET: 'lesgo-testing',
+  LESGO_AWS_S3_BUCKET_URI: 'https://assets.testing.lesgo.com',
 };
