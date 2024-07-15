@@ -1,9 +1,9 @@
 Resources:
-  blogsTable:
+  defaultTable:
     Type: AWS::DynamoDB::Table
     DeletionPolicy: Retain
     Properties:
-      TableName: ${self:provider.stackName}-blogsTable
+      TableName: ${self:provider.stackName}-defaultTable
       AttributeDefinitions:
         - AttributeName: userId
           AttributeType: S

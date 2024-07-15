@@ -52,14 +52,14 @@ provider:
   # Add additional permissions for your app here
   #
   iamRoleStatements:
-    # - Effect: 'Allow' # Required for access to dynamodb
-    #   Action:
-    #     - 'dynamodb:Query'
-    #     - 'dynamodb:GetItem'
-    #     - 'dynamodb:PutItem'
-    #     - 'dynamodb:UpdateItem'
-    #     - 'dynamodb:DeleteItem'
-    #   Resource: 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.stackName}-*'
+    - Effect: 'Allow' # Required for access to dynamodb
+      Action:
+        - 'dynamodb:Query'
+        - 'dynamodb:GetItem'
+        - 'dynamodb:PutItem'
+        - 'dynamodb:UpdateItem'
+        - 'dynamodb:DeleteItem'
+      Resource: 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.stackName}-*'
     - Effect: 'Allow' # Required for access to SQS
       Action:
         - 'sqs:SendMessage'
@@ -91,7 +91,7 @@ custom:
 #
 functions:
   - ${file(${self:custom.path.functions}/utils.yml)}
-  # - ${file(${self:custom.path.functions}/sample-dynamodb.yml)}
+  - ${file(${self:custom.path.functions}/sample-dynamodb.yml)}
   # - ${file(${self:custom.path.functions}/sample-memcache-elasticache.yml)}
   # - ${file(${self:custom.path.functions}/sample-opensearch.yml)}
   - ${file(${self:custom.path.functions}/sample-s3.yml)}
@@ -102,5 +102,5 @@ functions:
 # Add resources here
 #
 resources:
-  # - ${file(${self:custom.path.resources}/sample-dynamodb.yml)}
+  - ${file(${self:custom.path.resources}/sample-dynamodb.yml)}
   - ${file(${self:custom.path.resources}/sample-sqs.yml)}
