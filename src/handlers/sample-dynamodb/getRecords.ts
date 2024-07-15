@@ -1,41 +1,46 @@
 import middy from '@middy/core';
 import { APIGatewayProxyEvent } from 'aws-lambda';
-import httpMiddleware from 'lesgo/middlewares/httpMiddleware';
-import app from 'config/app';
-import getBlogsByUserId from 'models/sample/Blog/getBlogsByUserId';
-import getBlogsContentByUserIdTitle from 'models/sample/Blog/getBlogsContentByUserIdTitle';
-import getBlogsContent from 'models/sample/Blog/getBlogsContent';
+import { httpMiddleware } from 'lesgo/middlewares';
+import { validateFields } from 'lesgo/utils';
+import appConfig from '../../config/app';
+import getBlogsByUserId from '../../models/sample-dynamodb/Blog/getBlogsByUserId';
+import getBlogByUserIdBlogId from '../../models/sample-dynamodb/Blog/getBlogByUserIdBlogId';
+import getBlogsByUserIdTitle from '../../models/sample-dynamodb/Blog/getBlogsByUserIdTitle';
 
-type Arguments = {
+interface GetRecordsInput {
   userId: string;
+  blogId?: string;
   title?: string;
   returnFields?: string;
+}
+
+type MiddyAPIGatewayProxyEvent = APIGatewayProxyEvent & {
+  queryStringParamters: GetRecordsInput;
 };
 
-const originalHandler = async (
-  event: APIGatewayProxyEvent & {
-    input: Arguments;
+const getRecordsHandler = async (event: MiddyAPIGatewayProxyEvent) => {
+  const { queryStringParameters } = event;
+
+  const input = validateFields(queryStringParameters!, [
+    { key: 'userId', type: 'string', required: true },
+    { key: 'blogId', type: 'string', required: false },
+    { key: 'title', type: 'string', required: false },
+    { key: 'returnFields', type: 'string', required: false },
+  ]) as GetRecordsInput;
+
+  if (input.blogId) {
+    return getBlogByUserIdBlogId(input.userId, input.blogId);
   }
-) => {
-  const { input } = event;
 
   if (input.title) {
-    return getBlogsContentByUserIdTitle(
-      input.title || '',
-      input.userId,
-      input.returnFields
-    );
+    return getBlogsByUserIdTitle(input.userId, input.title, input.returnFields);
   }
 
-  if (input.returnFields) {
-    return getBlogsContent(input.userId, input.returnFields || 'title');
-  }
-
-  const resp = await getBlogsByUserId(input.userId);
-  return resp;
+  return getBlogsByUserId(input.userId);
 };
 
-// eslint-disable-next-line import/prefer-default-export
-export const handler = middy(originalHandler);
+export const handler = middy()
+  .use(httpMiddleware({ debugMode: appConfig.debug }))
+  .handler(getRecordsHandler);
 
-handler.use(httpMiddleware({ debugMode: app.debug }));
+export default handler;

@@ -1,7 +1,7 @@
 export default {
   tables: {
-    blogsTable: {
-      name: `${process.env.APP_NAME}-${process.env.APP_ENV}-blogsTable`,
-    },
+    defaultTableName:
+      process.env.LESGO_AWS_DYNAMODB_TABLE_NAMES?.split(',')[0] ||
+      'defaultTable',
   },
 };

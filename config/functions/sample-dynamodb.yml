@@ -9,27 +9,16 @@ sampleDynamodbInsertRecord:
         path: /v1/sample/dynamodb
         method: POST
 
-# sampleDynamodbGetRecords:
-#   handler: ${self:custom.path.app}/handlers/sample-dynamodb/getRecords.handler
-#   description: Test Dynamodb get records
-#   memorySize: 512
-#   timeout: 5
-#   reservedConcurrency: 1
-#   events:
-#     - httpApi:
-#         path: /v1/sample/dynamodb
-#         method: GET
-
-# sampleDynamodbGetRecord:
-#   handler: ${self:custom.path.app}/handlers/sample-dynamodb/getRecord.handler
-#   description: Test Dynamodb get record
-#   memorySize: 512
-#   timeout: 5
-#   reservedConcurrency: 1
-#   events:
-#     - httpApi:
-#         path: /v1/sample/dynamodb/{recordId}
-#         method: GET
+sampleDynamodbGetRecords:
+  handler: ${self:custom.path.app}/handlers/sample-dynamodb/getRecords.handler
+  description: Test Dynamodb get records
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/dynamodb
+        method: GET
 
 # sampleDynamodbUpdateRecord:
 #   handler: ${self:custom.path.app}/handlers/sample-dynamodb/updateRecord.handler
