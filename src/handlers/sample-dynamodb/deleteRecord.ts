@@ -1,36 +1,36 @@
 import middy from '@middy/core';
 import { APIGatewayProxyEvent } from 'aws-lambda';
-import httpMiddleware from 'lesgo/middlewares/httpMiddleware';
-import app from 'config/app';
-import deleteBlog from 'models/sample/Blog/deleteBlog';
+import { httpMiddleware } from 'lesgo/middlewares';
+import { validateFields } from 'lesgo/utils';
+import appConfig from '../../config/app';
+import deleteBlog from '../../models/sample-dynamodb/Blog/deleteBlog';
 
-type Arguments = {
+interface DeleteRecordInput {
   userId: string;
+  blogId: string;
+}
+
+type MiddyAPIGatewayProxyEvent = APIGatewayProxyEvent & {
+  queryStringParamters: DeleteRecordInput;
 };
 
-type PathParameters = {
-  recordId: string;
-};
+const deleteRecordHandler = async (event: MiddyAPIGatewayProxyEvent) => {
+  const { queryStringParameters } = event;
 
-const originalHandler = async (
-  event: APIGatewayProxyEvent & {
-    input: Arguments;
-    pathParameters: PathParameters;
-  }
-) => {
-  const { input, pathParameters } = event;
+  const input = validateFields(queryStringParameters!, [
+    { key: 'userId', type: 'string', required: true },
+    { key: 'blogId', type: 'string', required: true },
+  ]) as DeleteRecordInput;
 
-  const resp = await deleteBlog({
-    blogId: pathParameters.recordId,
-    userId: input.userId,
-  });
+  const resp = await deleteBlog(input);
   return {
     message: 'Blog deleted successfully',
     ...resp,
   };
 };
 
-// eslint-disable-next-line import/prefer-default-export
-export const handler = middy(originalHandler);
+export const handler = middy()
+  .use(httpMiddleware({ debugMode: appConfig.debug }))
+  .handler(deleteRecordHandler);
 
-handler.use(httpMiddleware({ debugMode: app.debug }));
+export default handler;

@@ -54,6 +54,7 @@ provider:
   iamRoleStatements:
     - Effect: 'Allow' # Required for access to dynamodb
       Action:
+        - 'dynamodb:Scan'
         - 'dynamodb:Query'
         - 'dynamodb:GetItem'
         - 'dynamodb:PutItem'

@@ -1,38 +1,61 @@
 import middy from '@middy/core';
 import { APIGatewayProxyEvent } from 'aws-lambda';
-import httpMiddleware from 'lesgo/middlewares/httpMiddleware';
-import app from 'config/app';
-import updateBlog from 'models/sample/Blog/updateBlog';
+import { httpMiddleware } from 'lesgo/middlewares';
+import { validateFields } from 'lesgo/utils';
+import appConfig from '../../config/app';
+import updateBlog from '../../models/sample-dynamodb/Blog/updateBlog';
 
-type Arguments = {
+interface UpdateRecordInputBody {
+  title?: string;
+  snippet?: string;
+  content?: string;
+  isPublished?: boolean;
+  publishedAt?: number;
+  author?: {
+    name?: string;
+  };
+}
+
+interface UpdateRecordInputQueryStringParameters {
   userId: string;
-  content: string;
+  blogId: string;
+}
+
+interface UpdateRecordInput
+  extends UpdateRecordInputBody,
+    UpdateRecordInputQueryStringParameters {}
+
+type MiddyAPIGatewayProxyEvent = APIGatewayProxyEvent & {
+  body: UpdateRecordInputBody;
+  queryStringParameters: UpdateRecordInputQueryStringParameters;
 };
 
-type PathParameters = {
-  recordId: string;
-};
+const updateRecordHandler = async (event: MiddyAPIGatewayProxyEvent) => {
+  const { body, queryStringParameters } = event;
 
-const originalHandler = async (
-  event: APIGatewayProxyEvent & {
-    input: Arguments;
-    pathParameters: PathParameters;
-  }
-) => {
-  const { input, pathParameters } = event;
+  const input = validateFields(
+    { ...(body as UpdateRecordInputBody), ...queryStringParameters },
+    [
+      { key: 'userId', type: 'string', required: true },
+      { key: 'blogId', type: 'string', required: true },
+      { key: 'title', type: 'string', required: false },
+      { key: 'snippet', type: 'string', required: false },
+      { key: 'content', type: 'string', required: false },
+      { key: 'isPublished', type: 'boolean', required: false },
+      { key: 'publishedAt', type: 'number', required: false },
+      { key: 'author', type: 'object', required: false },
+    ]
+  ) as UpdateRecordInput;
 
-  const resp = await updateBlog({
-    userId: input.userId,
-    blogId: pathParameters.recordId,
-    content: input.content,
-  });
+  const resp = await updateBlog(input);
   return {
     message: 'Blog updated successfully',
     ...resp,
   };
 };
 
-// eslint-disable-next-line import/prefer-default-export
-export const handler = middy(originalHandler);
+export const handler = middy()
+  .use(httpMiddleware({ debugMode: appConfig.debug }))
+  .handler(updateRecordHandler);
 
-handler.use(httpMiddleware({ debugMode: app.debug }));
+export default handler;

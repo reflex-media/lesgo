@@ -1,36 +1,46 @@
-import { update } from 'lesgo/utils/dynamodb';
-import dynamodbConfig from 'config/dynamodb';
-import logger from 'lesgo/utils/logger';
-import getCurrentTimestamp from 'lesgo/utils/getCurrentTimestamp';
+import { updateRecord } from 'lesgo/utils/dynamodb';
+import { logger, getCurrentTimestamp } from 'lesgo/utils';
+import dynamodbConfig from '../../../config/dynamodb';
 
-const FILE = 'models/Blog/insertBlog';
+const FILE = 'models.sample-dynamodb.Blog.updateBlog';
 
-type Arguments = {
-  content: string;
-  userId: string;
+export interface UpdateBlogModelInput {
   blogId: string;
-};
+  userId: string;
+  title?: string;
+  snippet?: string;
+  content?: string;
+  isPublished?: boolean;
+  publishedAt?: number;
+  author?: {
+    name?: string;
+  };
+}
 
-export default async (params: Arguments) => {
-  const { blogsTable } = dynamodbConfig.tables;
+export default async (params: UpdateBlogModelInput) => {
+  const tableName = dynamodbConfig.tables.defaultTableName;
 
   const updatedAt = getCurrentTimestamp();
 
-  logger.debug(`${FILE}::UPDATING DATA TO DYNAMODB`, {
+  logger.debug(`${FILE}::PREPARINT_TO_UPDATE_RECORD`, {
     params,
     updatedAt,
-    blogsTable,
+    tableName,
   });
-  const resp = await update(
-    blogsTable.name,
+
+  const resp = await updateRecord(
     { userId: params.userId, blogId: params.blogId },
-    'SET content = :content, updatedAt = :updatedAt',
+    tableName,
     {
-      ':content': params.content,
-      ':updatedAt': updatedAt,
+      // TODO: Add more update expression here or make this dynamic
+      updateExpression: 'SET snippet = :snippet, updatedAt = :updatedAt',
+      expressionAttributeValues: {
+        ':snippet': params.snippet,
+        ':updatedAt': updatedAt,
+      },
     }
   );
-  logger.debug(`${FILE}::DATA UPDATED SUCCESSFULLY TO DYNAMODB`, { resp });
+  logger.debug(`${FILE}::RECORD_UPDATED_SUCCESSFULLY`, { resp });
 
   return resp;
 };

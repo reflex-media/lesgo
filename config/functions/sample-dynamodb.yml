@@ -20,24 +20,35 @@ sampleDynamodbGetRecords:
         path: /v1/sample/dynamodb
         method: GET
 
-# sampleDynamodbUpdateRecord:
-#   handler: ${self:custom.path.app}/handlers/sample-dynamodb/updateRecord.handler
-#   description: Test Dynamodb update record
-#   memorySize: 512
-#   timeout: 5
-#   reservedConcurrency: 1
-#   events:
-#     - httpApi:
-#         path: /v1/sample/dynamodb/{recordId}
-#         method: PUT
+sampleDynamodbSearchRecords:
+  handler: ${self:custom.path.app}/handlers/sample-dynamodb/searchRecords.handler
+  description: Test Dynamodb search records
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/dynamodb/search
+        method: GET
 
-# sampleDynamodbDeleteRecord:
-#   handler: ${self:custom.path.app}/handlers/sample-dynamodb/deleteRecord.handler
-#   description: Test Dynamodb delete record
-#   memorySize: 512
-#   timeout: 5
-#   reservedConcurrency: 1
-#   events:
-#     - httpApi:
-#         path: /v1/sample/dynamodb/{recordId}
-#         method: DELETE
+sampleDynamodbUpdateRecord:
+  handler: ${self:custom.path.app}/handlers/sample-dynamodb/updateRecord.handler
+  description: Test Dynamodb update record
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/dynamodb
+        method: PUT
+
+sampleDynamodbDeleteRecord:
+  handler: ${self:custom.path.app}/handlers/sample-dynamodb/deleteRecord.handler
+  description: Test Dynamodb delete record
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/dynamodb
+        method: DELETE

@@ -1,5 +1,6 @@
 import { putRecord } from 'lesgo/utils/dynamodb';
 import { logger, getCurrentTimestamp } from 'lesgo/utils';
+import dynamodbConfig from '../../../config/dynamodb';
 
 const FILE = 'models.sample-dynamodb.Blog/insertBlog';
 
@@ -17,7 +18,7 @@ export interface InsertBlogModelInput {
 }
 
 export default async (params: InsertBlogModelInput) => {
-  const tableName = 'defaultTable';
+  const tableName = dynamodbConfig.tables.defaultTableName;
 
   const dateTimeNow = getCurrentTimestamp();
 

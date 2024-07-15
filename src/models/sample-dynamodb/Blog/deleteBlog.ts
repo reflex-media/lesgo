@@ -1,18 +1,23 @@
 import { deleteRecord } from 'lesgo/utils/dynamodb';
-import dynamodbConfig from 'config/dynamodb';
-import logger from 'lesgo/utils/logger';
+import { logger } from 'lesgo/utils';
+import dynamodbConfig from '../../../config/dynamodb';
 
-const FILE = 'models/Blog/deleteBlog';
+const FILE = 'models.sample-dynamodb.Blog.deleteBlog';
 
-export default async (params: { userId: string; blogId: string }) => {
-  const { blogsTable } = dynamodbConfig.tables;
+export interface DeleteBlogModelInput {
+  blogId: string;
+  userId: string;
+}
 
-  logger.debug(`${FILE}::DELETING DATA`, {
+export default async (params: DeleteBlogModelInput) => {
+  const tableName = dynamodbConfig.tables.defaultTableName;
+
+  logger.debug(`${FILE}::DELETING_RECORD`, {
     params,
-    blogsTable,
+    tableName,
   });
-  const resp = await deleteRecord(blogsTable.name, params);
-  logger.debug(`${FILE}::DATA DELETED SUCCESSFULLY`, { resp });
+  const resp = await deleteRecord(params, tableName);
+  logger.debug(`${FILE}::RECORD_DELETED_SUCCESSFULLY`, { resp });
 
   return resp;
 };
