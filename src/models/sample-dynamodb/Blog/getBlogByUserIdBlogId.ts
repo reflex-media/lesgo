@@ -6,7 +6,7 @@ import ErrorException from '../../../exceptions/ErrorException';
 const FILE = 'models.sample-dynamodb.Blog.getBlogByUserIdBlogId';
 
 export default async (userId: string, blogId: string) => {
-  const tableName = dynamodbConfig.tables.defaultTableName;
+  const tableName = dynamodbConfig.tables.default.alias as string;
 
   logger.debug(`${FILE}::FETCHING_DATA`, {
     userId,

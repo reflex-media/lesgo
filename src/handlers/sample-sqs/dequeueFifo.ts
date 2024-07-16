@@ -1,10 +1,13 @@
 import middy from '@middy/core';
-import { SQSEvent, SQSRecord } from 'aws-lambda';
-import { sqsMiddleware } from 'lesgo/middlewares';
-import { generateUid, logger, validateFields } from 'lesgo/utils';
+import { APIGatewayProxyEvent } from 'aws-lambda';
+import { httpMiddleware } from 'lesgo/middlewares';
+import { generateUid, isEmpty, logger, validateFields } from 'lesgo/utils';
+import { deleteMessage, receiveMessages } from 'lesgo/utils/sqs';
+import appConfig from '../../config/app';
 import insertBlog from '../../models/sample-dynamodb/Blog/insertBlog';
+import ErrorException from '../../exceptions/ErrorException';
 
-const FILE = 'handlers.sample-sqs.dequeue';
+const FILE = 'handlers.sample-sqs.dequeueFifo';
 
 interface InsertRecordInput {
   userId: string;
@@ -18,24 +21,34 @@ interface InsertRecordInput {
   };
 }
 
-type MiddySQSEventRecord = SQSRecord & {
-  body: InsertRecordInput;
-};
+const dequeueFifoHandler = async () => {
+  const messagesFetched = await receiveMessages('httpEventQueue.fifo', {
+    maxNumberOfMessages: 5,
+    waitTimeSeconds: 1,
+  });
 
-type MiddySQSEvent = SQSEvent & {
-  Records: MiddySQSEventRecord[];
-};
+  logger.debug(`${FILE}::MESSAGES_FETCHED_FROM_QUEUE`, { messagesFetched });
 
-const dequeueHandler = async (event: MiddySQSEvent) => {
-  logger.debug(`${FILE}::EVENT_RECEIVED`, { event });
+  if (
+    isEmpty(messagesFetched.Messages) ||
+    messagesFetched.Messages?.length === 0
+  ) {
+    throw new ErrorException(
+      'No messages in the queue',
+      `${FILE}::NO_MESSAGES_IN_QUEUE`,
+      404
+    );
+  }
 
-  const records = event.Records as MiddySQSEventRecord[];
+  const records = messagesFetched.Messages;
   let countSuccess = 0;
   let countFail = 0;
 
-  const processRecord = async (record: MiddySQSEventRecord) => {
+  await records!.reduce(async (promise, record) => {
+    await promise;
+
     try {
-      const { body } = record;
+      const body = JSON.parse(record.Body!);
       const blogId = generateUid();
 
       const input = validateFields(body, [
@@ -63,6 +76,9 @@ const dequeueHandler = async (event: MiddySQSEvent) => {
         countSuccess,
         countFail,
       });
+
+      await deleteMessage('httpEventQueue.fifo', record.ReceiptHandle!);
+      logger.debug(`${FILE}::MESSAGE_DELETED`, { record });
     } catch (err) {
       countFail += 1;
       logger.error(`${FILE}::RECORD_INSERT_ERROR`, {
@@ -72,16 +88,18 @@ const dequeueHandler = async (event: MiddySQSEvent) => {
         countFail,
       });
     }
-  };
+  }, Promise.resolve());
 
-  await Promise.all(records.map(record => processRecord(record)));
-
-  logger.info(`${FILE}::RECORDS_INSERTED_COMPLETED`, {
+  logger.info(`${FILE}::RECORDS_INSERT_COMPLETED`, { countSuccess, countFail });
+  return {
+    message: 'Records inserted successfully',
     countSuccess,
     countFail,
-  });
+  };
 };
 
-export const handler = middy().use(sqsMiddleware()).handler(dequeueHandler);
+export const handler = middy()
+  .use(httpMiddleware({ debugMode: appConfig.debug }))
+  .handler(dequeueFifoHandler);
 
 export default handler;

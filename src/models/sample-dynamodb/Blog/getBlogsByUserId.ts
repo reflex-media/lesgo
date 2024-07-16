@@ -5,7 +5,7 @@ import dynamodbConfig from '../../../config/dynamodb';
 const FILE = 'models.sample-dynamodb.Blog.getBlogsByUserId';
 
 export default async (userId: string) => {
-  const tableName = dynamodbConfig.tables.defaultTableName;
+  const tableName = dynamodbConfig.tables.default.alias as string;
 
   logger.debug(`${FILE}::FETCHING_DATA`, {
     userId,

@@ -1,39 +1,39 @@
 Resources:
-  defaultQueue:
+  sqsEventQueue:
     Type: AWS::SQS::Queue
     Properties:
-      QueueName: ${self:provider.stackName}-defaultQueue
-      VisibilityTimeout: 65
-      MessageRetentionPeriod: 200 # 3m+ ttl in the queue
-      ReceiveMessageWaitTimeSeconds: 20 # Use max long polling time to reduce empty message receive count
+      QueueName: ${self:provider.stackName}-sqsEventQueue
+      VisibilityTimeout: 65 # Message will return back to queue after 65s while in-flight
+      MessageRetentionPeriod: 86400 # Message will be removed after 24h in the queue
+      ReceiveMessageWaitTimeSeconds: 20 # Wait for 20s for new message to arrive
       RedrivePolicy:
         deadLetterTargetArn:
-          'Fn::GetAtt':
-            - defaultDLQ
-            - Arn
-        maxReceiveCount: 3 # max tries before pushing to DLQ
-  defaultDLQ:
+          Fn::GetAtt: [sqsEventDLQ, Arn]
+        maxReceiveCount: 1 # max tries before pushing to DLQ
+  sqsEventDLQ:
     Type: AWS::SQS::Queue
     Properties:
-      QueueName: ${self:provider.stackName}-defaultDLQ
+      QueueName: ${self:provider.stackName}-sqsEventDLQ
       MessageRetentionPeriod: 86400 # 1d ttl in the queue
       ReceiveMessageWaitTimeSeconds: 20 # Use max long polling time to reduce empty message receive count
-  anotherueue:
+  httpEventQueue:
     Type: AWS::SQS::Queue
     Properties:
-      QueueName: ${self:provider.stackName}-anotherueue
-      VisibilityTimeout: 65
-      MessageRetentionPeriod: 200 # 3m+ ttl in the queue
-      ReceiveMessageWaitTimeSeconds: 20 # Use max long polling time to reduce empty message receive count
+      QueueName: ${self:provider.stackName}-httpEventQueue.fifo
+      VisibilityTimeout: 65 # Message will return back to queue after 65s while in-flight
+      MessageRetentionPeriod: 86400 # Message will be removed after 24h in the queue
+      ReceiveMessageWaitTimeSeconds: 20 # Wait for 20s for new message to arrive
+      FifoQueue: true
+      ContentBasedDeduplication: true
       RedrivePolicy:
         deadLetterTargetArn:
-          'Fn::GetAtt':
-            - anotherDLQ
-            - Arn
-        maxReceiveCount: 3 # max tries before pushing to DLQ
-  anotherDLQ:
+          Fn::GetAtt: [httpEventDLQ, Arn]
+        maxReceiveCount: 1 # max tries before pushing to DLQ
+  httpEventDLQ:
     Type: AWS::SQS::Queue
     Properties:
-      QueueName: ${self:provider.stackName}-anotherDLQ
-      MessageRetentionPeriod: 86400 # 1d ttl in the queue
-      ReceiveMessageWaitTimeSeconds: 20 # Use max long polling time to reduce empty message receive count
+      QueueName: ${self:provider.stackName}-httpEventDLQ.fifo
+      MessageRetentionPeriod: 86400 # Message will be removed after 24h in the queue
+      ReceiveMessageWaitTimeSeconds: 20 # Wait for 20s for new message to arrive
+      FifoQueue: true
+      ContentBasedDeduplication: true

@@ -18,7 +18,7 @@ export interface UpdateBlogModelInput {
 }
 
 export default async (params: UpdateBlogModelInput) => {
-  const tableName = dynamodbConfig.tables.defaultTableName;
+  const tableName = dynamodbConfig.tables.default.alias as string;
 
   const updatedAt = getCurrentTimestamp();
 

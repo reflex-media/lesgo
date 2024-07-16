@@ -9,14 +9,35 @@ sampleSQSEnqueue:
         path: /v1/sample/sqs
         method: POST
 
-# sampleSQSDequeue:
-#   handler: ${self:custom.path.app}/handlers/sample-sqs/dequeue.handler
-#   description: Test lambda receiving Queue event
-#   memorySize: 512
-#   timeout: 5
-#   reservedConcurrency: 1
-#   events:
-#     - sqs:
-#         arn:
-#           Fn::GetAtt: [lesgoQueue, Arn]
-#         batchSize: 1
+sampleSQSDequeue:
+  handler: ${self:custom.path.app}/handlers/sample-sqs/dequeue.handler
+  description: Test lambda receiving Queue event
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - sqs:
+        arn:
+          Fn::GetAtt: [sqsEventQueue, Arn]
+
+sampleSQSFifoEnqueue:
+  handler: ${self:custom.path.app}/handlers/sample-sqs/enqueueFifo.handler
+  description: Test SQS FIFO send to Queue
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/sqs-fifo
+        method: POST
+
+sampleSQSFifoDequeue:
+  handler: ${self:custom.path.app}/handlers/sample-sqs/dequeueFifo.handler
+  description: Test lambda fetching from Queue
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/sqs-fifo/dequeue
+        method: POST

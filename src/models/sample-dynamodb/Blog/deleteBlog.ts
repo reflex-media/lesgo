@@ -10,7 +10,7 @@ export interface DeleteBlogModelInput {
 }
 
 export default async (params: DeleteBlogModelInput) => {
-  const tableName = dynamodbConfig.tables.defaultTableName;
+  const tableName = dynamodbConfig.tables.default.alias as string;
 
   logger.debug(`${FILE}::DELETING_RECORD`, {
     params,

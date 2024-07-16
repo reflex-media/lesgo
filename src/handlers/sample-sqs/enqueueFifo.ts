@@ -8,10 +8,13 @@ type MiddyAPIGatewayProxyEvent = APIGatewayProxyEvent & {
   body: Record<any, any>;
 };
 
-const enqueueHandler = async (event: MiddyAPIGatewayProxyEvent) => {
+const enqueueFifoHandler = async (event: MiddyAPIGatewayProxyEvent) => {
   const { body } = event;
 
-  const queued = await dispatch(body, 'sqsEventQueue');
+  const queued = await dispatch(body, 'httpEventQueue.fifo', {
+    fifo: true, // Optional. Can be derived from the Queue name with .fifo suffix
+    messageGroupId: 'insertBlogGroup',
+  });
 
   return {
     message: 'Dispatched to Queue successfully',
@@ -21,6 +24,6 @@ const enqueueHandler = async (event: MiddyAPIGatewayProxyEvent) => {
 
 export const handler = middy()
   .use(httpMiddleware({ debugMode: appConfig.debug }))
-  .handler(enqueueHandler);
+  .handler(enqueueFifoHandler);
 
 export default handler;

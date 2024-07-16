@@ -23,7 +23,7 @@ type MiddyAPIGatewayProxyEvent = APIGatewayProxyEvent & {
 
 const insertRecordHandler = async (event: MiddyAPIGatewayProxyEvent) => {
   const { body } = event;
-  const blogId = await generateUid();
+  const blogId = generateUid();
 
   const input = validateFields(body, [
     { key: 'userId', type: 'string', required: true },
