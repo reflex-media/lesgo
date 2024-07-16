@@ -99,6 +99,7 @@ functions:
   - ${file(${self:custom.path.functions}/sample-sqs.yml)}
   - ${file(${self:custom.path.functions}/sample-jwt.yml)}
   - ${file(${self:custom.path.functions}/sample-utils.yml)}
+  - ${file(${self:custom.path.functions}/sample-auth.yml)}
 #
 # Add resources here
 #

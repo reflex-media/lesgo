@@ -1,0 +1,10 @@
+sampleAuthJwt:
+  handler: ${self:custom.path.app}/handlers/sample-auth/jwt.handler
+  description: Verify JWT auth token
+  memorySize: 128
+  timeout: 3
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/auth/jwt
+        method: GET
