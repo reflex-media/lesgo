@@ -18,7 +18,7 @@ const pingHandler = (event: APIGatewayProxyEvent) => {
 
 export const handler = middy()
   .use(httpMiddleware({ debugMode: appConfig.debug }))
-  .use(verifyJwtMiddleware({ validateClaims: false }))
+  .use(verifyJwtMiddleware())
   .handler(pingHandler);
 
 export default handler;

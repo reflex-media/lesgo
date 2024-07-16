@@ -18,7 +18,7 @@ type MiddyAPIGatewayProxyEvent = APIGatewayProxyEvent & {
   };
 };
 
-const verifyJWTHandler = async (event: MiddyAPIGatewayProxyEvent) => {
+const verifyJWTHandler = (event: MiddyAPIGatewayProxyEvent) => {
   const { queryStringParameters } = event;
 
   const input = validateFields(queryStringParameters, [
