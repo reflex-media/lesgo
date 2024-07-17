@@ -1,8 +1,7 @@
-import { APIGatewayProxyEvent } from 'aws-lambda';
 import middy from '@middy/core';
+import { APIGatewayProxyEvent } from 'aws-lambda';
 import { httpMiddleware } from 'lesgo/middlewares';
 import { logger } from 'lesgo/utils';
-
 import ping from '../../core/utils/ping';
 import appConfig from '../../config/app';
 

@@ -30,6 +30,8 @@ provider:
   httpApi:
     cors: true
     disableDefaultEndpoint: false # FIXME: To set to true before deploying to production
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1'
   stackTags:
     SITE: ${self:service}
     PRODUCT: ${self:service}
