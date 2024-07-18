@@ -2,7 +2,6 @@ import middy from '@middy/core';
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import { httpMiddleware } from 'lesgo/middlewares';
 import { dispatch } from 'lesgo/utils/sqs';
-import appConfig from '../../config/app';
 
 type MiddyAPIGatewayProxyEvent = APIGatewayProxyEvent & {
   body: Record<any, any>;
@@ -23,7 +22,7 @@ const enqueueFifoHandler = async (event: MiddyAPIGatewayProxyEvent) => {
 };
 
 export const handler = middy()
-  .use(httpMiddleware({ debugMode: appConfig.debug }))
+  .use(httpMiddleware())
   .handler(enqueueFifoHandler);
 
 export default handler;

@@ -3,7 +3,6 @@ import { APIGatewayProxyEvent } from 'aws-lambda';
 import { httpMiddleware } from 'lesgo/middlewares';
 import { getUploadSignedUrl } from 'lesgo/utils/s3';
 import { validateFields } from 'lesgo/utils';
-import appConfig from '../../config/app';
 
 type MiddyAPIGatewayProxyEvent = APIGatewayProxyEvent & {
   queryStringParameters: {
@@ -40,7 +39,7 @@ const getUploadSignedUrlHandler = async (event: MiddyAPIGatewayProxyEvent) => {
 };
 
 export const handler = middy()
-  .use(httpMiddleware({ debugMode: appConfig.debug }))
+  .use(httpMiddleware())
   .handler(getUploadSignedUrlHandler);
 
 export default handler;

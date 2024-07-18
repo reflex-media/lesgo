@@ -3,7 +3,6 @@ import { APIGatewayProxyEvent } from 'aws-lambda';
 import { httpMiddleware } from 'lesgo/middlewares';
 import { decrypt } from 'lesgo/utils/crypto';
 import { validateFields } from 'lesgo/utils';
-import appConfig from '../../../config/app';
 
 const decryptHandler = async (event: APIGatewayProxyEvent) => {
   const { queryStringParameters } = event;
@@ -16,8 +15,6 @@ const decryptHandler = async (event: APIGatewayProxyEvent) => {
   return { decrypted: resp };
 };
 
-export const handler = middy()
-  .use(httpMiddleware({ debugMode: appConfig.debug }))
-  .handler(decryptHandler);
+export const handler = middy().use(httpMiddleware()).handler(decryptHandler);
 
 export default handler;

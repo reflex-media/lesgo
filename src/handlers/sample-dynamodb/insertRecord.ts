@@ -3,7 +3,6 @@ import { APIGatewayProxyEvent } from 'aws-lambda';
 import { httpMiddleware } from 'lesgo/middlewares';
 import { generateUid, validateFields } from 'lesgo/utils';
 import insertBlog from '../../models/sample-dynamodb/Blog/insertBlog';
-import appConfig from '../../config/app';
 
 interface InsertRecordInput {
   userId: string;
@@ -51,7 +50,7 @@ const insertRecordHandler = async (event: MiddyAPIGatewayProxyEvent) => {
 };
 
 export const handler = middy()
-  .use(httpMiddleware({ debugMode: appConfig.debug }))
+  .use(httpMiddleware())
   .handler(insertRecordHandler);
 
 export default handler;

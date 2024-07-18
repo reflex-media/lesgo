@@ -1,9 +1,8 @@
-import { APIGatewayProxyEvent } from 'aws-lambda';
 import middy from '@middy/core';
+import { APIGatewayProxyEvent } from 'aws-lambda';
 import { httpMiddleware, verifyBasicAuthMiddleware } from 'lesgo/middlewares';
 import { logger } from 'lesgo/utils';
 import ping from '../../core/utils/ping';
-import appConfig from '../../config/app';
 
 const FILE = 'handlers.sample-auth.basic';
 
@@ -26,7 +25,7 @@ const pingHandler = (event: MiddyAPIGatewayProxyEvent) => {
 };
 
 export const handler = middy()
-  .use(httpMiddleware({ debugMode: appConfig.debug }))
+  .use(httpMiddleware())
   .use(verifyBasicAuthMiddleware())
   .handler(pingHandler);
 

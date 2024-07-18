@@ -2,7 +2,6 @@ import middy from '@middy/core';
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import { httpMiddleware } from 'lesgo/middlewares';
 import { validateFields } from 'lesgo/utils';
-import appConfig from '../../config/app';
 import searchBlogsByTitle from '../../models/sample-dynamodb/Blog/searchBlogsByTitle';
 
 interface SearchRecordsInput {
@@ -28,7 +27,7 @@ const searchRecordsHandler = async (event: MiddyAPIGatewayProxyEvent) => {
 };
 
 export const handler = middy()
-  .use(httpMiddleware({ debugMode: appConfig.debug }))
+  .use(httpMiddleware())
   .handler(searchRecordsHandler);
 
 export default handler;

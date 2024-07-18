@@ -1,10 +1,9 @@
-import { APIGatewayProxyEvent } from 'aws-lambda';
 import middy from '@middy/core';
+import { APIGatewayProxyEvent } from 'aws-lambda';
 import { Jwt, JwtPayload } from 'jsonwebtoken';
 import { httpMiddleware, verifyJwtMiddleware } from 'lesgo/middlewares';
 import { logger } from 'lesgo/utils';
 import ping from '../../core/utils/ping';
-import appConfig from '../../config/app';
 
 const FILE = 'handlers.sample-auth.jwt';
 
@@ -25,7 +24,7 @@ const pingHandler = (event: MiddyAPIGatewayProxyEvent) => {
 };
 
 export const handler = middy()
-  .use(httpMiddleware({ debugMode: appConfig.debug }))
+  .use(httpMiddleware())
   .use(verifyJwtMiddleware())
   .handler(pingHandler);
 

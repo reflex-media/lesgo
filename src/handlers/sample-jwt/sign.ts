@@ -2,7 +2,6 @@ import middy from '@middy/core';
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import { httpMiddleware } from 'lesgo/middlewares';
 import { sign } from 'lesgo/utils/jwt';
-import appConfig from '../../config/app';
 import { logger, validateFields } from 'lesgo/utils';
 
 const FILE = 'handlers.sample-jwt.sign';
@@ -62,7 +61,7 @@ const signJWTHandler = (event: MiddyAPIGatewayProxyEvent) => {
 };
 
 export const handler = middy()
-  .use(httpMiddleware({ debugMode: appConfig.debug }))
+  .use(httpMiddleware())
   .handler(signJWTHandler);
 
 export default handler;

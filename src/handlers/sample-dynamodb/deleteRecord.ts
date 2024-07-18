@@ -2,7 +2,6 @@ import middy from '@middy/core';
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import { httpMiddleware } from 'lesgo/middlewares';
 import { validateFields } from 'lesgo/utils';
-import appConfig from '../../config/app';
 import deleteBlog from '../../models/sample-dynamodb/Blog/deleteBlog';
 
 interface DeleteRecordInput {
@@ -30,7 +29,7 @@ const deleteRecordHandler = async (event: MiddyAPIGatewayProxyEvent) => {
 };
 
 export const handler = middy()
-  .use(httpMiddleware({ debugMode: appConfig.debug }))
+  .use(httpMiddleware())
   .handler(deleteRecordHandler);
 
 export default handler;

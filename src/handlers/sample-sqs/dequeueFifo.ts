@@ -1,9 +1,7 @@
 import middy from '@middy/core';
-import { APIGatewayProxyEvent } from 'aws-lambda';
 import { httpMiddleware } from 'lesgo/middlewares';
 import { generateUid, isEmpty, logger, validateFields } from 'lesgo/utils';
 import { deleteMessage, receiveMessages } from 'lesgo/utils/sqs';
-import appConfig from '../../config/app';
 import insertBlog from '../../models/sample-dynamodb/Blog/insertBlog';
 import ErrorException from '../../exceptions/ErrorException';
 
@@ -99,7 +97,7 @@ const dequeueFifoHandler = async () => {
 };
 
 export const handler = middy()
-  .use(httpMiddleware({ debugMode: appConfig.debug }))
+  .use(httpMiddleware())
   .handler(dequeueFifoHandler);
 
 export default handler;

@@ -3,7 +3,6 @@ import { APIGatewayProxyEvent } from 'aws-lambda';
 import { httpMiddleware } from 'lesgo/middlewares';
 import { verify } from 'lesgo/utils/jwt';
 import { isEmpty, validateFields } from 'lesgo/utils';
-import appConfig from '../../config/app';
 import ErrorException from '../../exceptions/ErrorException';
 
 const FILE = 'handlers.sample-jwt.verify';
@@ -50,7 +49,7 @@ const verifyJWTHandler = (event: MiddyAPIGatewayProxyEvent) => {
 };
 
 export const handler = middy()
-  .use(httpMiddleware({ debugMode: appConfig.debug }))
+  .use(httpMiddleware())
   .handler(verifyJWTHandler);
 
 export default handler;

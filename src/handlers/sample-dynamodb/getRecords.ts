@@ -2,7 +2,6 @@ import middy from '@middy/core';
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import { httpMiddleware } from 'lesgo/middlewares';
 import { validateFields } from 'lesgo/utils';
-import appConfig from '../../config/app';
 import getBlogsByUserId from '../../models/sample-dynamodb/Blog/getBlogsByUserId';
 import getBlogByUserIdBlogId from '../../models/sample-dynamodb/Blog/getBlogByUserIdBlogId';
 import getBlogsByUserIdTitle from '../../models/sample-dynamodb/Blog/getBlogsByUserIdTitle';
@@ -40,7 +39,7 @@ const getRecordsHandler = async (event: MiddyAPIGatewayProxyEvent) => {
 };
 
 export const handler = middy()
-  .use(httpMiddleware({ debugMode: appConfig.debug }))
+  .use(httpMiddleware())
   .handler(getRecordsHandler);
 
 export default handler;
