@@ -108,3 +108,4 @@ functions:
 resources:
   - ${file(${self:custom.path.resources}/sample-dynamodb.yml)}
   - ${file(${self:custom.path.resources}/sample-sqs.yml)}
+  - ${file(${self:custom.path.resources}/sample-vpc.yml)}
