@@ -39,22 +39,14 @@ provider:
     datadog: monitored
     service: ${env:APP_NAME}
     env: ${self:provider.stage}
-  #
-  # Uncomment to deploy app within an existing VPC
-  #
-  # vpc:
-  #   securityGroupIds:
-  #     - ${env:AWS_VPC_SECURITY_GROUP_ID}
-  #   subnetIds:
-  #     - ${env:AWS_VPC_SUBNET_1_ID}
-  # - ${env:AWS_VPC_SUBNET_2_ID}
-  # - ${env:AWS_VPC_SUBNET_3_ID}
-  # - ${env:AWS_VPC_SUBNET_4_ID}
-  #
-  # Add additional permissions for your app here
-  #
+  vpc:
+    securityGroupIds:
+      - ${env:AWS_VPC_SECURITY_GROUP_ID}
+    subnetIds:
+      - ${env:AWS_VPC_SUBNET_1_ID}
+      - ${env:AWS_VPC_SUBNET_2_ID}
   iamRoleStatements:
-    - Effect: 'Allow' # Required for access to dynamodb
+    - Effect: 'Allow'
       Action:
         - 'dynamodb:Scan'
         - 'dynamodb:Query'
@@ -63,13 +55,13 @@ provider:
         - 'dynamodb:UpdateItem'
         - 'dynamodb:DeleteItem'
       Resource: 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.stackName}-*'
-    - Effect: 'Allow' # Required for access to SQS
+    - Effect: 'Allow'
       Action:
         - 'sqs:SendMessage'
         - 'sqs:ReceiveMessage'
         - 'sqs:DeleteMessage'
       Resource: 'arn:aws:sqs:${self:provider.region}:*:*'
-    - Effect: 'Allow' # Required for S3
+    - Effect: 'Allow'
       Action:
         - 's3:GetObject'
         - 's3:PutObject'
