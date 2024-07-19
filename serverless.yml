@@ -66,6 +66,13 @@ provider:
         - 's3:GetObject'
         - 's3:PutObject'
       Resource: 'arn:aws:s3:::${env:LESGO_AWS_S3_BUCKET}/*'
+    - Effect: Allow
+      Action:
+        - rds-db:connect
+        - secretsmanager:GetSecretValue
+        - rds-data:ExecuteStatement
+        - rds-data:BatchExecuteStatement
+      Resource: '*'
 
 custom:
   path:
@@ -86,18 +93,21 @@ custom:
 #
 functions:
   - ${file(${self:custom.path.functions}/utils.yml)}
+  - ${file(${self:custom.path.functions}/sample-utils.yml)}
+  - ${file(${self:custom.path.functions}/sample-s3.yml)}
+  - ${file(${self:custom.path.functions}/sample-jwt.yml)}
+  - ${file(${self:custom.path.functions}/sample-auth.yml)}
   - ${file(${self:custom.path.functions}/sample-dynamodb.yml)}
+  - ${file(${self:custom.path.functions}/sample-sqs.yml)}
   # - ${file(${self:custom.path.functions}/sample-memcache-elasticache.yml)}
   # - ${file(${self:custom.path.functions}/sample-opensearch.yml)}
-  - ${file(${self:custom.path.functions}/sample-s3.yml)}
-  - ${file(${self:custom.path.functions}/sample-sqs.yml)}
-  - ${file(${self:custom.path.functions}/sample-jwt.yml)}
-  - ${file(${self:custom.path.functions}/sample-utils.yml)}
-  - ${file(${self:custom.path.functions}/sample-auth.yml)}
+
 #
 # Add resources here
 #
 resources:
+  - ${file(${self:custom.path.resources}/sample-vpc.yml)}
   - ${file(${self:custom.path.resources}/sample-dynamodb.yml)}
   - ${file(${self:custom.path.resources}/sample-sqs.yml)}
-  - ${file(${self:custom.path.resources}/sample-vpc.yml)}
+  - ${file(${self:custom.path.resources}/sample-rdsDataApi.yml)}
+  # - ${file(${self:custom.path.resources}/sample-rdsProxy.yml)}

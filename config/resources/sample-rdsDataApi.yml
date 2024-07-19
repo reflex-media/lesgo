@@ -1,0 +1,71 @@
+Resources:
+  RDSDataApiSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: RDS Data API security group
+      VpcId:
+        Ref: VPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 3306
+          ToPort: 3306
+          SourceSecurityGroupId:
+            Ref: LambdaSecurityGroup
+      SecurityGroupEgress:
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: LesgoRDSDataApiSecurityGroup
+
+  AuroraDataApiClusterDatabaseSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name: ${self:provider.stackName}-dataApiDbCredentials
+      Description: Credentials for RDS Aurora Data API Database
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "masteruser", "port": 3306, "dbname": "${env:LESGO_AWS_RDS_AURORA_MYSQL_DB_NAME}"}'
+        GenerateStringKey: 'password'
+        PasswordLength: 16
+        ExcludeCharacters: "\"@/\\"
+
+  AuroraDataApiCluster:
+    Type: AWS::RDS::DBCluster
+    Properties:
+      Engine: aurora-mysql
+      EngineMode: serverless
+      # EngineVersion: 8.0.mysql_aurora.3.02.0
+      DBClusterIdentifier: ${self:provider.stackName}-dataApiDb
+      DatabaseName: ${env:LESGO_AWS_RDS_AURORA_MYSQL_DB_NAME}
+      MasterUsername: !Sub '{{resolve:secretsmanager:${AuroraDataApiClusterDatabaseSecret}::username}}'
+      MasterUserPassword: !Sub '{{resolve:secretsmanager:${AuroraDataApiClusterDatabaseSecret}::password}}'
+      DBSubnetGroupName:
+        Ref: DataApiDBSubnetGroup
+      VpcSecurityGroupIds:
+        - Ref: RDSDataApiSecurityGroup
+      ScalingConfiguration:
+        AutoPause: true
+        MinCapacity: ${env:LESGO_AWS_RDS_AURORA_MYSQL_SCALE_MIN_CAPACITY}
+        MaxCapacity: ${env:LESGO_AWS_RDS_AURORA_MYSQL_SCALE_MAX_CAPACITY}
+      EnableHttpEndpoint: true
+      BackupRetentionPeriod: 1
+      PreferredBackupWindow: 01:00-03:00
+      PreferredMaintenanceWindow: wed:03:30-wed:05:30
+      StorageEncrypted: true
+      DeletionProtection: ${env:LESGO_AWS_RDS_AURORA_MYSQL_DELETION_PROTECTION}
+      Tags:
+        - Key: Name
+          Value: LesgoAuroraDataApiCluster
+
+  DataApiDBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: Subnet group for RDS Data API instance
+      SubnetIds:
+        - Ref: PrivateSubnet1
+        - Ref: PrivateSubnet2
+      Tags:
+        - Key: Name
+          Value: LesgoDataApiDBSubnetGroup
