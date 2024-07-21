@@ -100,6 +100,7 @@ functions:
   - ${file(${self:custom.path.functions}/sample-dynamodb.yml)}
   - ${file(${self:custom.path.functions}/sample-sqs.yml)}
   - ${file(${self:custom.path.functions}/sample-secretsManager.yml)}
+  - ${file(${self:custom.path.functions}/sample-commands.yml)}
   # - ${file(${self:custom.path.functions}/sample-memcache-elasticache.yml)}
   # - ${file(${self:custom.path.functions}/sample-opensearch.yml)}
 
