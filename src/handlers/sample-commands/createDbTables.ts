@@ -2,7 +2,7 @@ import middy from '@middy/core';
 import { invokeCommandMiddleware } from 'lesgo/middlewares';
 import { getObject } from 'lesgo/utils/s3';
 import { logger, validateFields } from 'lesgo/utils';
-import { query } from 'lesgo/utils/db/dataApi';
+// import { query } from 'lesgo/utils/db/dataApi';
 import appConfig from '../../config/app';
 
 const FILE = 'handlers.sample-commands.createDbTables';
@@ -30,8 +30,8 @@ const createDbTablesHandler = async (event: MiddyInvokeCommandEvent) => {
 
   const sql = 'select * from information_schema.tables';
 
-  const res = await query(sql);
-  return res;
+  // const res = await query(sql);
+  // return res;
 };
 
 export const handler = middy()
