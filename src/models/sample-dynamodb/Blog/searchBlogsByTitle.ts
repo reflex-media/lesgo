@@ -6,32 +6,31 @@ import ErrorException from '../../../exceptions/ErrorException';
 const FILE = 'models.sample-dynamodb.Blog/searchBlogsByTitle';
 
 export default async (title: string, returnFields?: string) => {
-  const tableName = dynamodbConfig.tables.default.alias as string;
+  const tableAlias = dynamodbConfig.tables.default.alias as string;
 
   logger.debug(`${FILE}::FETCHING_DATA`, {
     title,
     returnFields,
-    tableName,
+    tableAlias,
   });
 
   let opts: {
-    filterExpression: string;
-    projectionExpression?: string;
-    expressionAttributeValues?: Record<string, string>;
-    singletonConn?: string;
+    FilterExpression: string;
+    ProjectionExpression?: string;
+    ExpressionAttributeValues?: Record<string, string>;
   } = {
-    filterExpression: 'title = :t',
-    expressionAttributeValues: { ':t': title },
+    FilterExpression: 'title = :t',
+    ExpressionAttributeValues: { ':t': title },
   };
 
   if (!isEmpty(returnFields)) {
     opts = {
       ...opts,
-      projectionExpression: returnFields,
+      ProjectionExpression: returnFields,
     };
   }
 
-  const resp = await scan(tableName, opts);
+  const resp = await scan(tableAlias, opts);
 
   if (isEmpty(resp) || resp!.length < 1) {
     throw new ErrorException(

@@ -10,13 +10,13 @@ export interface DeleteBlogModelInput {
 }
 
 export default async (params: DeleteBlogModelInput) => {
-  const tableName = dynamodbConfig.tables.default.alias as string;
+  const tableAlias = dynamodbConfig.tables.default.alias as string;
 
   logger.debug(`${FILE}::DELETING_RECORD`, {
     params,
-    tableName,
+    tableAlias,
   });
-  const resp = await deleteRecord(params, tableName);
+  const resp = await deleteRecord(params, tableAlias);
   logger.debug(`${FILE}::RECORD_DELETED_SUCCESSFULLY`, { resp });
 
   return resp;

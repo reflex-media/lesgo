@@ -3,6 +3,7 @@ import { APIGatewayProxyEvent } from 'aws-lambda';
 import { httpMiddleware } from 'lesgo/middlewares';
 import { getObject } from 'lesgo/utils/s3';
 import { validateFields } from 'lesgo/utils';
+import appConfig from '../../config/app';
 
 type MiddyAPIGatewayProxyEvent = APIGatewayProxyEvent & {
   queryStringParameters: {

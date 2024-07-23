@@ -39,12 +39,12 @@ provider:
     datadog: monitored
     service: ${env:APP_NAME}
     env: ${self:provider.stage}
-  vpc:
-    securityGroupIds:
-      - ${env:AWS_VPC_SECURITY_GROUP_ID}
-    subnetIds:
-      - ${env:AWS_VPC_SUBNET_1_ID}
-      - ${env:AWS_VPC_SUBNET_2_ID}
+  # vpc:
+  #   securityGroupIds:
+  #     - ${env:AWS_VPC_SECURITY_GROUP_ID}
+  #   subnetIds:
+  #     - ${env:AWS_VPC_SUBNET_1_ID}
+  #     - ${env:AWS_VPC_SUBNET_2_ID}
   iamRoleStatements:
     - Effect: 'Allow'
       Action:
@@ -108,8 +108,8 @@ functions:
 # Add resources here
 #
 resources:
-  - ${file(${self:custom.path.resources}/sample-vpc.yml)}
+  # - ${file(${self:custom.path.resources}/sample-vpc.yml)}
   - ${file(${self:custom.path.resources}/sample-dynamodb.yml)}
   - ${file(${self:custom.path.resources}/sample-sqs.yml)}
-  - ${file(${self:custom.path.resources}/sample-rdsDataApi.yml)}
+  # - ${file(${self:custom.path.resources}/sample-rdsDataApi.yml)}
   # - ${file(${self:custom.path.resources}/sample-rdsProxy.yml)}

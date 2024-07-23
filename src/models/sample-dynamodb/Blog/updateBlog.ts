@@ -18,26 +18,23 @@ export interface UpdateBlogModelInput {
 }
 
 export default async (params: UpdateBlogModelInput) => {
-  const tableName = dynamodbConfig.tables.default.alias as string;
+  const tableAlias = dynamodbConfig.tables.default.alias as string;
 
   const updatedAt = getCurrentTimestamp();
 
   logger.debug(`${FILE}::PREPARINT_TO_UPDATE_RECORD`, {
     params,
     updatedAt,
-    tableName,
+    tableAlias,
   });
 
   const resp = await updateRecord(
     { userId: params.userId, blogId: params.blogId },
-    tableName,
+    tableAlias,
+    'SET snippet = :snippet, updatedAt = :updatedAt',
     {
-      // TODO: Add more update expression here or make this dynamic
-      updateExpression: 'SET snippet = :snippet, updatedAt = :updatedAt',
-      expressionAttributeValues: {
-        ':snippet': params.snippet,
-        ':updatedAt': updatedAt,
-      },
+      ':snippet': params.snippet || '',
+      ':updatedAt': updatedAt,
     }
   );
   logger.debug(`${FILE}::RECORD_UPDATED_SUCCESSFULLY`, { resp });

@@ -11,31 +11,31 @@ type MiddyAPIGatewayProxyEvent = APIGatewayProxyEvent & {
   queryStringParameters: {
     token: string;
     validateClaims?: string;
+    issue?: string;
     audience?: string;
-    issuer?: string;
-    keyid?: string;
   };
 };
 
 const verifyJWTHandler = (event: MiddyAPIGatewayProxyEvent) => {
   const { queryStringParameters } = event;
 
+  // TODO: Other than the token, note that the below is only to serve as a sample.
+  // You should never allow the client to dictate the options of the JWT.
   const input = validateFields(queryStringParameters, [
     { key: 'token', type: 'string', required: true },
     { key: 'validateClaims', type: 'string', required: false },
-    { key: 'audience', type: 'string', required: false },
     { key: 'issuer', type: 'string', required: false },
-    { key: 'keyid', type: 'string', required: false },
+    { key: 'audience', type: 'string', required: false },
   ]);
 
   if (!isEmpty(input.validateClaims)) {
     input.validateClaims = input.validateClaims !== 'false';
   }
 
-  let payload;
-
   try {
-    payload = verify(input.token, { opts: input });
+    const payload = verify(input.token, undefined, input);
+
+    return payload;
   } catch (error: any) {
     throw new ErrorException(
       'Error verifying JWT',
@@ -44,12 +44,8 @@ const verifyJWTHandler = (event: MiddyAPIGatewayProxyEvent) => {
       error
     );
   }
-
-  return payload;
 };
 
-export const handler = middy()
-  .use(httpMiddleware())
-  .handler(verifyJWTHandler);
+export const handler = middy().use(httpMiddleware()).handler(verifyJWTHandler);
 
 export default handler;

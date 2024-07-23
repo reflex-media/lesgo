@@ -25,15 +25,12 @@ const getUploadSignedUrlHandler = async (event: MiddyAPIGatewayProxyEvent) => {
 
   const uploadUrl = await getUploadSignedUrl(
     input.key,
-    process.env.LESGO_AWS_S3_BUCKET,
-    {
-      expiresIn: input.expiresIn,
-      metadata: metadata,
-    }
+    { Metadata: metadata },
+    { expiresIn: input.expiresIn }
   );
 
   return {
-    key: queryStringParameters.key,
+    key: input.key,
     uploadUrl,
   };
 };

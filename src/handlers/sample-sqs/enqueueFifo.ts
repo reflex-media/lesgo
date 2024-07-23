@@ -11,8 +11,7 @@ const enqueueFifoHandler = async (event: MiddyAPIGatewayProxyEvent) => {
   const { body } = event;
 
   const queued = await dispatch(body, 'httpEventQueue.fifo', {
-    fifo: true, // Optional. Can be derived from the Queue name with .fifo suffix
-    messageGroupId: 'insertBlogGroup',
+    MessageGroupId: 'insertBlogGroup',
   });
 
   return {

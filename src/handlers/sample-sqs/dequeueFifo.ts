@@ -21,8 +21,8 @@ interface InsertRecordInput {
 
 const dequeueFifoHandler = async () => {
   const messagesFetched = await receiveMessages('httpEventQueue.fifo', {
-    maxNumberOfMessages: 5,
-    waitTimeSeconds: 1,
+    MaxNumberOfMessages: 5,
+    WaitTimeSeconds: 1,
   });
 
   logger.debug(`${FILE}::MESSAGES_FETCHED_FROM_QUEUE`, { messagesFetched });

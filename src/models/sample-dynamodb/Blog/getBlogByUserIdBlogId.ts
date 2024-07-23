@@ -6,15 +6,15 @@ import ErrorException from '../../../exceptions/ErrorException';
 const FILE = 'models.sample-dynamodb.Blog.getBlogByUserIdBlogId';
 
 export default async (userId: string, blogId: string) => {
-  const tableName = dynamodbConfig.tables.default.alias as string;
+  const tableAlias = dynamodbConfig.tables.default.alias as string;
 
   logger.debug(`${FILE}::FETCHING_DATA`, {
     userId,
     blogId,
-    tableName,
+    tableAlias,
   });
 
-  const resp = await query(tableName, 'userId = :u AND blogId = :b', {
+  const resp = await query(tableAlias, 'userId = :u AND blogId = :b', {
     ':u': userId,
     ':b': blogId,
   });

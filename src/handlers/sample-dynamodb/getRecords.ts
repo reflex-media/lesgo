@@ -38,8 +38,6 @@ const getRecordsHandler = async (event: MiddyAPIGatewayProxyEvent) => {
   return getBlogsByUserId(input.userId);
 };
 
-export const handler = middy()
-  .use(httpMiddleware())
-  .handler(getRecordsHandler);
+export const handler = middy().use(httpMiddleware()).handler(getRecordsHandler);
 
 export default handler;

@@ -18,8 +18,6 @@ const enqueueHandler = async (event: MiddyAPIGatewayProxyEvent) => {
   };
 };
 
-export const handler = middy()
-  .use(httpMiddleware())
-  .handler(enqueueHandler);
+export const handler = middy().use(httpMiddleware()).handler(enqueueHandler);
 
 export default handler;
