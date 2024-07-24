@@ -36,16 +36,16 @@ Resources:
     Properties:
       Engine: aurora-mysql
       EngineMode: serverless
-      # EngineVersion: 8.0.mysql_aurora.3.02.0
+      EngineVersion: 8.0.mysql_aurora.3.05.2
       DBClusterIdentifier: ${self:provider.stackName}-rdsProxyDb
       DatabaseName: ${env:LESGO_AWS_RDS_AURORA_MYSQL_DB_NAME}
-      MasterUsername: !Sub '{{resolve:secretsmanager:${AuroraClusterDatabaseSecret}::username}}'
-      MasterUserPassword: !Sub '{{resolve:secretsmanager:${AuroraClusterDatabaseSecret}::password}}'
+      MasterUsername: !Sub '{{resolve:secretsmanager:${AuroraProxyClusterDatabaseSecret}::username}}'
+      MasterUserPassword: !Sub '{{resolve:secretsmanager:${AuroraProxyClusterDatabaseSecret}::password}}'
       DBSubnetGroupName:
-        Ref: proxyDBSubnetGroup
+        Ref: ProxyDBSubnetGroup
       VpcSecurityGroupIds:
         - Ref: RDSProxySecurityGroup
-      ScalingConfiguration:
+      ServerlessV2ScalingConfiguration:
         AutoPause: true
         MinCapacity: ${env:LESGO_AWS_RDS_AURORA_MYSQL_SCALE_MIN_CAPACITY}
         MaxCapacity: ${env:LESGO_AWS_RDS_AURORA_MYSQL_SCALE_MAX_CAPACITY}
