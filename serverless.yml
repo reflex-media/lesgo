@@ -39,12 +39,12 @@ provider:
     datadog: monitored
     service: ${env:APP_NAME}
     env: ${self:provider.stage}
-  # vpc:
-  #   securityGroupIds:
-  #     - ${env:AWS_VPC_SECURITY_GROUP_ID}
-  #   subnetIds:
-  #     - ${env:AWS_VPC_SUBNET_1_ID}
-  #     - ${env:AWS_VPC_SUBNET_2_ID}
+  vpc:
+    securityGroupIds:
+      - ${env:AWS_VPC_SECURITY_GROUP_ID}
+    subnetIds:
+      - ${env:AWS_VPC_SUBNET_1_ID}
+      - ${env:AWS_VPC_SUBNET_2_ID}
   iamRoleStatements:
     - Effect: 'Allow'
       Action:
@@ -72,6 +72,15 @@ provider:
         - secretsmanager:GetSecretValue
         - rds-data:ExecuteStatement
         - rds-data:BatchExecuteStatement
+      Resource: '*'
+    - Effect: 'Allow'
+      Action:
+        - 'elasticache:DescribeCacheClusters'
+        # - 'elasticache:DescribeCacheSubnetGroups'
+        # - 'elasticache:ListTagsForResource'
+        # - 'elasticache:CreateCacheCluster'
+        # - 'elasticache:ModifyCacheCluster'
+        # - 'elasticache:DeleteCacheCluster'
       Resource: '*'
 
 custom:
@@ -101,14 +110,14 @@ functions:
   - ${file(${self:custom.path.functions}/sample-sqs.yml)}
   - ${file(${self:custom.path.functions}/sample-secretsManager.yml)}
   - ${file(${self:custom.path.functions}/sample-commands.yml)}
-  # - ${file(${self:custom.path.functions}/sample-memcache-elasticache.yml)}
+  - ${file(${self:custom.path.functions}/sample-elasticache-redis.yml)}
   # - ${file(${self:custom.path.functions}/sample-opensearch.yml)}
 
 #
 # Add resources here
 #
 resources:
-  # - ${file(${self:custom.path.resources}/sample-vpc.yml)}
+  - ${file(${self:custom.path.resources}/sample-vpc.yml)}
   - ${file(${self:custom.path.resources}/sample-dynamodb.yml)}
   - ${file(${self:custom.path.resources}/sample-sqs.yml)}
   # - ${file(${self:custom.path.resources}/sample-rdsDataApi.yml)}

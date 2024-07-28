@@ -1,0 +1,10 @@
+sampleElastiCacheRedisSetCache:
+  handler: ${self:custom.path.app}/handlers/sample-elasticache-redis/setCache.handler
+  description: Test set cache with ElastiCache Redis OSS
+  memorySize: 512
+  timeout: 10
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/elasticache-redis
+        method: POST
