@@ -68,10 +68,10 @@ provider:
       Resource: 'arn:aws:s3:::${env:LESGO_AWS_S3_BUCKET}/*'
     - Effect: Allow
       Action:
-        - rds-db:connect
+        # - rds-db:connect
         - secretsmanager:GetSecretValue
-        - rds-data:ExecuteStatement
-        - rds-data:BatchExecuteStatement
+        # - rds-data:ExecuteStatement
+        # - rds-data:BatchExecuteStatement
       Resource: '*'
     - Effect: 'Allow'
       Action:
@@ -110,6 +110,7 @@ functions:
   - ${file(${self:custom.path.functions}/sample-sqs.yml)}
   - ${file(${self:custom.path.functions}/sample-secretsManager.yml)}
   - ${file(${self:custom.path.functions}/sample-commands.yml)}
+  - ${file(${self:custom.path.functions}/sample-rdsMysqlProxy.yml)}
   - ${file(${self:custom.path.functions}/sample-elasticache-redis.yml)}
   # - ${file(${self:custom.path.functions}/sample-opensearch.yml)}
 
@@ -117,7 +118,7 @@ functions:
 # Add resources here
 #
 resources:
-  - ${file(${self:custom.path.resources}/sample-vpc.yml)}
+  # - ${file(${self:custom.path.resources}/sample-vpc.yml)}
   - ${file(${self:custom.path.resources}/sample-dynamodb.yml)}
   - ${file(${self:custom.path.resources}/sample-sqs.yml)}
   # - ${file(${self:custom.path.resources}/sample-rdsDataApi.yml)}

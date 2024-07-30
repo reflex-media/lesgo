@@ -2,7 +2,7 @@ import middy from '@middy/core';
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import { httpMiddleware } from 'lesgo/middlewares';
 import { validateFields } from 'lesgo/utils';
-import { getSecretValue } from 'lesgo/utils/secretsManager';
+import { getSecretValue } from 'lesgo/utils/secretsmanager';
 
 const getSecretValueHandler = async (event: APIGatewayProxyEvent) => {
   const { queryStringParameters } = event;
