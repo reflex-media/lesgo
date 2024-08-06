@@ -68,20 +68,17 @@ provider:
       Resource: 'arn:aws:s3:::${env:LESGO_AWS_S3_BUCKET}/*'
     - Effect: Allow
       Action:
-        # - rds-db:connect
         - secretsmanager:GetSecretValue
-        # - rds-data:ExecuteStatement
-        # - rds-data:BatchExecuteStatement
       Resource: '*'
-    - Effect: 'Allow'
-      Action:
-        - 'elasticache:DescribeCacheClusters'
-        # - 'elasticache:DescribeCacheSubnetGroups'
-        # - 'elasticache:ListTagsForResource'
-        # - 'elasticache:CreateCacheCluster'
-        # - 'elasticache:ModifyCacheCluster'
-        # - 'elasticache:DeleteCacheCluster'
-      Resource: '*'
+    # - Effect: 'Allow'
+    #   Action:
+    #     - 'elasticache:DescribeCacheClusters'
+    #     - 'elasticache:DescribeCacheSubnetGroups'
+    #     - 'elasticache:ListTagsForResource'
+    #     - 'elasticache:CreateCacheCluster'
+    #     - 'elasticache:ModifyCacheCluster'
+    #     - 'elasticache:DeleteCacheCluster'
+    #   Resource: '*'
 
 custom:
   path:
@@ -121,5 +118,4 @@ resources:
   # - ${file(${self:custom.path.resources}/sample-vpc.yml)}
   - ${file(${self:custom.path.resources}/sample-dynamodb.yml)}
   - ${file(${self:custom.path.resources}/sample-sqs.yml)}
-  # - ${file(${self:custom.path.resources}/sample-rdsDataApi.yml)}
   # - ${file(${self:custom.path.resources}/sample-rdsProxy.yml)}
