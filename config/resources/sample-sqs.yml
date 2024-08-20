@@ -15,7 +15,7 @@ Resources:
     Properties:
       QueueName: ${self:provider.stackName}-sqsEventDLQ
       MessageRetentionPeriod: 86400 # 1d ttl in the queue
-      ReceiveMessageWaitTimeSeconds: 20 # Use max long polling time to reduce empty message receive count
+      ReceiveMessageWaitTimeSeconds: 20 # Wait for 20s for new message to arrive
   httpEventQueue:
     Type: AWS::SQS::Queue
     Properties:

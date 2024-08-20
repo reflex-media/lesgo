@@ -19,6 +19,8 @@ sampleSQSDequeue:
     - sqs:
         arn:
           Fn::GetAtt: [sqsEventQueue, Arn]
+        # batchSize: 5 # maximum number of messages that the Lambda function receives in a single batch from the SQS queue. It can be set between 1 and 10 messages.
+        # maximumConcurrency: 5 # maximum Lambda functions can be invoked simultaneously to process messages from the queue.
 
 sampleSQSFifoEnqueue:
   handler: ${self:custom.path.app}/handlers/sample-sqs/enqueueFifo.handler
