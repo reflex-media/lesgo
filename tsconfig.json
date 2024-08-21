@@ -1,20 +1,21 @@
 {
   "compilerOptions": {
     "target": "es2020",
-    "module": "Node16",
-    "strict": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": "./",
-    "preserveConstEnums": true,
-    "strictNullChecks": true,
-    "sourceMap": true,
+    "module": "commonjs",
+    "lib": ["es2020"],
     "allowJs": false,
+    "declaration": true,
     "outDir": ".build",
-    "moduleResolution": "node16",
-    "lib": ["es2018"],
-    "rootDir": "./"
+    "strict": true,
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "paths": {
+      "lesgo/*": ["node_modules/lesgo/dist/*"]
+    }
   },
-  "exclude": ["node_modules", "build", "**/__tests__/*", "**/__mocks__/*"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", ".build", "**/__tests__/*", "**/__mocks__/*"]
 }

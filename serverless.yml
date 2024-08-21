@@ -23,7 +23,7 @@ provider:
   apiName: ${self:provider.stackName}
   stage: ${opt:stage, 'local'}
   profile: ${env:AWS_ACCOUNT_PROFILE}
-  region: ${opt:region, env:AWS_ACCOUNT_REGION}
+  region: ${opt:region, env:LESGO_AWS_REGION}
   apiGateway:
     shouldStartNameWithService: true
     minimumCompressionSize: 100

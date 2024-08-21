@@ -1,6 +1,18 @@
 module.exports = {
   verbose: true,
+  preset: 'ts-jest',
+  testEnvironment: 'node',
   testMatch: ['**/__tests__/*.test.ts'],
+  transform: {
+    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
+  },
+  transformIgnorePatterns: ['/node_modules/(?!lesgo).+\\.js$'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  globals: {
+    'babel-jest': {
+      presets: ['@babel/preset-env'],
+    },
+  },
   collectCoverageFrom: ['src/**/*.ts'],
   coverageReporters: ['html', 'text', 'lcov'],
   coverageThreshold: {
@@ -12,7 +24,6 @@ module.exports = {
     },
   },
   setupFiles: ['./jest.setup.ts'],
-  transformIgnorePatterns: ['/node_modules/(?!lesgo).+\\.js$'],
   reporters: [
     'default',
     [

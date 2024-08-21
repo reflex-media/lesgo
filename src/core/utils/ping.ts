@@ -5,13 +5,11 @@ const FILE = 'core.utils.ping';
 
 type QueryStringParameters = {
   'sample-error'?: string;
-  'sample-unhandled-exception'?: string;
 };
 
 const validateInput = (input: QueryStringParameters) => {
   const validFields = [
     { key: 'sample-error', type: 'string', required: false },
-    { key: 'sample-unhandled-exception', type: 'string', required: false },
   ];
 
   const validated = validateFields(input, validFields);
@@ -21,26 +19,31 @@ const validateInput = (input: QueryStringParameters) => {
 export default (qs: QueryStringParameters = {}) => {
   const input = validateInput({ ...qs });
 
-  if (isEmpty(input)) {
+  if (isEmpty(qs)) {
     return {
       message: 'Pong',
     };
   }
 
   if (!isEmpty(input['sample-error'])) {
-    throw new ErrorException(
-      'Sample error response',
-      `${FILE}::SAMPLE_ERROR`,
-      400,
-      {
-        input,
-      }
-    );
+    const httpStatusCode = parseInt(input['sample-error'], 10);
+
+    if (typeof httpStatusCode === 'number' && !isNaN(httpStatusCode)) {
+      throw new ErrorException(
+        'Sample Error exception',
+        `${FILE}::SAMPLE_ERROR`,
+        httpStatusCode,
+        {
+          qs,
+        }
+      );
+    }
   }
 
-  if (!isEmpty(input['sample-unhandled-exception'])) {
-    validateFields(input, [
-      { key: 'sample-unhandled-exception', type: 'number', required: true },
-    ]);
-  }
+  throw new ErrorException(
+    'Invalid parameters provided',
+    `${FILE}::INVALID_PARAMETERS`,
+    400,
+    { qs }
+  );
 };
