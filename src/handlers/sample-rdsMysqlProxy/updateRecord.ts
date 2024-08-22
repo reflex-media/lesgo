@@ -1,6 +1,7 @@
 import middy from '@middy/core';
 import { APIGatewayProxyEvent } from 'aws-lambda';
-import { httpMiddleware } from 'lesgo/middlewares';
+import { disconnectMySQLProxyClient } from 'lesgo/services/RDSAuroraMySQLProxyService';
+import { disconnectMiddleware, httpMiddleware } from 'lesgo/middlewares';
 import { validateFields } from 'lesgo/utils';
 import updateMovieById, {
   UpdateMovieModelInput,
@@ -46,6 +47,11 @@ const updateRecordHandler = async (event: MiddyAPIGatewayProxyEvent) => {
 };
 
 export const handler = middy()
+  .use(
+    disconnectMiddleware({
+      clients: [disconnectMySQLProxyClient],
+    })
+  )
   .use(httpMiddleware())
   .handler(updateRecordHandler);
 
