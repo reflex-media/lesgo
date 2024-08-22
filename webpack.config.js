@@ -15,6 +15,10 @@ module.exports = {
     ['local', 'dev'].indexOf(process.env.APP_ENV) !== -1
       ? 'development'
       : 'production',
+  optimization: {
+    usedExports: true,
+    sideEffects: true,
+  },
   target: 'node',
   module: {
     rules: [
@@ -31,8 +35,9 @@ module.exports = {
       },
     ],
   },
-  externals: ['cardinal', /^@aws-sdk\/.*/],
+  externals: ['aws-sdk', 'cardinal', /^@aws-sdk\/.*/],
   resolve: {
+    mainFields: ['module', 'main'],
     extensions: ['.tsx', '.ts', '.js'],
   },
 };

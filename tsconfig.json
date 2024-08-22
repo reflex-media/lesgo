@@ -4,10 +4,10 @@
     "module": "commonjs",
     "lib": ["es2020"],
     "allowJs": false,
-    "declaration": true,
     "outDir": ".build",
     "strict": true,
     "baseUrl": ".",
+    "sourceMap": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
@@ -17,5 +17,5 @@
     }
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", ".build", "**/__tests__/*", "**/__mocks__/*"]
+  "exclude": ["**/__tests__/*", "**/__mocks__/*"]
 }
