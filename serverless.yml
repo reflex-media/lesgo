@@ -29,7 +29,7 @@ provider:
     minimumCompressionSize: 100
   httpApi:
     cors: true
-    disableDefaultEndpoint: false # FIXME: To set to true before deploying to production
+    disableDefaultEndpoint: ${env:AWS_APIGW_DISABLE_DEFAULT_ENDPOINT}
   environment:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1'
   stackTags:
@@ -63,6 +63,10 @@ provider:
       Resource: 'arn:aws:sqs:${self:provider.region}:*:*'
     - Effect: 'Allow'
       Action:
+        - 's3:ListBucket'
+      Resource: 'arn:aws:s3:::${env:LESGO_AWS_S3_BUCKET}'
+    - Effect: 'Allow'
+      Action:
         - 's3:GetObject'
         - 's3:PutObject'
       Resource: 'arn:aws:s3:::${env:LESGO_AWS_S3_BUCKET}/*'
@@ -70,15 +74,6 @@ provider:
       Action:
         - secretsmanager:GetSecretValue
       Resource: '*'
-    # - Effect: 'Allow'
-    #   Action:
-    #     - 'elasticache:DescribeCacheClusters'
-    #     - 'elasticache:DescribeCacheSubnetGroups'
-    #     - 'elasticache:ListTagsForResource'
-    #     - 'elasticache:CreateCacheCluster'
-    #     - 'elasticache:ModifyCacheCluster'
-    #     - 'elasticache:DeleteCacheCluster'
-    #   Resource: '*'
 
 custom:
   path:
