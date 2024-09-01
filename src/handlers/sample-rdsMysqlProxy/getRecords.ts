@@ -1,8 +1,8 @@
 import middy from '@middy/core';
 import { APIGatewayProxyEvent } from 'aws-lambda';
-import { disconnectMySQLProxyClient } from 'lesgo/services/RDSAuroraMySQLProxyService';
 import { disconnectMiddleware, httpMiddleware } from 'lesgo/middlewares';
-import { isEmpty, validateFields } from 'lesgo/utils';
+import { disconnectDb } from 'lesgo/utils/db/mysql/proxy';
+import { validateFields } from 'lesgo/utils';
 import getAllMovies from '../../models/sample-rdsMysqlProxy/Movie/getAllMovies';
 import getMovieById from '../../models/sample-rdsMysqlProxy/Movie/getMovieById';
 
@@ -39,7 +39,7 @@ const getRecordsHandler = async (event: MiddyAPIGatewayProxyEvent) => {
 export const handler = middy()
   .use(
     disconnectMiddleware({
-      clients: [disconnectMySQLProxyClient],
+      clients: [disconnectDb],
     })
   )
   .use(httpMiddleware())
