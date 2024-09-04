@@ -1,6 +1,27 @@
 {
-  "extends": ["airbnb-base", "plugin:jest/recommended", "plugin:prettier/recommended"],
-  "settings": {
-    "import/resolver": "webpack"
-  }
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "rules": {
+    "strict": ["error", "never"],
+    "lines-around-directive": [
+      "error",
+      { "before": "always", "after": "always" }
+    ],
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/ban-ts-comment": "off"
+  },
+  "ignorePatterns": ["webpack.config.js"]
 }

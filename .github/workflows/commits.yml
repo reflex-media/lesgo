@@ -1,0 +1,31 @@
+name: Commit Tests
+
+on:
+  push:
+    branches:
+      - '!develop'
+      - '!master'
+      - '!release'
+
+jobs:
+  test:
+    name: Running jest test with code coverage report
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+
+      - name: NPM Install
+        run: npm ci
+      
+      - name: Lint check
+        run: npm run lint
+      
+      - name: Jest test run
+        run: npm test

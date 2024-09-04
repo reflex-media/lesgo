@@ -1,0 +1,17 @@
+Resources:
+  defaultTable:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: ${self:provider.stackName}-defaultTable
+      AttributeDefinitions:
+        - AttributeName: userId
+          AttributeType: S
+        - AttributeName: blogId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: userId
+          KeyType: HASH
+        - AttributeName: blogId
+          KeyType: RANGE
+      BillingMode: PAY_PER_REQUEST

@@ -4,10 +4,11 @@ module.exports = {
       '@babel/preset-env',
       {
         targets: {
-          node: true,
+          node: 'current',
         },
       },
     ],
+    ['@babel/preset-typescript'],
   ],
   plugins: ['babel-plugin-webpack-aliases'],
 };

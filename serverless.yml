@@ -1,9 +1,8 @@
-service:
-  name: sls-lesgo
+service: ${env:APP_NAME}
+frameworkVersion: '3'
 
 plugins:
   - serverless-webpack
-  - serverless-api-compression
   - serverless-offline
   - serverless-plugin-log-retention
   - serverless-dotenv-plugin
@@ -11,52 +10,70 @@ plugins:
 package:
   individually: true
 
+useDotenv: true
+configValidationMode: error
+
 provider:
   name: aws
-  runtime: nodejs10.x
-  memorySize: ${env:AWS_LAMBDA_MEMORY_SIZE}
-  timeout: ${env:AWS_LAMBDA_TIMEOUT}
+  architecture: arm64
+  runtime: nodejs18.x
+  memorySize: 128
+  timeout: 3
   stackName: ${self:service}-${self:provider.stage}
   apiName: ${self:provider.stackName}
   stage: ${opt:stage, 'local'}
   profile: ${env:AWS_ACCOUNT_PROFILE}
-  region: ${opt:region, env:AWS_ACCOUNT_REGION}
-  apiKeys:
-    - usagePlan:
-        - name: ${self:provider.stackName}-apiKey
-          value: ${env:AWS_APIGATEWAY_SECRET_KEY}
-  usagePlan:
-    - usagePlan:
+  region: ${opt:region, env:AWS_APP_REGION}
+  apiGateway:
+    shouldStartNameWithService: true
+    minimumCompressionSize: 100
+  httpApi:
+    cors: true
+    disableDefaultEndpoint: ${env:AWS_APIGW_DISABLE_DEFAULT_ENDPOINT}
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1'
   stackTags:
-    SITE: shared
+    SITE: ${self:service}
     PRODUCT: ${self:service}
     STAGE: ${self:provider.stage}
+    datadog: monitored
+    service: ${env:APP_NAME}
+    env: ${self:provider.stage}
   vpc:
     securityGroupIds:
-      - Ref: LambdaSecurityGroup
+      - ${env:AWS_VPC_SECURITY_GROUP_ID}
     subnetIds:
-      - Ref: PrivateSubnet1
-      - Ref: PrivateSubnet2
+      - ${env:AWS_VPC_SUBNET_1_ID}
+      - ${env:AWS_VPC_SUBNET_2_ID}
   iamRoleStatements:
+    - Effect: 'Allow'
+      Action:
+        - 'dynamodb:Scan'
+        - 'dynamodb:Query'
+        - 'dynamodb:GetItem'
+        - 'dynamodb:PutItem'
+        - 'dynamodb:UpdateItem'
+        - 'dynamodb:DeleteItem'
+      Resource: 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.stackName}-*'
+    - Effect: 'Allow'
+      Action:
+        - 'sqs:SendMessage'
+        - 'sqs:ReceiveMessage'
+        - 'sqs:DeleteMessage'
+      Resource: 'arn:aws:sqs:${self:provider.region}:*:*'
+    - Effect: 'Allow'
+      Action:
+        - 's3:ListBucket'
+      Resource: 'arn:aws:s3:::${env:LESGO_AWS_S3_BUCKET}'
+    - Effect: 'Allow'
+      Action:
+        - 's3:GetObject'
+        - 's3:PutObject'
+      Resource: 'arn:aws:s3:::${env:LESGO_AWS_S3_BUCKET}/*'
     - Effect: Allow
       Action:
-        - 'elasticache:*'
+        - secretsmanager:GetSecretValue
       Resource: '*'
-    - Effect: Allow
-      Action:
-        - 'sqs:*'
-      Resource: '*'
-    - Effect: Allow
-      Action:
-        - 'es:*'
-      Resource: '*'
-
-  # TODO Review if this is still relevant
-  # environment:
-  #   ES_NODE:
-  #     "Fn::GetAtt": ["ElasticsearchInstance", "DomainEndpoint"]
-  #   ELASTICACHE_MEMCACHED_URL:
-  #     "Fn::Join": [":", ["Fn::GetAtt": [MemcachedCluster, ConfigurationEndpoint.Address], "Fn::GetAtt": [MemcachedCluster, ConfigurationEndpoint.Port]]]
 
 custom:
   path:
@@ -65,25 +82,35 @@ custom:
     resources: config/resources
   serverless-offline:
     port: 8888
-  webpack:
-    packager: yarn
-  logRetentionInDays: ${env:AWS_LOG_RETENTION_DAYS, 7}
+    ignoreJWTSignature: true
+  logRetentionInDays: 7
   contentEncoding:
-    contentCompression: ${env:AWS_APIGATEWAY_COMPRESSION_MAX_BYTES, 100}
-  http:
-    cors: ${file(config/utils/cors.yml)}
+    contentCompression: 100
   dotenv:
     basePath: config/environments/
 
-# Add all the functions here
+#
+# Add functions here
+#
 functions:
-  - ${file(${self:custom.path.functions}/ping.yml)}
-  - ${file(${self:custom.path.functions}/samples.yml)}
+  - ${file(${self:custom.path.functions}/utils.yml)}
+  - ${file(${self:custom.path.functions}/sample-utils.yml)}
+  - ${file(${self:custom.path.functions}/sample-s3.yml)}
+  - ${file(${self:custom.path.functions}/sample-jwt.yml)}
+  - ${file(${self:custom.path.functions}/sample-auth.yml)}
+  - ${file(${self:custom.path.functions}/sample-dynamodb.yml)}
+  - ${file(${self:custom.path.functions}/sample-sqs.yml)}
+  - ${file(${self:custom.path.functions}/sample-secretsManager.yml)}
+  - ${file(${self:custom.path.functions}/sample-commands.yml)}
+  - ${file(${self:custom.path.functions}/sample-rdsMysqlProxy.yml)}
+  - ${file(${self:custom.path.functions}/sample-elasticache-redis.yml)}
+  # - ${file(${self:custom.path.functions}/sample-opensearch.yml)}
 
-# Add all the additional resources here
+#
+# Add resources here
+#
 resources:
-  - ${file(${self:custom.path.resources}/vpc.yml)}
-  - ${file(${self:custom.path.resources}/lambda.yml)}
-  #- ${file(${self:custom.path.resources}/elastiCache.yml)}
-  #- ${file(${self:custom.path.resources}/sqs.yml)}
-  #- ${file(${self:custom.path.resources}/elasticsearch.yml)}
+  # - ${file(${self:custom.path.resources}/sample-vpc.yml)}
+  - ${file(${self:custom.path.resources}/sample-dynamodb.yml)}
+  - ${file(${self:custom.path.resources}/sample-sqs.yml)}
+  # - ${file(${self:custom.path.resources}/sample-rdsProxy.yml)}

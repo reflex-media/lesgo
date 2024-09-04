@@ -1,0 +1,45 @@
+sampleSQSEnqueue:
+  handler: ${self:custom.path.app}/handlers/sample-sqs/enqueue.handler
+  description: Test SQS send to Queue
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/sqs
+        method: POST
+
+sampleSQSDequeue:
+  handler: ${self:custom.path.app}/handlers/sample-sqs/dequeue.handler
+  description: Test lambda receiving Queue event
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - sqs:
+        arn:
+          Fn::GetAtt: [sqsEventQueue, Arn]
+        # batchSize: 5 # maximum number of messages that the Lambda function receives in a single batch from the SQS queue. It can be set between 1 and 10 messages.
+        # maximumConcurrency: 5 # maximum Lambda functions can be invoked simultaneously to process messages from the queue.
+
+sampleSQSFifoEnqueue:
+  handler: ${self:custom.path.app}/handlers/sample-sqs/enqueueFifo.handler
+  description: Test SQS FIFO send to Queue
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/sqs-fifo
+        method: POST
+
+sampleSQSFifoDequeue:
+  handler: ${self:custom.path.app}/handlers/sample-sqs/dequeueFifo.handler
+  description: Test lambda fetching from Queue
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/sqs-fifo/dequeue
+        method: POST

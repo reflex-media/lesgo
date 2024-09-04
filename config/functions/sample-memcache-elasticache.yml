@@ -1,0 +1,32 @@
+sampleMemcacheElastiCacheSetKey:
+  handler: ${self:custom.path.app}/handlers/sample-memcacheElasticache/setKey.handler
+  description: Test set key with Memcache ElastiCache
+  memorySize: 512
+  timeout: 10
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/memcache-elasticache
+        method: POST
+
+sampleMemcacheElastiCacheGetKey:
+  handler: ${self:custom.path.app}/handlers/sample-memcacheElasticache/getKey.handler
+  description: Test get key with Memcache ElastiCache
+  memorySize: 512
+  timeout: 10
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/memcache-elasticache
+        method: GET
+
+sampleMemcacheElastiCacheDeleteKey:
+  handler: ${self:custom.path.app}/handlers/sample-memcacheElasticache/deleteKey.handler
+  description: Test delete key with Memcache ElastiCache
+  memorySize: 512
+  timeout: 10
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/memcache-elasticache
+        method: DELETE

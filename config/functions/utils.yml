@@ -1,0 +1,10 @@
+ping:
+  handler: ${self:custom.path.app}/handlers/utils/ping.handler
+  description: Ping test
+  memorySize: 128
+  timeout: 3
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/utils/ping
+        method: GET

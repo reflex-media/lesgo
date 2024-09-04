@@ -1,0 +1,65 @@
+sampleOpenSearchCreateIndex:
+  handler: ${self:custom.path.app}/handlers/sample-openSearch/createIndex.handler
+  description: Test create OpenSearch index
+  memorySize: 512
+  timeout: 10
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/opensearch/index
+        method: POST
+
+sampleOpenSearchAddDocument:
+  handler: ${self:custom.path.app}/handlers/sample-openSearch/addDocument.handler
+  description: Test OpenSearch add document to index
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/opensearch
+        method: POST
+
+sampleOpenSearchUpdateDocument:
+  handler: ${self:custom.path.app}/handlers/sample-openSearch/updateDocument.handler
+  description: Test OpenSearch update document to index
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/opensearch/{documentId}
+        method: PUT
+
+sampleOpenSearchSearchIndex:
+  handler: ${self:custom.path.app}/handlers/sample-openSearch/searchIndex.handler
+  description: Test OpenSearch search index
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/opensearch
+        method: GET
+
+sampleOpenSearchDeleteDocument:
+  handler: ${self:custom.path.app}/handlers/sample-openSearch/deleteDocument.handler
+  description: Test OpenSearch delete document from index
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/opensearch/{documentId}
+        method: DELETE
+
+sampleOpenSearchDeleteIndex:
+  handler: ${self:custom.path.app}/handlers/sample-openSearch/deleteIndex.handler
+  description: Test OpenSearch delete document from index
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/opensearch/index
+        method: DELETE

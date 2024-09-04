@@ -1,0 +1,88 @@
+Resources:
+  RDSProxySecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: RDS Proxy security group
+      VpcId:
+        Ref: VPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 3306
+          ToPort: 3306
+          SourceSecurityGroupId:
+            Ref: LambdaSecurityGroup
+      SecurityGroupEgress:
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: LesgoRDSProxySecurityGroup
+
+  AuroraProxyClusterDatabaseSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name: ${self:provider.stackName}-proxyDbCredentials
+      Description: Credentials for RDS Aurora Proxy Database
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "masteruser"}, "port": 3306, "dbname": "${env:LESGO_AWS_RDS_AURORA_MYSQL_DB_NAME}"}'
+        GenerateStringKey: 'password'
+        PasswordLength: 16
+        ExcludeCharacters: "\"@/\\"
+
+  AuroraProxyCluster:
+    Type: AWS::RDS::DBCluster
+    Properties:
+      Engine: aurora-mysql
+      EngineMode: serverless
+      EngineVersion: 8.0.mysql_aurora.3.05.2
+      DBClusterIdentifier: ${self:provider.stackName}-rdsProxyDb
+      DatabaseName: ${env:LESGO_AWS_RDS_AURORA_MYSQL_DB_NAME}
+      MasterUsername: !Sub '{{resolve:secretsmanager:${AuroraProxyClusterDatabaseSecret}::username}}'
+      MasterUserPassword: !Sub '{{resolve:secretsmanager:${AuroraProxyClusterDatabaseSecret}::password}}'
+      DBSubnetGroupName:
+        Ref: ProxyDBSubnetGroup
+      VpcSecurityGroupIds:
+        - Ref: RDSProxySecurityGroup
+      ServerlessV2ScalingConfiguration:
+        AutoPause: true
+        MinCapacity: ${env:LESGO_AWS_RDS_AURORA_MYSQL_SCALE_MIN_CAPACITY}
+        MaxCapacity: ${env:LESGO_AWS_RDS_AURORA_MYSQL_SCALE_MAX_CAPACITY}
+      EnableHttpEndpoint: true
+      BackupRetentionPeriod: 1
+      PreferredBackupWindow: 01:00-03:00
+      PreferredMaintenanceWindow: wed:03:30-wed:05:30
+      StorageEncrypted: true
+      DeletionProtection: true
+      Tags:
+        - Key: Name
+          Value: LesgoAuroraServerlessCluster
+
+  ProxyDBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: Subnet group for RDS Proxy instance
+      SubnetIds:
+        - Ref: PrivateSubnet1
+        - Ref: PrivateSubnet2
+      Tags:
+        - Key: Name
+          Value: LesgoProxyDBSubnetGroup
+
+  RDSProxy:
+    Type: AWS::RDS::DBProxy
+    Properties:
+      DBProxyName: ${self:provider.stackName}-rdsProxy
+      EngineFamily: MYSQL
+      Auth:
+        - AuthScheme: SECRETS
+          SecretArn: !Ref AuroraProxyClusterDatabaseSecret
+          IAMAuth: DISABLED
+      RoleArn: arn:aws:iam::${env:AWS_ACCOUNT_ID}:role/service-role/AmazonRDSDataFullAccess
+      VpcSubnetIds:
+        - Ref: PrivateSubnet1
+        - Ref: PrivateSubnet2
+      VpcSecurityGroupIds:
+        - Ref: RDSProxySecurityGroup
+      RequireTLS: true
