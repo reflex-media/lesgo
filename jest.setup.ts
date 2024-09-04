@@ -13,7 +13,7 @@ process.env = {
   APP_ENV: 'testing',
   APP_DEBUG: 'true',
 
-  AWS_REGION: 'ap-southeast-1',
+  AWS_APP_REGION: 'ap-southeast-1',
 
   LESGO_CRYPTO_HASH_ALG: 'sha256',
   LESGO_CRYPTO_ENCRYPTION_ALG: 'aes-256-cbc',
