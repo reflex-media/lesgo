@@ -1,33 +1,40 @@
 module.exports = {
   verbose: true,
-  testMatch: ['**/tests/*.spec.js', '**/tests/**/*.spec.js'],
-  collectCoverageFrom: [
-    'src/**/*.js',
-    '!src/config.js',
-    '!src/handlers/**/*.js',
-  ],
-  coverageReporters: ['html', 'text', 'lcov'],
-  // coverageThreshold: {
-  //   global: {
-  //     branches: 80,
-  //     functions: 80,
-  //     lines: 80,
-  //     statements: 80,
-  //   },
-  // },
-  setupFiles: ['./tests/setupTest.js'],
-  moduleNameMapper: {
-    '^Config(.*)$': '<rootDir>/src/config$1',
-    '^Constants/errorCodes(.*)$': '<rootDir>/src/constants/errorCodes$1',
-    '^Core(.*)$': '<rootDir>/src/core$1',
-    '^Exceptions/ErrorException(.*)$':
-      '<rootDir>/src/exceptions/ErrorException$1',
-    '^Models(.*)$': '<rootDir>/src/models$1',
-    '^Utils/logger$': '<rootDir>/tests/__mocks__/utils/logger.js',
-    '^Utils/queue$': '<rootDir>/tests/__mocks__/utils/queue.js',
-    '^Utils/database$': '<rootDir>/node_modules/lesgo/src/utils/database.js',
-    '^Utils/sentry$': '<rootDir>/node_modules/lesgo/src/utils/sentry.js',
-    '^@sentry/node$': '<rootDir>/node_modules/@sentry/node/dist/index.js',
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  testMatch: ['**/__tests__/*.test.ts'],
+  transform: {
+    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
   },
   transformIgnorePatterns: ['/node_modules/(?!lesgo).+\\.js$'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  globals: {
+    'ts-jest': {
+      tsconfig: 'tsconfig.json',
+    },
+    'babel-jest': {
+      presets: ['@babel/preset-env'],
+    },
+  },
+  collectCoverageFrom: ['src/**/*.ts'],
+  coverageReporters: ['html', 'text', 'lcov'],
+  coverageThreshold: {
+    global: {
+      branches: 0,
+      functions: 0,
+      lines: 0,
+      statements: 0,
+    },
+  },
+  setupFiles: ['./jest.setup.ts'],
+  reporters: [
+    'default',
+    [
+      './node_modules/jest-html-reporter',
+      {
+        pageTitle: 'Lesgo test coverage report',
+        outputPath: 'coverage/test-report/index.html',
+      },
+    ],
+  ],
 };

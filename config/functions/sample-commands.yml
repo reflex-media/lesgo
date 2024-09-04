@@ -1,0 +1,6 @@
+sampleCommandCreateDbTables:
+  handler: ${self:custom.path.app}/handlers/sample-commands/createDbTables.handler
+  description: Create Db Tables using invoke command
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1

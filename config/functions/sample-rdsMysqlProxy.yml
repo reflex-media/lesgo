@@ -1,0 +1,43 @@
+sampleRdsMysqlProxyInsertRecord:
+  handler: ${self:custom.path.app}/handlers/sample-rdsMysqlProxy/insertRecord.handler
+  description: Test RDS Aurora MySQL Proxy insert record
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/rdsMysqlProxy
+        method: POST
+
+sampleRdsMysqlProxyGetRecords:
+  handler: ${self:custom.path.app}/handlers/sample-rdsMysqlProxy/getRecords.handler
+  description: Test RDS Aurora MySQL Proxy get records
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/rdsMysqlProxy
+        method: GET
+
+sampleRdsMysqlProxyUpdateRecord:
+  handler: ${self:custom.path.app}/handlers/sample-rdsMysqlProxy/updateRecord.handler
+  description: Test RDS Aurora MySQL Proxy update record by id
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/rdsMysqlProxy
+        method: PUT
+
+sampleRdsMysqlProxyDeleteRecord:
+  handler: ${self:custom.path.app}/handlers/sample-rdsMysqlProxy/deleteRecord.handler
+  description: Test RDS Aurora MySQL Proxy delete record by id
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/rdsMysqlProxy
+        method: DELETE

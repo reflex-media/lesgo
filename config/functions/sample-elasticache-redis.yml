@@ -1,0 +1,32 @@
+sampleElastiCacheRedisSetCache:
+  handler: ${self:custom.path.app}/handlers/sample-elasticache-redis/setCache.handler
+  description: Test set cache with ElastiCache Redis OSS
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/elasticache-redis
+        method: POST
+
+sampleElastiCacheRedisGetCache:
+  handler: ${self:custom.path.app}/handlers/sample-elasticache-redis/getCache.handler
+  description: Test get cache with ElastiCache Redis OSS
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/elasticache-redis
+        method: GET
+
+sampleElastiCacheRedisDeleteCache:
+  handler: ${self:custom.path.app}/handlers/sample-elasticache-redis/deleteCache.handler
+  description: Test delete cache with ElastiCache Redis OSS
+  memorySize: 512
+  timeout: 5
+  reservedConcurrency: 1
+  events:
+    - httpApi:
+        path: /v1/sample/elasticache-redis
+        method: DELETE

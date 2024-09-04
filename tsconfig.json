@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "commonjs",
+    "lib": ["es2020"],
+    "allowJs": false,
+    "outDir": ".build",
+    "strict": true,
+    "baseUrl": ".",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "paths": {
+      "lesgo/*": ["node_modules/lesgo/dist/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["**/__tests__/*", "**/__mocks__/*"]
+}
