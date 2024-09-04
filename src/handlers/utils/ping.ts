@@ -16,10 +16,7 @@ type MiddyAPIGatewayProxyEvent = APIGatewayProxyEvent & {
 const pingHandler = (event: MiddyAPIGatewayProxyEvent) => {
   logger.debug(`${FILE}::RECEIVED_REQUEST`, event);
 
-  const res = ping(event.queryStringParameters);
-  logger.debug(`${FILE}::RESPONSE_SENT`, res);
-
-  return res;
+  return ping(event.queryStringParameters);
 };
 
 export const handler = middy()

@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@middy/core": "^5.4.5",
-    "lesgo": "github:reflex-media/lesgo-framework#release/v2.1.0"
+    "lesgo": "^2.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.21.3",
@@ -64,6 +64,7 @@
     "serverless-webpack": "^5.11.0",
     "source-map": "^0.7.4",
     "terser-webpack-plugin": "^5.3.7",
+    "ts-jest": "^29.2.5",
     "typescript": "^5.1.6",
     "webpack": "^5.76.3"
   },

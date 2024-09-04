@@ -1,4 +1,3 @@
-// import { LesgoException } from 'lesgo/exceptions';
 import ping from '../ping';
 import ErrorException from '../../../exceptions/ErrorException';
 

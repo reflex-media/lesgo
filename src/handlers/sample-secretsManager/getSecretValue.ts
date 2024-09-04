@@ -7,7 +7,7 @@ import { getSecretValue } from 'lesgo/utils/secretsmanager';
 const getSecretValueHandler = async (event: APIGatewayProxyEvent) => {
   const { queryStringParameters } = event;
 
-  const input = validateFields({ ...queryStringParameters! }, [
+  const input = validateFields({ ...queryStringParameters }, [
     { key: 'secretValue', type: 'string', required: true },
   ]);
 

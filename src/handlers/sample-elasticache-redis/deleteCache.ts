@@ -5,8 +5,6 @@ import { disconnectMiddleware, httpMiddleware } from 'lesgo/middlewares';
 import { validateFields } from 'lesgo/utils';
 import { deleteCache } from 'lesgo/utils/cache/redis';
 
-const FILE = 'handlers.sample-elasticache-redis.deleteCache';
-
 type MiddyAPIGatewayProxyEvent = APIGatewayProxyEvent & {
   queryStringParameters: {
     key: string;

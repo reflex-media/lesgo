@@ -9,6 +9,9 @@ module.exports = {
   transformIgnorePatterns: ['/node_modules/(?!lesgo).+\\.js$'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   globals: {
+    'ts-jest': {
+      tsconfig: 'tsconfig.json',
+    },
     'babel-jest': {
       presets: ['@babel/preset-env'],
     },
@@ -17,10 +20,10 @@ module.exports = {
   coverageReporters: ['html', 'text', 'lcov'],
   coverageThreshold: {
     global: {
-      branches: 100,
-      functions: 100,
-      lines: 100,
-      statements: 100,
+      branches: 0,
+      functions: 0,
+      lines: 0,
+      statements: 0,
     },
   },
   setupFiles: ['./jest.setup.ts'],

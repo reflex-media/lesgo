@@ -16,7 +16,7 @@ type MiddyAPIGatewayProxyEvent = APIGatewayProxyEvent & {
 const searchRecordsHandler = async (event: MiddyAPIGatewayProxyEvent) => {
   const { queryStringParameters } = event;
 
-  const input = validateFields(queryStringParameters!, [
+  const input = validateFields({ ...queryStringParameters }, [
     { key: 'title', type: 'string', required: false },
     { key: 'returnFields', type: 'string', required: false },
   ]) as SearchRecordsInput;

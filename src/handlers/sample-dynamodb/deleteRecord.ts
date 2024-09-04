@@ -16,7 +16,7 @@ type MiddyAPIGatewayProxyEvent = APIGatewayProxyEvent & {
 const deleteRecordHandler = async (event: MiddyAPIGatewayProxyEvent) => {
   const { queryStringParameters } = event;
 
-  const input = validateFields(queryStringParameters!, [
+  const input = validateFields({ ...queryStringParameters }, [
     { key: 'userId', type: 'string', required: true },
     { key: 'blogId', type: 'string', required: true },
   ]) as DeleteRecordInput;

@@ -20,7 +20,7 @@ export default async (userId: string, blogId: string) => {
   });
   logger.debug(`${FILE}::RECORDS_FETCHED_SUCCESSFULLY`, { resp });
 
-  if (isEmpty(resp) || resp!.length < 1) {
+  if (isEmpty(resp) || resp.length < 1) {
     throw new ErrorException(
       'Unable to find record',
       `${FILE}::NO_RECORD_FOUND`,

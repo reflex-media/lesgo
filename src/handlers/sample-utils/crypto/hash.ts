@@ -7,7 +7,7 @@ import { validateFields } from 'lesgo/utils';
 const hashHandler = async (event: APIGatewayProxyEvent) => {
   const { queryStringParameters } = event;
 
-  const input = validateFields({ ...queryStringParameters! }, [
+  const input = validateFields({ ...queryStringParameters }, [
     { key: 'text', type: 'string', required: true },
     { key: 'alg', type: 'string', required: false },
   ]);

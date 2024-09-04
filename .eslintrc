@@ -23,14 +23,5 @@
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/ban-ts-comment": "off"
   },
-  "overrides": [
-    {
-      "files": ["dist/**/*.js"],
-      "rules": {
-        "@typescript-eslint/no-var-requires": "off",
-        "require-yield": "off"
-      }
-    }
-  ],
   "ignorePatterns": ["webpack.config.js"]
 }

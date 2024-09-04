@@ -32,7 +32,7 @@ export default async (title: string, returnFields?: string) => {
 
   const resp = await scan(tableAlias, opts);
 
-  if (isEmpty(resp) || resp!.length < 1) {
+  if (isEmpty(resp) || resp.length < 1) {
     throw new ErrorException(
       'Unable to find record',
       `${FILE}::NO_RECORD_FOUND`,

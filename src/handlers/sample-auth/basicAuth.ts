@@ -15,8 +15,7 @@ interface MiddyAPIGatewayProxyEvent extends APIGatewayProxyEvent {
 const pingHandler = (event: MiddyAPIGatewayProxyEvent) => {
   logger.debug(`${FILE}::RECEIVED_REQUEST`, event);
 
-  const res = ping(event.queryStringParameters!);
-  logger.debug(`${FILE}::RESPONSE_SENT`, res);
+  const res = ping({ ...event.queryStringParameters });
 
   return {
     ...res,

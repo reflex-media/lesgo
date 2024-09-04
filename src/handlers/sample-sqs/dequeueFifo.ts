@@ -27,10 +27,9 @@ const dequeueFifoHandler = async () => {
 
   logger.debug(`${FILE}::MESSAGES_FETCHED_FROM_QUEUE`, { messagesFetched });
 
-  if (
-    isEmpty(messagesFetched.Messages) ||
-    messagesFetched.Messages?.length === 0
-  ) {
+  const records = messagesFetched.Messages || [];
+
+  if (isEmpty(records) || records?.length === 0) {
     throw new ErrorException(
       'No messages in the queue',
       `${FILE}::NO_MESSAGES_IN_QUEUE`,
@@ -38,15 +37,24 @@ const dequeueFifoHandler = async () => {
     );
   }
 
-  const records = messagesFetched.Messages;
   let countSuccess = 0;
   let countFail = 0;
 
-  await records!.reduce(async (promise, record) => {
+  await records.reduce(async (promise, record) => {
     await promise;
 
+    if (!record.Body || !record.ReceiptHandle) {
+      countFail += 1;
+      logger.error(`${FILE}::RECORD_BODY_EMPTY`, {
+        record,
+        countSuccess,
+        countFail,
+      });
+      return;
+    }
+
     try {
-      const body = JSON.parse(record.Body!);
+      const body = JSON.parse(record.Body);
       const blogId = generateUid();
 
       const input = validateFields(body, [
@@ -75,7 +83,7 @@ const dequeueFifoHandler = async () => {
         countFail,
       });
 
-      await deleteMessage('httpEventQueue.fifo', record.ReceiptHandle!);
+      await deleteMessage('httpEventQueue.fifo', record.ReceiptHandle);
       logger.debug(`${FILE}::MESSAGE_DELETED`, { record });
     } catch (err) {
       countFail += 1;
