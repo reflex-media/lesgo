@@ -28,12 +28,12 @@ const deleteRecordHandler = async (event: MiddyAPIGatewayProxyEvent) => {
 };
 
 export const handler = middy()
+  .use(httpMiddleware())
   .use(
     disconnectMiddleware({
       clients: [disconnectDb],
     })
   )
-  .use(httpMiddleware())
   .handler(deleteRecordHandler);
 
 export default handler;

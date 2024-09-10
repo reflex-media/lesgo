@@ -37,12 +37,8 @@ const getRecordsHandler = async (event: MiddyAPIGatewayProxyEvent) => {
 };
 
 export const handler = middy()
-  .use(
-    disconnectMiddleware({
-      clients: [disconnectDb],
-    })
-  )
   .use(httpMiddleware())
+  .use(disconnectMiddleware({ clients: [disconnectDb] }))
   .handler(getRecordsHandler);
 
 export default handler;

@@ -38,12 +38,8 @@ const insertRecordHandler = async (event: MiddyAPIGatewayProxyEvent) => {
 };
 
 export const handler = middy()
-  .use(
-    disconnectMiddleware({
-      clients: [disconnectDb],
-    })
-  )
   .use(httpMiddleware())
+  .use(disconnectMiddleware({ clients: [disconnectDb] }))
   .handler(insertRecordHandler);
 
 export default handler;
