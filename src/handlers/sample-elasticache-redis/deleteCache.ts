@@ -26,12 +26,12 @@ const deleteCacheHandler = async (event: MiddyAPIGatewayProxyEvent) => {
 };
 
 export const handler = middy()
+  .use(httpMiddleware())
   .use(
     disconnectMiddleware({
       clients: [disconnectElastiCacheRedisClient],
     })
   )
-  .use(httpMiddleware())
   .handler(deleteCacheHandler);
 
 export default handler;

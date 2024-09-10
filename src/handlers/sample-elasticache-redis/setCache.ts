@@ -32,12 +32,12 @@ const setCacheHandler = async (event: MiddyAPIGatewayProxyEvent) => {
 };
 
 export const handler = middy()
+  .use(httpMiddleware())
   .use(
     disconnectMiddleware({
       clients: [disconnectElastiCacheRedisClient],
     })
   )
-  .use(httpMiddleware())
   .handler(setCacheHandler);
 
 export default handler;
