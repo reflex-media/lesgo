@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@middy/core": "^5.4.5",
-    "lesgo": "^2.1.1"
+    "lesgo": "^2.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.21.3",
