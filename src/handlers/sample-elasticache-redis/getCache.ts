@@ -1,10 +1,9 @@
 import middy from '@middy/core';
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import { LesgoException } from 'lesgo/exceptions';
-import { disconnectElastiCacheRedisClient } from 'lesgo/services/ElastiCacheRedisService';
 import { disconnectMiddleware, httpMiddleware } from 'lesgo/middlewares';
 import { isEmpty, validateFields } from 'lesgo/utils';
-import { getCache } from 'lesgo/utils/cache/redis';
+import { disconnectCache, getCache } from 'lesgo/utils/cache/redis';
 
 const FILE = 'handlers.sample-elasticache-redis.getCache';
 
@@ -37,11 +36,7 @@ const getCacheHandler = async (event: MiddyAPIGatewayProxyEvent) => {
 
 export const handler = middy()
   .use(httpMiddleware())
-  .use(
-    disconnectMiddleware({
-      clients: [disconnectElastiCacheRedisClient],
-    })
-  )
+  .use(disconnectMiddleware({ clients: [disconnectCache] }))
   .handler(getCacheHandler);
 
 export default handler;

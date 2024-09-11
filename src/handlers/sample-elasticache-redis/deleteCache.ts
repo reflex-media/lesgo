@@ -1,9 +1,8 @@
 import middy from '@middy/core';
 import { APIGatewayProxyEvent } from 'aws-lambda';
-import { disconnectElastiCacheRedisClient } from 'lesgo/services/ElastiCacheRedisService';
 import { disconnectMiddleware, httpMiddleware } from 'lesgo/middlewares';
 import { validateFields } from 'lesgo/utils';
-import { deleteCache } from 'lesgo/utils/cache/redis';
+import { deleteCache, disconnectCache } from 'lesgo/utils/cache/redis';
 
 type MiddyAPIGatewayProxyEvent = APIGatewayProxyEvent & {
   queryStringParameters: {
@@ -27,11 +26,7 @@ const deleteCacheHandler = async (event: MiddyAPIGatewayProxyEvent) => {
 
 export const handler = middy()
   .use(httpMiddleware())
-  .use(
-    disconnectMiddleware({
-      clients: [disconnectElastiCacheRedisClient],
-    })
-  )
+  .use(disconnectMiddleware({ clients: [disconnectCache] }))
   .handler(deleteCacheHandler);
 
 export default handler;
