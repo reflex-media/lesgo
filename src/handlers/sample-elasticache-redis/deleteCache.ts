@@ -1,16 +1,9 @@
 import middy from '@middy/core';
-import { APIGatewayProxyEvent } from 'aws-lambda';
 import { disconnectMiddleware, httpMiddleware } from 'lesgo/middlewares';
 import { validateFields } from 'lesgo/utils';
 import { deleteCache, disconnectCache } from 'lesgo/utils/cache/redis';
 
-type MiddyAPIGatewayProxyEvent = APIGatewayProxyEvent & {
-  queryStringParameters: {
-    key: string;
-  };
-};
-
-const deleteCacheHandler = async (event: MiddyAPIGatewayProxyEvent) => {
+const deleteCacheHandler = async (event: DeleteCacheRequestEvent) => {
   const { queryStringParameters } = event;
 
   const input = validateFields(queryStringParameters, [

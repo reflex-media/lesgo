@@ -1,26 +1,9 @@
 import middy from '@middy/core';
-import { APIGatewayProxyEvent } from 'aws-lambda';
 import { httpMiddleware } from 'lesgo/middlewares';
 import { generateUid, validateFields } from 'lesgo/utils';
 import insertBlog from '../../models/sample-dynamodb/Blog/insertBlog';
 
-interface InsertRecordInput {
-  userId: string;
-  title: string;
-  snippet: string;
-  content: string;
-  isPublished: boolean;
-  publishedAt: number;
-  author: {
-    name: string;
-  };
-}
-
-type MiddyAPIGatewayProxyEvent = APIGatewayProxyEvent & {
-  body: InsertRecordInput;
-};
-
-const insertRecordHandler = async (event: MiddyAPIGatewayProxyEvent) => {
+const insertRecordHandler = async (event: CreateBlogRequestEvent) => {
   const { body } = event;
   const blogId = generateUid();
 
@@ -32,7 +15,7 @@ const insertRecordHandler = async (event: MiddyAPIGatewayProxyEvent) => {
     { key: 'isPublished', type: 'boolean', required: true },
     { key: 'publishedAt', type: 'number', required: true },
     { key: 'author', type: 'object', required: true },
-  ]) as InsertRecordInput;
+  ]) as CreateBlogRequestInput;
 
   const insertData = {
     ...input,

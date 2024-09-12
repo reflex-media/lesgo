@@ -1,30 +1,10 @@
 import middy from '@middy/core';
-import { APIGatewayProxyEvent } from 'aws-lambda';
 import { disconnectMiddleware, httpMiddleware } from 'lesgo/middlewares';
 import { disconnectDb } from 'lesgo/utils/db/mysql/proxy';
 import { validateFields } from 'lesgo/utils';
-import updateMovieById, {
-  UpdateMovieModelInput,
-} from '../../models/sample-rdsMysqlProxy/Movie/updateMovieById';
+import updateMovieById from '../../models/sample-rdsMysqlProxy/Movie/updateMovieById';
 
-interface UpdateRecordInput {
-  title: string;
-  synopsis: string;
-  isReleased: boolean;
-  releasedAt: number;
-  director: {
-    name: string;
-  };
-}
-
-type MiddyAPIGatewayProxyEvent = APIGatewayProxyEvent & {
-  body: UpdateRecordInput;
-  queryStringParameters: {
-    id: string;
-  };
-};
-
-const updateRecordHandler = async (event: MiddyAPIGatewayProxyEvent) => {
+const updateRecordHandler = async (event: UpdateMovieRequestEvent) => {
   const { body } = event;
 
   const input = validateFields(body, [
@@ -33,7 +13,7 @@ const updateRecordHandler = async (event: MiddyAPIGatewayProxyEvent) => {
     { key: 'isReleased', type: 'boolean', required: false },
     { key: 'releasedAt', type: 'number', required: false },
     { key: 'director', type: 'object', required: false },
-  ]) as UpdateMovieModelInput;
+  ]) as UpdateMovieRequestInput;
 
   const { id } = validateFields(event.queryStringParameters, [
     { key: 'id', type: 'string', required: true },

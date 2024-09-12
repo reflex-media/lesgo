@@ -7,18 +7,6 @@ import ErrorException from '../../exceptions/ErrorException';
 
 const FILE = 'handlers.sample-sqs.dequeueFifo';
 
-interface InsertRecordInput {
-  userId: string;
-  title: string;
-  snippet: string;
-  content: string;
-  isPublished: boolean;
-  publishedAt: number;
-  author: {
-    name: string;
-  };
-}
-
 const dequeueFifoHandler = async () => {
   const messagesFetched = await receiveMessages('httpEventQueue.fifo', {
     MaxNumberOfMessages: 5,
@@ -65,7 +53,7 @@ const dequeueFifoHandler = async () => {
         { key: 'isPublished', type: 'boolean', required: true },
         { key: 'publishedAt', type: 'number', required: true },
         { key: 'author', type: 'object', required: true },
-      ]) as InsertRecordInput;
+      ]) as CreateBlogRequestInput;
 
       const insertData = {
         ...input,

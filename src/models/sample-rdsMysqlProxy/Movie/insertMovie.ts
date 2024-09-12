@@ -4,17 +4,7 @@ import { query } from 'lesgo/utils/db/mysql/proxy';
 
 const FILE = 'models.sample-rdsMysqlProxy.Movie/insertMovie';
 
-export interface InsertMovieModelInput {
-  title: string;
-  synopsis: string;
-  isReleased: boolean;
-  releasedAt: number;
-  director: {
-    name: string;
-  };
-}
-
-export default async (params: InsertMovieModelInput) => {
+export default async (params: CreateMovieRequestInput) => {
   const tableName = 'movies';
   const dateTimeNow = formatUnixTimestamp(getCurrentTimestamp());
 

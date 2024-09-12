@@ -1,18 +1,11 @@
 import middy from '@middy/core';
-import { APIGatewayProxyEvent } from 'aws-lambda';
 import { httpMiddleware } from 'lesgo/middlewares';
 import { getUploadSignedUrl } from 'lesgo/utils/s3';
 import { validateFields } from 'lesgo/utils';
 
-type MiddyAPIGatewayProxyEvent = APIGatewayProxyEvent & {
-  queryStringParameters: {
-    key: string;
-    expiresIn?: string;
-    metadata?: string;
-  };
-};
-
-const getUploadSignedUrlHandler = async (event: MiddyAPIGatewayProxyEvent) => {
+const getUploadSignedUrlHandler = async (
+  event: GetUploadSignedUrlRequestEvent
+) => {
   const { queryStringParameters } = event;
 
   const input = validateFields(queryStringParameters, [

@@ -7,11 +7,7 @@ import appConfig from '../../config/app';
 
 const FILE = 'handlers.sample-commands.createDbTables';
 
-interface MiddyInvokeCommandEvent {
-  dropTableIfExists?: boolean;
-}
-
-const createDbTablesHandler = async (event: MiddyInvokeCommandEvent) => {
+const createDbTablesHandler = async (event: InvokeCommandRequestEvent) => {
   logger.debug(`${FILE}::RECEIVED_REQUEST`, { event });
 
   const input = validateFields(event, [

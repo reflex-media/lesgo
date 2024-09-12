@@ -1,25 +1,10 @@
 import middy from '@middy/core';
-import { APIGatewayProxyEvent } from 'aws-lambda';
 import { disconnectMiddleware, httpMiddleware } from 'lesgo/middlewares';
 import { disconnectDb } from 'lesgo/utils/db/mysql/proxy';
 import { validateFields } from 'lesgo/utils';
 import insertMovie from '../../models/sample-rdsMysqlProxy/Movie/insertMovie';
 
-interface InsertRecordInput {
-  title: string;
-  synopsis: string;
-  isReleased: boolean;
-  releasedAt: number;
-  director: {
-    name: string;
-  };
-}
-
-type MiddyAPIGatewayProxyEvent = APIGatewayProxyEvent & {
-  body: InsertRecordInput;
-};
-
-const insertRecordHandler = async (event: MiddyAPIGatewayProxyEvent) => {
+const insertRecordHandler = async (event: CreateMovieRequestEvent) => {
   const { body } = event;
 
   const input = validateFields(body, [
@@ -28,7 +13,7 @@ const insertRecordHandler = async (event: MiddyAPIGatewayProxyEvent) => {
     { key: 'isReleased', type: 'boolean', required: true },
     { key: 'releasedAt', type: 'number', required: true },
     { key: 'director', type: 'object', required: true },
-  ]) as InsertRecordInput;
+  ]) as CreateMovieRequestInput;
 
   const resp = await insertMovie(input);
   return {

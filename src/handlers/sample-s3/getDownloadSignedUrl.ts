@@ -1,17 +1,10 @@
 import middy from '@middy/core';
-import { APIGatewayProxyEvent } from 'aws-lambda';
 import { httpMiddleware } from 'lesgo/middlewares';
 import { getDownloadSignedUrl, getHeadObject } from 'lesgo/utils/s3';
 import { validateFields } from 'lesgo/utils';
 
-type MiddyAPIGatewayProxyEvent = APIGatewayProxyEvent & {
-  queryStringParameters: {
-    key: string;
-  };
-};
-
 const getDownloadSignedUrlHandler = async (
-  event: MiddyAPIGatewayProxyEvent
+  event: GetDownloadSignedUrlRequestEvent
 ) => {
   const { queryStringParameters } = event;
 

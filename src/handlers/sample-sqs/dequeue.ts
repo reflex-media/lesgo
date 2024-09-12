@@ -1,39 +1,18 @@
 import middy from '@middy/core';
-import { SQSEvent, SQSRecord } from 'aws-lambda';
 import { sqsMiddleware } from 'lesgo/middlewares';
 import { generateUid, logger, validateFields } from 'lesgo/utils';
 import insertBlog from '../../models/sample-dynamodb/Blog/insertBlog';
 
 const FILE = 'handlers.sample-sqs.dequeue';
 
-interface InsertRecordInput {
-  userId: string;
-  title: string;
-  snippet: string;
-  content: string;
-  isPublished: boolean;
-  publishedAt: number;
-  author: {
-    name: string;
-  };
-}
-
-type MiddySQSEventRecord = SQSRecord & {
-  body: InsertRecordInput;
-};
-
-type MiddySQSEvent = SQSEvent & {
-  Records: MiddySQSEventRecord[];
-};
-
-const dequeueHandler = async (event: MiddySQSEvent) => {
+const dequeueHandler = async (event: CreateBlogSQSEvent) => {
   logger.debug(`${FILE}::EVENT_RECEIVED`, { event });
 
-  const records = event.Records as MiddySQSEventRecord[];
+  const records = event.Records as CreateBlogSQSRecord[];
   let countSuccess = 0;
   let countFail = 0;
 
-  const processRecord = async (record: MiddySQSEventRecord) => {
+  const processRecord = async (record: CreateBlogSQSRecord) => {
     try {
       const { body } = record;
       const blogId = generateUid();
@@ -46,7 +25,7 @@ const dequeueHandler = async (event: MiddySQSEvent) => {
         { key: 'isPublished', type: 'boolean', required: true },
         { key: 'publishedAt', type: 'number', required: true },
         { key: 'author', type: 'object', required: true },
-      ]) as InsertRecordInput;
+      ]) as CreateBlogRequestInput;
 
       const insertData = {
         ...input,

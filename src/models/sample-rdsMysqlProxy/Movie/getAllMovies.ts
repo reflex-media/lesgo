@@ -11,7 +11,7 @@ export default async () => {
   logger.debug(`${FILE}::SELECT_ALL_RECORDS`, { sql, tableName });
 
   try {
-    const resp = await query(sql);
+    const resp = (await query(sql)) as Movie[] | [];
     logger.debug(`${FILE}::RECORDS_FETCHED`, { resp });
     return resp;
   } catch (error) {

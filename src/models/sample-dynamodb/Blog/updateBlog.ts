@@ -4,20 +4,7 @@ import dynamodbConfig from '../../../config/dynamodb';
 
 const FILE = 'models.sample-dynamodb.Blog.updateBlog';
 
-export interface UpdateBlogModelInput {
-  blogId: string;
-  userId: string;
-  title?: string;
-  snippet?: string;
-  content?: string;
-  isPublished?: boolean;
-  publishedAt?: number;
-  author?: {
-    name?: string;
-  };
-}
-
-export default async (params: UpdateBlogModelInput) => {
+export default async (params: UpdateBlogRequestInput) => {
   const tableAlias = dynamodbConfig.tables.default.alias as string;
 
   const updatedAt = getCurrentTimestamp();

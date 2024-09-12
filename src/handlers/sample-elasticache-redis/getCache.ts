@@ -1,5 +1,4 @@
 import middy from '@middy/core';
-import { APIGatewayProxyEvent } from 'aws-lambda';
 import { LesgoException } from 'lesgo/exceptions';
 import { disconnectMiddleware, httpMiddleware } from 'lesgo/middlewares';
 import { isEmpty, validateFields } from 'lesgo/utils';
@@ -7,13 +6,7 @@ import { disconnectCache, getCache } from 'lesgo/utils/cache/redis';
 
 const FILE = 'handlers.sample-elasticache-redis.getCache';
 
-type MiddyAPIGatewayProxyEvent = APIGatewayProxyEvent & {
-  queryStringParameters: {
-    key: string;
-  };
-};
-
-const getCacheHandler = async (event: MiddyAPIGatewayProxyEvent) => {
+const getCacheHandler = async (event: GetCacheRequestEvent) => {
   const { queryStringParameters } = event;
 
   const input = validateFields(queryStringParameters, [

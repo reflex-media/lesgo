@@ -4,12 +4,7 @@ import dynamodbConfig from '../../../config/dynamodb';
 
 const FILE = 'models.sample-dynamodb.Blog.deleteBlog';
 
-export interface DeleteBlogModelInput {
-  blogId: string;
-  userId: string;
-}
-
-export default async (params: DeleteBlogModelInput) => {
+export default async (params: DeleteBlogRequestInput) => {
   const tableAlias = dynamodbConfig.tables.default.alias as string;
 
   logger.debug(`${FILE}::DELETING_RECORD`, {

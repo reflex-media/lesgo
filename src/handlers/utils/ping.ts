@@ -1,4 +1,3 @@
-import { APIGatewayProxyEvent } from 'aws-lambda';
 import middy from '@middy/core';
 import { httpMiddleware } from 'lesgo/middlewares';
 import { logger } from 'lesgo/utils';
@@ -7,13 +6,7 @@ import appConfig from '../../config/app';
 
 const FILE = 'handlers.utils.ping';
 
-type MiddyAPIGatewayProxyEvent = APIGatewayProxyEvent & {
-  queryStringParameters: {
-    'sample-error'?: string;
-  };
-};
-
-const pingHandler = (event: MiddyAPIGatewayProxyEvent) => {
+const pingHandler = (event: PingRequestEvent) => {
   logger.debug(`${FILE}::RECEIVED_REQUEST`, event);
 
   return ping(event.queryStringParameters);

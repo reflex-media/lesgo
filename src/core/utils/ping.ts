@@ -3,11 +3,7 @@ import ErrorException from '../../exceptions/ErrorException';
 
 const FILE = 'core.utils.ping';
 
-type QueryStringParameters = {
-  'sample-error'?: string;
-};
-
-const validateInput = (input: QueryStringParameters) => {
+const validateInput = (input: PingRequestInput) => {
   const validFields = [
     { key: 'sample-error', type: 'string', required: false },
   ];
@@ -16,7 +12,7 @@ const validateInput = (input: QueryStringParameters) => {
   return validated;
 };
 
-export default (qs: QueryStringParameters = {}) => {
+export default (qs: PingRequestInput = {}) => {
   const input = validateInput({ ...qs });
 
   if (isEmpty(qs)) {

@@ -1,27 +1,16 @@
 import middy from '@middy/core';
-import { APIGatewayProxyEvent } from 'aws-lambda';
 import { disconnectMiddleware, httpMiddleware } from 'lesgo/middlewares';
 import { validateFields } from 'lesgo/utils';
 import { disconnectCache, setCache } from 'lesgo/utils/cache/redis';
 
-type SetCacheBody = {
-  key: string;
-  value: string | number | boolean;
-  expire?: number;
-};
-
-type MiddyAPIGatewayProxyEvent = APIGatewayProxyEvent & {
-  body: SetCacheBody;
-};
-
-const setCacheHandler = async (event: MiddyAPIGatewayProxyEvent) => {
+const setCacheHandler = async (event: SetCacheRequestEvent) => {
   const { body } = event;
 
   const input = validateFields(body, [
     { key: 'key', type: 'string', required: true },
     { key: 'value', type: 'any', required: true },
     { key: 'expire', type: 'number', required: false },
-  ]) as SetCacheBody;
+  ]) as SetCacheRequestInput;
 
   await setCache(input.key, input.value, { EX: input.expire });
 

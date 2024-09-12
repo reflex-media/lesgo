@@ -4,15 +4,15 @@ import { query } from 'lesgo/utils/db/mysql/proxy';
 
 const FILE = 'models.sample-rdsMysqlProxy.Movie/deleteMovieById';
 
-export default async (id: number) => {
+export default async (movieId: number) => {
   const tableName = 'movies';
 
   const sql = `DELETE FROM ${tableName} WHERE id = ?`;
-  logger.debug(`${FILE}::DELETE`, { sql, tableName });
+  logger.debug(`${FILE}::DELETE`, { sql, tableName, movieId });
 
   let resp;
   try {
-    resp = await query(sql, [id]);
+    resp = await query(sql, [movieId]);
     logger.debug(`${FILE}::RECORD_DELETED`, { resp });
   } catch (error) {
     logger.error(`${FILE}::ERROR_ON_DELETE`, { error });

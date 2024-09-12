@@ -4,20 +4,7 @@ import { query } from 'lesgo/utils/db/mysql/proxy';
 
 const FILE = 'models.sample-rdsMysqlProxy.Movie/insertMovie';
 
-type UpdateMovieModelInputKey = string | boolean | number | object | undefined;
-
-export interface UpdateMovieModelInput {
-  [key: string]: UpdateMovieModelInputKey;
-  title?: string;
-  synopsis?: string;
-  isReleased?: boolean;
-  releasedAt?: number;
-  director?: {
-    name?: string;
-  };
-}
-
-export default async (id: number, params: UpdateMovieModelInput) => {
+export default async (id: number, params: UpdateMovieRequestInput) => {
   const tableName = 'movies';
   const dateTimeNow = formatUnixTimestamp(getCurrentTimestamp());
 
@@ -27,7 +14,7 @@ export default async (id: number, params: UpdateMovieModelInput) => {
   };
 
   const sqlSet: string[] = [];
-  const preparedValues: UpdateMovieModelInputKey[] = [];
+  const preparedValues = [];
   Object.keys(params).forEach(key => {
     if (typeof params[key] !== 'undefined') {
       if (key === 'isReleased') {

@@ -1,7 +1,6 @@
 import { LesgoException } from 'lesgo/exceptions';
 import { logger } from 'lesgo/utils';
 import { query } from 'lesgo/utils/db/mysql/proxy';
-import { Movie } from '../../../types/movies';
 
 const FILE = 'models.sample-rdsMysqlProxy.Movie/getMovieById';
 

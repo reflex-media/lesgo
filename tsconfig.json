@@ -14,8 +14,9 @@
     "moduleResolution": "node",
     "paths": {
       "lesgo/*": ["node_modules/lesgo/dist/*"]
-    }
+    },
+    "typeRoots": ["./node_modules/@types", "./types"]
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "types/*"],
   "exclude": ["**/__tests__/*", "**/__mocks__/*"]
 }

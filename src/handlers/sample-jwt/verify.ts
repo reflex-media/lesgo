@@ -1,5 +1,4 @@
 import middy from '@middy/core';
-import { APIGatewayProxyEvent } from 'aws-lambda';
 import { httpMiddleware } from 'lesgo/middlewares';
 import { verify } from 'lesgo/utils/jwt';
 import { isEmpty, validateFields } from 'lesgo/utils';
@@ -7,16 +6,7 @@ import ErrorException from '../../exceptions/ErrorException';
 
 const FILE = 'handlers.sample-jwt.verify';
 
-type MiddyAPIGatewayProxyEvent = APIGatewayProxyEvent & {
-  queryStringParameters: {
-    token: string;
-    validateClaims?: string;
-    issue?: string;
-    audience?: string;
-  };
-};
-
-const verifyJWTHandler = (event: MiddyAPIGatewayProxyEvent) => {
+const verifyJWTHandler = (event: JwtVerifyRequestEvent) => {
   const { queryStringParameters } = event;
 
   // TODO: Other than the token, note that the below is only to serve as a sample.
