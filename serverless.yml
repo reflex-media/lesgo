@@ -83,7 +83,6 @@ custom:
   serverless-offline:
     port: 8888
     ignoreJWTSignature: true
-  logRetentionInDays: 7
   contentEncoding:
     contentCompression: 100
   dotenv:
