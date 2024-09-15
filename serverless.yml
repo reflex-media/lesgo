@@ -4,7 +4,6 @@ frameworkVersion: '3'
 plugins:
   - serverless-webpack
   - serverless-offline
-  - serverless-plugin-log-retention
   - serverless-dotenv-plugin
 
 package:
@@ -19,6 +18,7 @@ provider:
   runtime: nodejs18.x
   memorySize: 128
   timeout: 3
+  logRetentionInDays: 14
   stackName: ${self:service}-${self:provider.stage}
   apiName: ${self:provider.stackName}
   stage: ${opt:stage, 'local'}
