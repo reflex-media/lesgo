@@ -28,7 +28,23 @@ provider:
     shouldStartNameWithService: true
     minimumCompressionSize: 100
   httpApi:
-    cors: true
+    cors:
+      allowedOrigins:
+        - '*'
+      allowedHeaders:
+        - Content-Type
+        - Authorization
+        - X-Amz-Date
+        - X-Amz-Security-Token
+        - X-Amz-User-Agent
+      allowedMethods:
+        - OPTIONS
+        - GET
+        - POST
+        - PUT
+        - PATCH
+        - DELETE
+      allowCredentials: false # Setting to true require to set Access-Control-Allow-Origin to specific domains only
     disableDefaultEndpoint: ${env:AWS_APIGW_DISABLE_DEFAULT_ENDPOINT}
   environment:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1'
