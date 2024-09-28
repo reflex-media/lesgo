@@ -1,7 +1,6 @@
-// eslint-disable-next-line import/no-unresolved
 const path = require('path');
 const slsw = require('serverless-webpack');
-const AliasPlugin = require('enhanced-resolve/lib/AliasPlugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
   entry: slsw.lib.entries,
@@ -39,5 +38,10 @@ module.exports = {
   resolve: {
     mainFields: ['module', 'main'],
     extensions: ['.tsx', '.ts', '.js'],
+    plugins: [
+      new TsconfigPathsPlugin({
+        configFile: path.resolve(__dirname, './tsconfig.json'),
+      }),
+    ],
   },
 };
