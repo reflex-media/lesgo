@@ -2,7 +2,7 @@ import middy from '@middy/core';
 import { httpMiddleware } from 'lesgo/middlewares';
 import { verify } from 'lesgo/utils/jwt';
 import { isEmpty, validateFields } from 'lesgo/utils';
-import ErrorException from '../../exceptions/ErrorException';
+import ErrorException from '@exceptions/ErrorException';
 
 const FILE = 'handlers.sample-jwt.verify';
 

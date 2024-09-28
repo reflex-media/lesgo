@@ -1,7 +1,7 @@
 import middy from '@middy/core';
 import { sqsMiddleware } from 'lesgo/middlewares';
 import { generateUid, logger, validateFields } from 'lesgo/utils';
-import insertBlog from '../../models/sample-dynamodb/Blog/insertBlog';
+import insertBlog from '@models/sample-dynamodb/Blog/insertBlog';
 
 const FILE = 'handlers.sample-sqs.dequeue';
 

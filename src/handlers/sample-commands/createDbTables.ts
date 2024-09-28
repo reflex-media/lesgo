@@ -3,7 +3,7 @@ import { LesgoException } from 'lesgo/exceptions';
 import { invokeCommandMiddleware } from 'lesgo/middlewares';
 import { logger, validateFields } from 'lesgo/utils';
 import { query } from 'lesgo/utils/db/mysql/proxy';
-import appConfig from '../../config/app';
+import appConfig from '@config/app';
 
 const FILE = 'handlers.sample-commands.createDbTables';
 

@@ -2,8 +2,8 @@ import middy from '@middy/core';
 import { httpMiddleware } from 'lesgo/middlewares';
 import { generateUid, isEmpty, logger, validateFields } from 'lesgo/utils';
 import { deleteMessage, receiveMessages } from 'lesgo/utils/sqs';
-import insertBlog from '../../models/sample-dynamodb/Blog/insertBlog';
-import ErrorException from '../../exceptions/ErrorException';
+import insertBlog from '@models/sample-dynamodb/Blog/insertBlog';
+import ErrorException from '@exceptions/ErrorException';
 
 const FILE = 'handlers.sample-sqs.dequeueFifo';
 

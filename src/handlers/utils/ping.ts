@@ -1,8 +1,8 @@
 import middy from '@middy/core';
 import { httpMiddleware } from 'lesgo/middlewares';
 import { logger } from 'lesgo/utils';
-import ping from '../../core/utils/ping';
-import appConfig from '../../config/app';
+import ping from '@core/utils/ping';
+import appConfig from '@config/app';
 
 const FILE = 'handlers.utils.ping';
 

@@ -1,9 +1,9 @@
 import middy from '@middy/core';
 import { httpMiddleware } from 'lesgo/middlewares';
 import { validateFields } from 'lesgo/utils';
-import getBlogsByUserId from '../../models/sample-dynamodb/Blog/getBlogsByUserId';
-import getBlogByUserIdBlogId from '../../models/sample-dynamodb/Blog/getBlogByUserIdBlogId';
-import getBlogsByUserIdTitle from '../../models/sample-dynamodb/Blog/getBlogsByUserIdTitle';
+import getBlogsByUserId from '@models/sample-dynamodb/Blog/getBlogsByUserId';
+import getBlogByUserIdBlogId from '@models/sample-dynamodb/Blog/getBlogByUserIdBlogId';
+import getBlogsByUserIdTitle from '@models/sample-dynamodb/Blog/getBlogsByUserIdTitle';
 
 const getRecordsHandler = async (event: GetBlogsRequestEvent) => {
   const { queryStringParameters } = event;

@@ -2,8 +2,8 @@ import middy from '@middy/core';
 import { disconnectMiddleware, httpMiddleware } from 'lesgo/middlewares';
 import { disconnectDb } from 'lesgo/utils/db/mysql/proxy';
 import { validateFields } from 'lesgo/utils';
-import getAllMovies from '../../models/sample-rdsMysqlProxy/Movie/getAllMovies';
-import getMovieById from '../../models/sample-rdsMysqlProxy/Movie/getMovieById';
+import getAllMovies from '@models/sample-rdsMysqlProxy/Movie/getAllMovies';
+import getMovieById from '@models/sample-rdsMysqlProxy/Movie/getMovieById';
 
 const getRecordsHandler = async (event: GetMovieRequestEvent) => {
   const { queryStringParameters } = event;

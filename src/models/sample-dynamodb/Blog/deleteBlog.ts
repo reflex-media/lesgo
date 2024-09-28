@@ -1,6 +1,6 @@
 import { deleteRecord } from 'lesgo/utils/dynamodb';
 import { logger } from 'lesgo/utils';
-import dynamodbConfig from '../../../config/dynamodb';
+import dynamodbConfig from '@config/dynamodb';
 
 const FILE = 'models.sample-dynamodb.Blog.deleteBlog';
 

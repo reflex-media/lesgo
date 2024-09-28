@@ -6,16 +6,24 @@
     "allowJs": false,
     "outDir": ".build",
     "strict": true,
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "sourceMap": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
     "paths": {
-      "lesgo/*": ["node_modules/lesgo/dist/*"]
+      "@config/*": ["config/*"],
+      "@core/*": ["core/*"],
+      "@exceptions/*": ["exceptions/*"],
+      "@middlewares/*": ["middlewares/*"],
+      "@models/*": ["models/*"],
+      "@services/*": ["services/*"],
+      "@utils/*": ["utils/*"],
+      "@middy/core": ["../node_modules/@middy/core"],
+      "lesgo/*": ["../node_modules/lesgo/dist/*"]
     },
-    "typeRoots": ["./node_modules/@types", "./types"]
+    "typeRoots": ["../node_modules/@types", "../types"]
   },
   "include": ["src/**/*", "types/*"],
   "exclude": ["**/__tests__/*", "**/__mocks__/*"]

@@ -1,7 +1,7 @@
 import { query } from 'lesgo/utils/dynamodb';
 import { isEmpty, logger } from 'lesgo/utils';
-import dynamodbConfig from '../../../config/dynamodb';
-import ErrorException from '../../../exceptions/ErrorException';
+import dynamodbConfig from '@config/dynamodb';
+import ErrorException from '@exceptions/ErrorException';
 
 const FILE = 'models.sample-dynamodb.Blog/getBlogsByUserIdTitle';
 

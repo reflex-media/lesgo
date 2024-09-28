@@ -1,7 +1,7 @@
 import middy from '@middy/core';
 import { httpMiddleware } from 'lesgo/middlewares';
 import { validateFields } from 'lesgo/utils';
-import deleteBlog from '../../models/sample-dynamodb/Blog/deleteBlog';
+import deleteBlog from '@models/sample-dynamodb/Blog/deleteBlog';
 
 const deleteRecordHandler = async (event: DeleteBlogRequestEvent) => {
   const { queryStringParameters } = event;

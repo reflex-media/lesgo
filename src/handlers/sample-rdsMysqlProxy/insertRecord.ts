@@ -2,7 +2,7 @@ import middy from '@middy/core';
 import { disconnectMiddleware, httpMiddleware } from 'lesgo/middlewares';
 import { disconnectDb } from 'lesgo/utils/db/mysql/proxy';
 import { validateFields } from 'lesgo/utils';
-import insertMovie from '../../models/sample-rdsMysqlProxy/Movie/insertMovie';
+import insertMovie from '@models/sample-rdsMysqlProxy/Movie/insertMovie';
 
 const insertRecordHandler = async (event: CreateMovieRequestEvent) => {
   const { body } = event;

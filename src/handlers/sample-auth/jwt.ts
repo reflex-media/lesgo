@@ -1,7 +1,7 @@
 import middy from '@middy/core';
 import { httpMiddleware, verifyJwtMiddleware } from 'lesgo/middlewares';
 import { logger } from 'lesgo/utils';
-import ping from '../../core/utils/ping';
+import ping from '@core/utils/ping';
 
 const FILE = 'handlers.sample-auth.jwt';
 

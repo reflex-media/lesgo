@@ -1,5 +1,5 @@
 import { isEmpty, validateFields } from 'lesgo/utils';
-import ErrorException from '../../exceptions/ErrorException';
+import ErrorException from '@exceptions/ErrorException';
 
 const FILE = 'core.utils.ping';
 

@@ -2,7 +2,7 @@ import middy from '@middy/core';
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import { httpMiddleware } from 'lesgo/middlewares';
 import { validateFields } from 'lesgo/utils';
-import updateBlog from '../../models/sample-dynamodb/Blog/updateBlog';
+import updateBlog from '@models/sample-dynamodb/Blog/updateBlog';
 
 interface UpdateRecordInputBody {
   title?: string;

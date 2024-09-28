@@ -1,6 +1,6 @@
 import { putRecord } from 'lesgo/utils/dynamodb';
 import { logger, getCurrentTimestamp } from 'lesgo/utils';
-import dynamodbConfig from '../../../config/dynamodb';
+import dynamodbConfig from '@config/dynamodb';
 
 const FILE = 'models.sample-dynamodb.Blog/insertBlog';
 

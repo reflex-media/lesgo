@@ -1,7 +1,7 @@
 import ping from '../ping';
-import ErrorException from '../../../exceptions/ErrorException';
+import ErrorException from '@exceptions/ErrorException';
 
-jest.mock('../../../exceptions/ErrorException');
+jest.mock('@exceptions/ErrorException');
 
 describe('ping', () => {
   beforeEach(() => {

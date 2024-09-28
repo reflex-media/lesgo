@@ -1,7 +1,7 @@
 import middy from '@middy/core';
 import { httpMiddleware } from 'lesgo/middlewares';
 import { validateFields } from 'lesgo/utils';
-import searchBlogsByTitle from '../../models/sample-dynamodb/Blog/searchBlogsByTitle';
+import searchBlogsByTitle from '@models/sample-dynamodb/Blog/searchBlogsByTitle';
 
 const searchRecordsHandler = async (event: SearchBlogRequestEvent) => {
   const { queryStringParameters } = event;

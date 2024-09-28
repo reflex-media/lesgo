@@ -2,7 +2,7 @@ import middy from '@middy/core';
 import { disconnectMiddleware, httpMiddleware } from 'lesgo/middlewares';
 import { disconnectDb } from 'lesgo/utils/db/mysql/proxy';
 import { validateFields } from 'lesgo/utils';
-import updateMovieById from '../../models/sample-rdsMysqlProxy/Movie/updateMovieById';
+import updateMovieById from '@models/sample-rdsMysqlProxy/Movie/updateMovieById';
 
 const updateRecordHandler = async (event: UpdateMovieRequestEvent) => {
   const { body } = event;
